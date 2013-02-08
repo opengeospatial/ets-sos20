@@ -2,6 +2,12 @@ SOS 2.0 Test Suite Release Notes
 
 Changes included in latest revision:
 
+Revision r1:
+- Updated config file for TEAM-Engine v4.
+- Allow for multiple exceptions in sosFunctions: getExceptionInfo, getExceptionInfoSOAP
+- Removed nested package elements in SOS_ETS.xml (fix issue with inherited test verdicts)
+
+
 revision r0
 2012-12-21
 	Tested by 52north and many bugs and issues fixed.
