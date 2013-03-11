@@ -15,6 +15,7 @@
       </suite>
       <revision>
         <name>r1</name>
+        <status>Beta</status>
         <sources>
           <source>sos/2.0.0/ctl</source>
         </sources>
