@@ -522,7 +522,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
-          <ctl:message select="concat('Run GetFeatureOfInterest test via GET: ',$IsGetObservationById-GET,', URL:',$GetObservationById-URL)"/>
+          <ctl:message select="concat('Run GetObservationById test via GET: ',$IsGetObservationById-GET,', URL:',$GetObservationById-URL)"/>
 
           <!-- InsertSensor parameters -->
           <xsl:variable name="hasInsertSensor" select="count($user-capabilities//ows:Operation[@name='InsertSensor']) > 0" />
@@ -22545,7 +22545,7 @@
   <xsl:otherwise>
     <xsl:if test="$InsertResultResponse/*">
       <xsl:variable name="responseRoot" select="local-name-from-QName(node-name($InsertResultResponse/*[1]))" />
-      <xsl:if test="not($responseRoot=$DeleteSensorRootElementName)">
+      <xsl:if test="not($responseRoot=$InsertResultRootElementName)">
         <ctl:message>FAILURE:  The root element from the response to a InsertResult request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$InsertResultRootElementName" />"</ctl:message>
         <ctl:fail />
       </xsl:if>
