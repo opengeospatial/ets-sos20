@@ -1,8 +1,12 @@
 SOS 2.0 Test Suite Release Notes
+================================
 
-Changes included in latest revision:
+[Revision r2]
+- fixed 1 message error (SOS_ETS.xml line.512 Run GetObservationById test via GET)
+- fixed a sheepstyle error (Test sos:IRRequestValidRequest)
 
-Revision r1:
+
+[Revision r1]
 - Updated config file for TEAM-Engine v4.
 - Allow for multiple exceptions in sosFunctions: getExceptionInfo, getExceptionInfoSOAP
 - Removed nested package elements in SOS_ETS.xml (fix issue with inherited test verdicts)
