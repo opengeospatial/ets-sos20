@@ -3736,12 +3736,16 @@
 				<!-- 從GetCapabilities取得有效的 offering,procedure,observedProperty -->
 				<!-- get a valid offering-->
 				<xsl:variable name="offering" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:identifier" />
+				<ctl:message>The offering was:  <xsl:value-of select="$offering" /></ctl:message>
 				<!-- get a valid procedure-->
 				<xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+				<ctl:message>The procedure was:  <xsl:value-of select="$procedure" /></ctl:message>
 				<!-- get a valid observableProperty-->
 				<xsl:variable name="observableProperty" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:observableProperty[1]" />
+				<ctl:message>The observableProperty was:  <xsl:value-of select="$observableProperty" /></ctl:message>
 				<!-- get a valid responseFormat-->
 				<xsl:variable name="responseFormat" select="string('http%3A%2F%2Fwww.opengis.net%2Fom%2F2.0')" />
+				<ctl:message>The responseFormat was:  <xsl:value-of select="$responseFormat" /></ctl:message>
 				
 				<!-- get a valid getObservationResponse-->
 				<xsl:variable name="getObservationResponse">
@@ -6351,10 +6355,13 @@
 					<xsl:otherwise>
 						<!-- get a valid offering-->
 						<xsl:variable name="offering" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:identifier" />
+						<ctl:message>The offering was:  <xsl:value-of select="$offering" /></ctl:message>
 						<!-- get a valid procedure-->
 						<xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+						<ctl:message>The procedure was:  <xsl:value-of select="$procedure" /></ctl:message>
 						<!-- get a valid observableProperty-->
 						<xsl:variable name="observableProperty" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:observableProperty[1]" />
+						<ctl:message>The observableProperty was:  <xsl:value-of select="$observableProperty" /></ctl:message>
 						<!-- get a valid featureOfInterest From GetObservation-->
 						<xsl:variable name="getObservationResponse">
 							<xsl:choose>
@@ -8412,12 +8419,16 @@
 						<!-- 從GetCapabilities取得有效的 offering,procedure,observedProperty -->
 						<!-- get a valid offering-->
 						<xsl:variable name="offering" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:identifier" />
+						<ctl:message>The offering was:  <xsl:value-of select="$offering" /></ctl:message>
 						<!-- get a valid procedure-->
 						<xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+						<ctl:message>The procedure was:  <xsl:value-of select="$procedure" /></ctl:message>
 						<!-- get a valid observableProperty-->
 						<xsl:variable name="observableProperty" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:observableProperty[1]" />
+						<ctl:message>The observableProperty was:  <xsl:value-of select="$observableProperty" /></ctl:message>
 						<!-- get a valid responseFormat-->
 						<xsl:variable name="responseFormat" select="string('http%3A%2F%2Fwww.opengis.net%2Fom%2F2.0')" />
+						<ctl:message>The responseFormat was:  <xsl:value-of select="$responseFormat" /></ctl:message>
 						
 						<!-- get a valid getObservationResponse-->
 						<xsl:variable name="getObservationResponse">
@@ -8507,7 +8518,7 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<!-- get a valid observation //just use offering id....wait the response by SOS2 mailing list.-->
-								<xsl:variable name="observation" select="$getObservationResponse//om:OM_Observation[1]/@gml:id" />
+								<xsl:variable name="observation" select="$getObservationResponse//sos:observationData[1]/om:OM_Observation[1]/@gml:id[1]" />
 								<ctl:message>The observation was:  <xsl:value-of select="$observation" /></ctl:message>
 								<xsl:if test="$test0701 eq 'true'">
 									<ctl:message select="'******************** 07.01.RequestNoService ********************'"/>
@@ -9451,7 +9462,7 @@
 									<ctl:message>FAILURE:  The root element from the response to a GetObservationById request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$GetObservationByIdRootElementName" />"</ctl:message>
 									<ctl:fail />
 								</xsl:when>
-								<xsl:when test="$GetObservationByIdResponse/*[1]/*)">
+								<xsl:when test="$GetObservationByIdResponse/*[1]/*">
 									<ctl:message>FAILURE:  An empty GetObservationByIdResponse should be returned if no observation was found matching one or more of the identifiers provided in the request.</ctl:message>
 									<ctl:fail />
 								</xsl:when>
@@ -9563,14 +9574,14 @@
 						<xsl:if test="$GetObservationByIdResponse/*">
 							<!-- check the root is "sos:GetObservationByIdResponse" and empty context.-->
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($GetObservationByIdResponse/*[1]))" />
-							<xsl:variable name="gmlidentifier " select="$GetObservationByIdResponse/sos:GetObservationByIdResponse//gml:identifier" />
+							<xsl:variable name="gmlidentifier" select="$GetObservationByIdResponse/sos:GetObservationByIdResponse/sos:observation/om:OM_Observation/@gml:id" />
 							<xsl:choose>
 								<xsl:when test="not($responseRoot=$GetObservationByIdRootElementName)">
 									<ctl:message>FAILURE:  The root element from the response to a GetObservationById request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$GetObservationByIdRootElementName" />"</ctl:message>
 									<ctl:fail />
 								</xsl:when>
-								<xsl:when test="not($gmlidentifier=$observation)">
-									<ctl:message>FAILURE: The gml:identifier values in response is not same to observation value in the request.</ctl:message>
+								<xsl:when test="count(gmlidentifier) > 0 and not($gmlidentifier=$observation)">
+									<ctl:message>FAILURE: The gml:identifier values "<xsl:value-of select="$gmlidentifier" />" in response is not same to observation value "<xsl:value-of select="$observation" />" in the request.</ctl:message>
 									<ctl:fail />
 								</xsl:when>
 								<xsl:otherwise>
@@ -9623,7 +9634,7 @@
 					<xsl:otherwise>
 						<!-- 從GetCapabilities取得有效的 offering,procedure,observedProperty -->
 						<!-- get a valid procedureDescriptionFormat-->
-						<xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:extension/sos:InsertionCapabilities/sos:procedureDescriptionFormat" />
+						<xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//ows:Operation[@name='InsertSensor']/ows:Parameter[@name='procedureDescriptionFormat']//ows:Value" />
 						<!-- get a valid observableProperty-->
 						<xsl:variable name="observableProperty" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:observableProperty[1]" />
 						<!-- get a valid observationType-->
@@ -15873,7 +15884,7 @@
 								<ctl:fail />
 							</xsl:if>
 							<!-- 1.response has one and only one deletedProcedure -->
-							<xsl:variable name="deletedProcedureCount" select="count($DeleteSensorResponse//swes:deletedProcedure))" />
+							<xsl:variable name="deletedProcedureCount" select="count($DeleteSensorResponse//swes:deletedProcedure)" />
 							<xsl:if test="not($deletedProcedureCount=1)">
 								<ctl:message>FAILURE:  The count of swes:deletedProcedure element "<xsl:value-of select="$deletedProcedureCount" />" must be 1.</ctl:message>
 								<ctl:fail />
@@ -22564,12 +22575,12 @@
 					<xsl:otherwise>
 						<xsl:if test="$InsertResultResponse/*">
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($InsertResultResponse/*[1]))" />
-							<xsl:if test="not($responseRoot=$DeleteSensorRootElementName)">
+							<xsl:if test="not($responseRoot=$InsertResultRootElementName)">
 								<ctl:message>FAILURE:  The root element from the response to a InsertResult request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$InsertResultRootElementName" />"</ctl:message>
 								<ctl:fail />
 							</xsl:if>
 							<!-- 1.response has one and only one observation -->
-							<xsl:variable name="innerTag" select="ount($InsertResultResponse/sos:InsertResultResponse/*[1])" />
+							<xsl:variable name="innerTag" select="count($InsertResultResponse/sos:InsertResultResponse/*[1])" />
 							<xsl:if test="not($innerTag=0)">
 								<ctl:message>FAILURE:  The response should be empty.</ctl:message>
 								<ctl:fail />
@@ -25838,7 +25849,7 @@
             <xsl:variable name="exceptionElement" select="$exceptionReport//soap12:Detail/ows:Exception[1]" />
             <xsl:variable name="exceptionCodeValue" select="$exceptionElement/@exceptionCode" />
             <xsl:variable name="locatorValue" select="$exceptionElement/@locator" />
-            <xsl:variable name="exceptionText" select="$exceptionElement//ows:ExceptionText" />
+            <xsl:variable name="exceptionText" select="$exceptionElement/ows:ExceptionText[1]" />
             <xsl:value-of select="concat('ExceptionReport (exceptionCode, locator):  ',$exceptionCodeValue,', ',$locatorValue,' - ',$exceptionText)" />
         </ctl:code>
 	</ctl:function>
