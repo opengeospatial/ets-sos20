@@ -15892,28 +15892,10 @@
 							<!-- 2.Capabilities cannot have the procedure which deleted by request.-->
 							<xsl:variable name="getCapabilitiesResponse2">
 								<xsl:choose>
-									<xsl:when test="($isGetCapabilitiesGET)">
-										<ctl:request>
-											<ctl:url>
-												<xsl:value-of select="$GetCapabilitiesURL"/>
-											</ctl:url>
-											<ctl:method>get</ctl:method>
-											<ctl:param name="request">GetCapabilities</ctl:param>				   
-											<parsers:XMLValidatingParser>
-												<parsers:schemas>
-													<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
-													<parsers:schema>
-														<xsl:attribute name="type"><xsl:value-of select="$capabilitiesResponseSchemaType" /></xsl:attribute>
-														<xsl:value-of select="$capabilitiesResponseSchemaLocation" />
-													</parsers:schema>
-												</parsers:schemas>
-											</parsers:XMLValidatingParser>
-										</ctl:request>
-									</xsl:when>
 									<xsl:when test="$isSOAP eq 'true'">
 										<ctl:soap-request version="1.2" charset="UTF-8">
 											<ctl:url>
-												<xsl:value-of select="$serviceURL"/>
+												<xsl:value-of select="$GetCapabilitiesURL"/>
 											</ctl:url>
 											<ctl:body>
 												<sos:GetCapabilities xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15934,10 +15916,28 @@
 											</parsers:SOAPParser>
 										</ctl:soap-request>
 									</xsl:when>
+									<xsl:when test="($isGetCapabilitiesGET)">
+										<ctl:request>
+											<ctl:url>
+												<xsl:value-of select="$GetCapabilitiesURL"/>
+											</ctl:url>
+											<ctl:method>get</ctl:method>
+											<ctl:param name="request">GetCapabilities</ctl:param>				   
+											<parsers:XMLValidatingParser>
+												<parsers:schemas>
+													<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+													<parsers:schema>
+														<xsl:attribute name="type"><xsl:value-of select="$capabilitiesResponseSchemaType" /></xsl:attribute>
+														<xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+													</parsers:schema>
+												</parsers:schemas>
+											</parsers:XMLValidatingParser>
+										</ctl:request>
+									</xsl:when>
 									<xsl:otherwise>
 										<ctl:request>
 											<ctl:url>
-												<xsl:value-of select="$serviceURL" />
+												<xsl:value-of select="$GetCapabilitiesURL" />
 											</ctl:url>
 											<ctl:method>post</ctl:method>
 											<ctl:body>
