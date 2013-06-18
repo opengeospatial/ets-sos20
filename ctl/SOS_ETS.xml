@@ -8286,7 +8286,7 @@
 									<xsl:value-of select="$serviceURL"/>
 								</ctl:url>
 								<ctl:body>
-									<sos:GetFeatureOfInterest service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									<sos:GetFeatureOfInterest service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd"
 										xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" >
@@ -8295,7 +8295,7 @@
 										<sos:spatialFilter>
 											<fes:BBOX>
 												<fes:ValueReference>om:featureOfInterest/*/sams:shape</fes:ValueReference>
-												<gml:Envelope srsName="urn:ogc:def:crs:EPSG::1234">
+												<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
 													<gml:lowerCorner>179 90</gml:lowerCorner>
 													<gml:upperCorner>179 90</gml:upperCorner>
 												</gml:Envelope>
@@ -8322,7 +8322,7 @@
 								</ctl:url>
 								<ctl:method>post</ctl:method>
 								<ctl:body>
-									<sos:GetFeatureOfInterest service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									<sos:GetFeatureOfInterest service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:procedure><xsl:value-of select="$procedure" /></sos:procedure> 
@@ -8330,7 +8330,7 @@
 										<sos:spatialFilter>
 											<fes:BBOX>
 												<fes:ValueReference>om:featureOfInterest/*/sams:shape</fes:ValueReference>
-												<gml:Envelope srsName="urn:ogc:def:crs:EPSG::1234">
+												<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
 													<gml:lowerCorner>179 90</gml:lowerCorner>
 													<gml:upperCorner>179 90</gml:upperCorner>
 												</gml:Envelope>
@@ -8353,8 +8353,10 @@
 				</xsl:variable>
 				<!-- 1.root is sos:GetFeatureOfInterestResponse -->
 				<xsl:variable name="Root" select="local-name-from-QName(node-name($getFeatureOfInterestResponse/*[1]))" />
+				<xsl:variable name="Root2" select="local-name-from-QName(node-name($getFeatureOfInterestResponse/soap12:Envelope/soap12:Body/*[1]))" />
+				<ctl:message>The root2 is "<xsl:value-of select="$Root2" />"</ctl:message>
 				<xsl:choose>			
-					<xsl:when test="not($Root=string('GetFeatureOfInterestResponse'))">
+					<xsl:when test="not($Root=string('GetFeatureOfInterestResponse')) and not($Root2=string('GetFeatureOfInterestResponse'))">
 						<ctl:message>The root element from the response to a GetFeatureOfInterest request "<xsl:value-of select="$Root" />" does not match the expected root element of "<xsl:value-of select="string('GetFeatureOfInterestResponse')" />"</ctl:message>
 						<ctl:fail />
 					</xsl:when>
@@ -9574,9 +9576,10 @@
 						<xsl:if test="$GetObservationByIdResponse/*">
 							<!-- check the root is "sos:GetObservationByIdResponse" and empty context.-->
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($GetObservationByIdResponse/*[1]))" />
-							<xsl:variable name="gmlidentifier" select="$GetObservationByIdResponse/sos:GetObservationByIdResponse/sos:observation/om:OM_Observation/@gml:id" />
+							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($GetObservationByIdResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<xsl:variable name="gmlidentifier" select="$GetObservationByIdResponse//sos:GetObservationByIdResponse/sos:observation[1]/om:OM_Observation[1]/@gml:id" />
 							<xsl:choose>
-								<xsl:when test="not($responseRoot=$GetObservationByIdRootElementName)">
+								<xsl:when test="not($responseRoot=$GetObservationByIdRootElementName) and not($responseRoot2=$GetObservationByIdRootElementName)">
 									<ctl:message>FAILURE:  The root element from the response to a GetObservationById request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$GetObservationByIdRootElementName" />"</ctl:message>
 									<ctl:fail />
 								</xsl:when>
@@ -14951,6 +14954,7 @@
 						<xsl:variable name="form-values">
 							<ctl:form height="750" width="1024">
 								<body>
+									<h2>DeleteSensor</h2>
 									<p>Please select which proceduer will be deleted.</p>
 									<blockquote>
 										<table border="1" padding="4" bgcolor="#00ffff" align="center">
@@ -16124,7 +16128,9 @@
 						</xsl:variable>
 						<xsl:variable name="featureOfInterest" select="$getObservationResponse//om:featureOfInterest[1]/@href" />
 						<!-- get a valid observation -->
-						<xsl:variable name="observation" select="$getObservationResponse/sos:GetObservationResponse/sos:observationData/*[1]" />
+						<xsl:variable name="observation">
+							<xsl:copy-of select="$getObservationResponse//sos:GetObservationResponse/sos:observationData/*[1]" />
+						</xsl:variable>
 						
 						<xsl:if test="$test1001 eq 'true'">
 							<ctl:message select="'******************** 10.01.RequestNoService ********************'"/>
@@ -16573,6 +16579,8 @@
 			<ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "service"; fail otherwise.</ctl:comment>
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
+				<ctl:message>offering:  "<xsl:value-of select="$offering" />".</ctl:message>
+				<ctl:message>observation:  "<xsl:value-of select="$observation" />".</ctl:message>
 				<!-- send request -->
 				<xsl:variable name="InsertObservationResponse">
 					<xsl:choose>
@@ -22420,6 +22428,7 @@
 			<ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "InvalidParameterValue" and locator is "resultValues"; fail otherwise.</ctl:comment>
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
+				<ctl:message>template:  "<xsl:value-of select="$template" />".</ctl:message>
 				<xsl:variable name="InsertResultResponse">
 					<xsl:choose>
 						<xsl:when test="$isSOAP eq 'true'">
@@ -22509,6 +22518,8 @@
 			<ctl:comment>Pass if the response is a valid InsertResultResponse and has an observation element in the response; fail otherwise.</ctl:comment>
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
+				<ctl:message>template:  "<xsl:value-of select="$template" />".</ctl:message>
+				<ctl:message>resultValues:  "<xsl:value-of select="$resultValues" />".</ctl:message>
 				<xsl:variable name="InsertResultResponse">
 					<xsl:choose>
 						<xsl:when test="$isSOAP eq 'true'">
@@ -22575,12 +22586,13 @@
 					<xsl:otherwise>
 						<xsl:if test="$InsertResultResponse/*">
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($InsertResultResponse/*[1]))" />
-							<xsl:if test="not($responseRoot=$InsertResultRootElementName)">
+							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($InsertResultResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<xsl:if test="not($responseRoot=$InsertResultRootElementName) and not($responseRoot2=$InsertResultRootElementName)">
 								<ctl:message>FAILURE:  The root element from the response to a InsertResult request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$InsertResultRootElementName" />"</ctl:message>
 								<ctl:fail />
 							</xsl:if>
 							<!-- 1.response has one and only one observation -->
-							<xsl:variable name="innerTag" select="count($InsertResultResponse/sos:InsertResultResponse/*[1])" />
+							<xsl:variable name="innerTag" select="count($InsertResultResponse//sos:InsertResultResponse/*[1])" />
 							<xsl:if test="not($innerTag=0)">
 								<ctl:message>FAILURE:  The response should be empty.</ctl:message>
 								<ctl:fail />
@@ -22633,13 +22645,14 @@
 						<xsl:variable name="form-values">
 							<ctl:form height="750" width="1024">
 								<body>
+									<h2>GetResultTemplate</h2>
 									<p>Please select an offering.</p>
 									<blockquote>
 										<table border="1" padding="4" bgcolor="#00ffff" align="center">
 											<tr>
 												<td>
 													<select name="offeringDropDown">
-														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:identifier">
+														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:identifier">
 															<xsl:variable name="offering" select="." />
 															<option><xsl:attribute name="value"><xsl:value-of select="$offering" /></xsl:attribute><xsl:value-of select="$offering" /></option> 
 														</xsl:for-each>
@@ -22654,7 +22667,7 @@
 											<tr>
 												<td>
 													<select name="observedPropertyDropDown">
-														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:observableProperty">
+														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:observableProperty">
 															<xsl:variable name="observedProperty" select="." />
 															<option><xsl:attribute name="value"><xsl:value-of select="$observedProperty" /></xsl:attribute><xsl:value-of select="$observedProperty" /></option> 
 														</xsl:for-each>
@@ -23934,6 +23947,8 @@
 			<ctl:comment>Pass if the observation listed in GetResultTemplateResponse are same to GetResultTemplate request; fail otherwise.</ctl:comment>
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
+				<ctl:message>offering:  "<xsl:value-of select="$offering" />".</ctl:message>
+				<ctl:message>observedProperty:  "<xsl:value-of select="$observedProperty" />".</ctl:message>
 				<xsl:variable name="GetResultTemplateResponse">
 					<xsl:choose>
 						<xsl:when test="$isGET eq 'true'">
@@ -23964,10 +23979,8 @@
 									<xsl:value-of select="$serviceURL"/>
 								</ctl:url>
 								<ctl:body>
-									<sos:GetResultTemplate service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
-										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd"
-										xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" >
+									<sos:GetResultTemplate xmlns:sos="http://www.opengis.net/sos/2.0" service="SOS" version="2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+										xsi:schemaLocation="http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0.0/sos.xsd">
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observedProperty><xsl:value-of select="$observedProperty" /></sos:observedProperty>
 									</sos:GetResultTemplate>
@@ -24022,8 +24035,9 @@
 						<xsl:if test="$GetResultTemplateResponse/*">
 							<!-- check the root is "sos:GetResultTemplateResponse" and empty context.-->
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($GetResultTemplateResponse/*[1]))" />
-							<xsl:if test="not($responseRoot=$GetResultTemplateRootElementName)">
-								<ctl:message>FAILURE:  The root element from the response to a GetResultTemplate request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$GetResultTemplateRootElementName" />"</ctl:message>
+							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($GetResultTemplateResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<xsl:if test="not($responseRoot=$GetResultTemplateRootElementName) and not($responseRoot2=$GetResultTemplateRootElementName)">
+								<ctl:message>FAILURE:  The root element from the response to a GetResultTemplate request "<xsl:value-of select="$responseRoot" />","<xsl:value-of select="$responseRoot2" />" does not match the expected root element of "<xsl:value-of select="$GetResultTemplateRootElementName" />"</ctl:message>
 								<ctl:fail />
 							</xsl:if>
 						</xsl:if>
@@ -24074,13 +24088,14 @@
 						<xsl:variable name="form-values">
 							<ctl:form height="750" width="1024">
 								<body>
+									<h2>GetResult</h2>
 									<p>Please select an offering.</p>
 									<blockquote>
 										<table border="1" padding="4" bgcolor="#00ffff" align="center">
 											<tr>
 												<td>
 													<select name="offeringDropDown">
-														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:identifier">
+														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:identifier">
 															<xsl:variable name="offering" select="." />
 															<option><xsl:attribute name="value"><xsl:value-of select="$offering" /></xsl:attribute><xsl:value-of select="$offering" /></option> 
 														</xsl:for-each>
@@ -24095,7 +24110,7 @@
 											<tr>
 												<td>
 													<select name="observedPropertyDropDown">
-														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:observableProperty">
+														<xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:observableProperty">
 															<xsl:variable name="observedProperty" select="." />
 															<option><xsl:attribute name="value"><xsl:value-of select="$observedProperty" /></xsl:attribute><xsl:value-of select="$observedProperty" /></option> 
 														</xsl:for-each>
@@ -25477,7 +25492,8 @@
 						<xsl:if test="$GetResultResponse/*">
 							<!-- check the root is "sos:GetResultResponse" and empty context.-->
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($GetResultResponse/*[1]))" />
-							<xsl:if test="not($responseRoot=$GetResultRootElementName)">
+							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($GetResultResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<xsl:if test="not($responseRoot=$GetResultRootElementName) and not($responseRoot2=$GetResultRootElementName)">
 								<ctl:message>FAILURE:  The root element from the response to a GetResult request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$GetResultRootElementName" />"</ctl:message>
 								<ctl:fail />
 							</xsl:if>
@@ -25609,12 +25625,13 @@
 						<xsl:if test="$GetResultResponse/*">
 							<!-- check the root is "sos:GetResultResponse" and empty context.-->
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($GetResultResponse/*[1]))" />
-							<xsl:if test="not($responseRoot=$GetResultRootElementName)">
+							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($GetResultResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<xsl:if test="not($responseRoot=$GetResultRootElementName) and not($responseRoot2=$GetResultRootElementName)">
 								<ctl:message>FAILURE:  The root element from the response to a GetResult request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$GetResultRootElementName" />"</ctl:message>
 								<ctl:fail />
 							</xsl:if>
 							<!-- check the response is empty -->
-							<xsl:variable name="ifResponseIsEmpty" select="count($GetResultResponse/*[1]/*[1][text()]) = 0" />
+							<xsl:variable name="ifResponseIsEmpty" select="count($GetResultResponse//sos:GetResultResponse/*[1][text()]) = 0" />
 							<xsl:if test="not($ifResponseIsEmpty)">
 								<ctl:message>FAILURE:  The response to a GetResult request "<xsl:value-of select="$responseRoot" />" is not empty.</ctl:message>
 								<ctl:fail />
