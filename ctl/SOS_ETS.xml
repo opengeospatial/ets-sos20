@@ -5,6 +5,7 @@
 	xmlns:ctl="http://www.occamlab.com/ctl" 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:fes="http://www.opengis.net/fes/2.0"
 	xmlns:gml="http://www.opengis.net/gml/3.2" 
 	xmlns:om="http://www.opengis.net/om/2.0"
@@ -16039,38 +16040,19 @@
 					<xsl:otherwise>
 						<!-- get a valid offering-->
 						<xsl:variable name="offering" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:identifier" />
+						<ctl:message>The offering is :"<xsl:value-of select="$offering" />".</ctl:message>
 						<!-- Get a valid observationType -->
 						<xsl:variable name="observationType" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//sos:observationType" />
+						<ctl:message>The observationType is :"<xsl:value-of select="$observationType" />".</ctl:message>
 						<!-- get a valid procedure-->
 						<xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+						<ctl:message>The procedure is :"<xsl:value-of select="$procedure" />".</ctl:message>
 						<!-- get a valid observableProperty-->
 						<xsl:variable name="observableProperty" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:observableProperty[1]" />
+						<ctl:message>The observableProperty is :"<xsl:value-of select="$observableProperty" />".</ctl:message>
 						<!-- get a valid featureOfInterest From GetObservation-->
 						<xsl:variable name="getObservationResponse">
 							<xsl:choose>
-								<xsl:when test="($isGetObservationGET)">
-									<ctl:request>
-										<ctl:url>
-											<xsl:value-of select="$GetObservationURL"/>
-										</ctl:url>
-										<ctl:method>get</ctl:method>
-										<ctl:param name="service">SOS</ctl:param>	
-										<ctl:param name="version">2.0.0</ctl:param>	
-										<ctl:param name="request">GetObservation</ctl:param>	
-										<ctl:param name="procedure"><xsl:value-of select="$procedure" /></ctl:param>
-										<ctl:param name="offering"><xsl:value-of select="$offering" /></ctl:param>
-										<ctl:param name="observedProperty"><xsl:value-of select="$observableProperty" /></ctl:param>
-										<parsers:XMLValidatingParser>
-											<parsers:schemas>
-												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
-												<parsers:schema>
-													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
-													<xsl:value-of select="$observationResponseSchemaLocation" />
-												</parsers:schema>
-											</parsers:schemas>
-										</parsers:XMLValidatingParser>
-									</ctl:request>
-								</xsl:when>
 								<xsl:when test="$isSOAP eq 'true'">
 									<ctl:soap-request version="1.2" charset="UTF-8">
 										<ctl:url>
@@ -16097,6 +16079,29 @@
 											</parsers:XMLValidatingParser>
 										</parsers:SOAPParser>
 									</ctl:soap-request>
+								</xsl:when>
+								<xsl:when test="($isGetObservationGET)">
+									<ctl:request>
+										<ctl:url>
+											<xsl:value-of select="$GetObservationURL"/>
+										</ctl:url>
+										<ctl:method>get</ctl:method>
+										<ctl:param name="service">SOS</ctl:param>	
+										<ctl:param name="version">2.0.0</ctl:param>	
+										<ctl:param name="request">GetObservation</ctl:param>	
+										<ctl:param name="procedure"><xsl:value-of select="$procedure" /></ctl:param>
+										<ctl:param name="offering"><xsl:value-of select="$offering" /></ctl:param>
+										<ctl:param name="observedProperty"><xsl:value-of select="$observableProperty" /></ctl:param>
+										<parsers:XMLValidatingParser>
+											<parsers:schemas>
+												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+												<parsers:schema>
+													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
+													<xsl:value-of select="$observationResponseSchemaLocation" />
+												</parsers:schema>
+											</parsers:schemas>
+										</parsers:XMLValidatingParser>
+									</ctl:request>
 								</xsl:when>
 								<xsl:otherwise>
 									<ctl:request>
@@ -16126,12 +16131,13 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
-						<xsl:variable name="featureOfInterest" select="$getObservationResponse//om:featureOfInterest[1]/@href" />
+						<xsl:variable name="featureOfInterest" select="$getObservationResponse//sos:GetObservationResponse/sos:observationData/*[1]/om:featureOfInterest/@xlink:href" />
+						<ctl:message>The featureOfInterest is :"<xsl:value-of select="$featureOfInterest" />".</ctl:message>
 						<!-- get a valid observation -->
 						<xsl:variable name="observation">
 							<xsl:copy-of select="$getObservationResponse//sos:GetObservationResponse/sos:observationData/*[1]" />
 						</xsl:variable>
-						
+						<ctl:message>The observation is :"<xsl:value-of select="$observation" />".</ctl:message>
 						<xsl:if test="$test1001 eq 'true'">
 							<ctl:message select="'******************** 10.01.RequestNoService ********************'"/>
 							<ctl:call-test name="sos:IORequestNoService">
@@ -16500,7 +16506,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -16519,7 +16532,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -16580,7 +16600,6 @@
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
 				<ctl:message>offering:  "<xsl:value-of select="$offering" />".</ctl:message>
-				<ctl:message>observation:  "<xsl:value-of select="$observation" />".</ctl:message>
 				<!-- send request -->
 				<xsl:variable name="InsertObservationResponse">
 					<xsl:choose>
@@ -16596,7 +16615,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -16615,7 +16641,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -16689,7 +16722,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -16708,7 +16748,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -16790,7 +16837,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -16809,7 +16863,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -16884,7 +16945,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -16903,7 +16971,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -16977,7 +17052,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -16996,7 +17078,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -17071,7 +17160,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -17090,7 +17186,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -17164,7 +17267,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="current-dateTime()" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
@@ -17183,7 +17293,14 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="current-dateTime()" /></sos:offering>
-										<sos:observation><xsl:value-of select="$observation" /></sos:observation>
+										<sos:observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
+										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
@@ -17244,6 +17361,7 @@
 			<ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "observationType"; fail otherwise.</ctl:comment>
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
+				<ctl:message>The featureOfInterest was:  <xsl:value-of select="$featureOfInterest" /></ctl:message>
 				<!-- send request -->
 				<xsl:variable name="InsertObservationResponse">
 					<xsl:choose>
@@ -17260,50 +17378,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="''" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17324,50 +17404,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="''" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17443,50 +17485,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="current-dateTime()" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17507,50 +17511,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="current-dateTime()" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17627,50 +17593,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="''" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17691,50 +17619,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="''" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17810,50 +17700,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="current-dateTime()" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17874,50 +17726,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="current-dateTime()" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -17994,50 +17808,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="''" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18058,50 +17834,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="''" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18177,50 +17915,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="current-dateTime()" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18241,50 +17941,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="current-dateTime()" />
+												<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18361,50 +18023,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="''" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18425,50 +18049,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="''" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18544,50 +18130,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="current-dateTime()" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18608,50 +18156,12 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observation>
-											<om:OM_Observation gml:id="obsTest1">
-												<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
-												<om:type>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
-												</om:type>
-												<om:phenomenonTime>
-													<gml:TimeInstant gml:id="phenomenonTime">
-														<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
-														<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
-													</gml:TimeInstant>
-												</om:phenomenonTime>	
-												<om:resultTime>												
-													<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
-												</om:resultTime>
-												<om:procedure>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-												</om:procedure>
-												<om:parameter>
-													<om:NamedValue>
-														<om:name>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
-														</om:name>
-														<om:value>
-															<gml:Point>
-																<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
-																<gml:pos>
-																	<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
-																	<xsl:value-of select="'54.9 10.52'" />
-																</gml:pos>
-															</gml:Point>
-														</om:value>
-													</om:NamedValue>
-												</om:parameter>
-												<om:observedProperty>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-												</om:observedProperty>
-												<om:featureOfInterest>
-													<xsl:attribute name="xlink:href"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
-												</om:featureOfInterest>
-												<om:result>
-													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
-													<xsl:value-of select="'0.28'" />
-												</om:result>
-											</om:OM_Observation>
+											<ctl:call-function name="sosFunctions:getOMObservation">
+												<ctl:with-param name="observationType" select="$observationType" />
+												<ctl:with-param name="procedure" select="$procedure" />
+												<ctl:with-param name="observableProperty" select="$observableProperty" />
+												<ctl:with-param name="featureOfInterest" select="current-dateTime()" />
+											</ctl:call-function>
 										</sos:observation>
 									</sos:InsertObservation>
 								</ctl:body>
@@ -18769,6 +18279,7 @@
 												</om:featureOfInterest>
 												<om:result>
 													<xsl:attribute name="xsi:type"></xsl:attribute>
+													<xsl:attribute name="uom"><xsl:value-of select="'urn:ogc:def:uom:OGC:m'" /></xsl:attribute>
 													<xsl:value-of select="'0.28'" />
 												</om:result>
 											</om:OM_Observation>
@@ -18833,6 +18344,7 @@
 												</om:featureOfInterest>
 												<om:result>
 													<xsl:attribute name="xsi:type"></xsl:attribute>
+													<xsl:attribute name="uom"><xsl:value-of select="'urn:ogc:def:uom:OGC:m'" /></xsl:attribute>
 													<xsl:value-of select="'0.28'" />
 												</om:result>
 											</om:OM_Observation>
@@ -18952,6 +18464,7 @@
 												</om:featureOfInterest>
 												<om:result>
 													<xsl:attribute name="xsi:type"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
+													<xsl:attribute name="uom"><xsl:value-of select="'urn:ogc:def:uom:OGC:m'" /></xsl:attribute>
 													<xsl:value-of select="'0.28'" />
 												</om:result>
 											</om:OM_Observation>
@@ -19016,6 +18529,7 @@
 												</om:featureOfInterest>
 												<om:result>
 													<xsl:attribute name="xsi:type"><xsl:value-of select="current-dateTime()" /></xsl:attribute>
+													<xsl:attribute name="uom"><xsl:value-of select="'urn:ogc:def:uom:OGC:m'" /></xsl:attribute>
 													<xsl:value-of select="'0.28'" />
 												</om:result>
 											</om:OM_Observation>
@@ -19135,6 +18649,7 @@
 												</om:featureOfInterest>
 												<om:result>
 													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
+													<xsl:attribute name="uom"><xsl:value-of select="'urn:ogc:def:uom:OGC:m'" /></xsl:attribute>
 													<xsl:value-of select="'0.28'" />
 												</om:result>
 											</om:OM_Observation>
@@ -19208,6 +18723,7 @@
 												</om:featureOfInterest>
 												<om:result>
 													<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
+													<xsl:attribute name="uom"><xsl:value-of select="'urn:ogc:def:uom:OGC:m'" /></xsl:attribute>
 													<xsl:value-of select="'0.28'" />
 												</om:result>
 											</om:OM_Observation>
@@ -19235,7 +18751,8 @@
 					<xsl:otherwise>
 						<xsl:if test="$InsertObservationResponse/*">
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($InsertObservationResponse/*[1]))" />
-							<xsl:if test="not($responseRoot=$InsertObservationRootElementName)">
+							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($InsertObservationResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<xsl:if test="not($responseRoot=$InsertObservationRootElementName) and not($responseRoot2=$InsertObservationRootElementName)">
 								<ctl:message>FAILURE:  The root element from the response to a InsertObservation request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$InsertObservationRootElementName" />"</ctl:message>
 								<ctl:fail />
 							</xsl:if>
@@ -20794,27 +20311,14 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd">
 										<sos:proposedTemplate>
 											<sos:ResultTemplate>
+												<swes:identifier><xsl:value-of select="$procedure" />/template/<xsl:value-of select="current-dateTime()" /></swes:identifier>
 												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 												<sos:observationTemplate>
-													<om:OM_GeometryObservation>
-														<xsl:attribute name="gml:id"><xsl:value-of select="'sensor2obsTemplate'" /></xsl:attribute>
-														<om:phenomenonTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:phenomenonTime>
-														<om:resultTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:resultTime>
-														<om:procedure>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-														</om:procedure>
-														<om:observedProperty>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-														</om:observedProperty>
-														<om:featureOfInterest>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-														</om:featureOfInterest>
-														<om:result/>
-													</om:OM_GeometryObservation>
+													<ctl:call-function name="sosFunctions:getOMObservationTemplate">
+														<ctl:with-param name="procedure" select="$procedure" />
+														<ctl:with-param name="observableProperty" select="$observableProperty" />
+														<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+													</ctl:call-function>
 												</sos:observationTemplate>
 												<sos:resultStructure>
 													<swe:DataRecord>
@@ -20865,27 +20369,14 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd">
 										<sos:proposedTemplate>
 											<sos:ResultTemplate>
+												<swes:identifier><xsl:value-of select="$procedure" />/template/<xsl:value-of select="current-dateTime()" /></swes:identifier>
 												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 												<sos:observationTemplate>
-													<om:OM_GeometryObservation>
-														<xsl:attribute name="gml:id"><xsl:value-of select="'sensor2obsTemplate'" /></xsl:attribute>
-														<om:phenomenonTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:phenomenonTime>
-														<om:resultTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:resultTime>
-														<om:procedure>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-														</om:procedure>
-														<om:observedProperty>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-														</om:observedProperty>
-														<om:featureOfInterest>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-														</om:featureOfInterest>
-														<om:result/>
-													</om:OM_GeometryObservation>
+													<ctl:call-function name="sosFunctions:getOMObservationTemplate">
+														<ctl:with-param name="procedure" select="$procedure" />
+														<ctl:with-param name="observableProperty" select="$observableProperty" />
+														<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+													</ctl:call-function>
 												</sos:observationTemplate>
 												<sos:resultStructure>
 													<swe:DataRecord>
@@ -21008,27 +20499,14 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd">
 										<sos:proposedTemplate>
 											<sos:ResultTemplate>
+												<swes:identifier><xsl:value-of select="$procedure" />/template/<xsl:value-of select="current-dateTime()" /></swes:identifier>
 												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 												<sos:observationTemplate>
-													<om:OM_Observation>
-														<xsl:attribute name="gml:id"><xsl:value-of select="'sensor2obsTemplate'" /></xsl:attribute>
-														<om:phenomenonTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:phenomenonTime>
-														<om:resultTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:resultTime>
-														<om:procedure>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-														</om:procedure>
-														<om:observedProperty>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-														</om:observedProperty>
-														<om:featureOfInterest>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-														</om:featureOfInterest>
-														<om:result/>
-													</om:OM_Observation>
+													<ctl:call-function name="sosFunctions:getOMObservationTemplate">
+														<ctl:with-param name="procedure" select="$procedure" />
+														<ctl:with-param name="observableProperty" select="$observableProperty" />
+														<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+													</ctl:call-function>
 												</sos:observationTemplate>
 												<sos:resultStructure>
 													<swe:DataRecord>
@@ -21088,27 +20566,14 @@
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd">
 										<sos:proposedTemplate>
 											<sos:ResultTemplate>
+												<swes:identifier><xsl:value-of select="$procedure" />/template/<xsl:value-of select="current-dateTime()" /></swes:identifier>
 												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 												<sos:observationTemplate>
-													<om:OM_Observation>
-														<xsl:attribute name="gml:id"><xsl:value-of select="'sensor2obsTemplate'" /></xsl:attribute>
-														<om:phenomenonTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:phenomenonTime>
-														<om:resultTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:resultTime>
-														<om:procedure>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-														</om:procedure>
-														<om:observedProperty>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-														</om:observedProperty>
-														<om:featureOfInterest>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-														</om:featureOfInterest>
-														<om:result/>
-													</om:OM_Observation>
+													<ctl:call-function name="sosFunctions:getOMObservationTemplate">
+														<ctl:with-param name="procedure" select="$procedure" />
+														<ctl:with-param name="observableProperty" select="$observableProperty" />
+														<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+													</ctl:call-function>
 												</sos:observationTemplate>
 												<sos:resultStructure>
 													<swe:DataRecord>
@@ -21163,7 +20628,8 @@
 					<xsl:otherwise>
 						<xsl:if test="$InsertResultTemplateResponse/*">
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($InsertResultTemplateResponse/*[1]))" />
-							<xsl:if test="not($responseRoot=$InsertResultTemplateRootElementName)">
+							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($InsertResultTemplateResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<xsl:if test="not($responseRoot=$InsertResultTemplateRootElementName) and not($responseRoot2=$InsertResultTemplateRootElementName)">
 								<ctl:message>FAILURE:  The root element from the response to a InsertResultTemplate request "<xsl:value-of select="$responseRoot" />" does not match the expected root element of "<xsl:value-of select="$InsertResultTemplateRootElementName" />"</ctl:message>
 								<ctl:fail />
 							</xsl:if>
@@ -21180,7 +20646,7 @@
 							<ctl:message>****************************</ctl:message>
 							<ctl:message>Running 12.SOS resultHandling: InsertResult Tests...</ctl:message>
 							<ctl:message>****************************</ctl:message>
-							<xsl:variable name="template" select="$InsertResultTemplateResponse//sos:acceptedTemplate" />
+							<xsl:variable name="template" select="$InsertResultTemplateResponse//sos:InsertResultTemplateResponse/sos:acceptedTemplate" />
 							<ctl:message>The value of template is : "<xsl:value-of select="$template" />".</ctl:message>
 							<ctl:call-test name="sos:InsertResult-Test">
 								<ctl:with-param name="serviceURL" select="$InsertResult-URL"/>
@@ -21247,25 +20713,11 @@
 											<sos:ResultTemplate>
 												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 												<sos:observationTemplate>
-													<om:OM_Observation>
-														<xsl:attribute name="gml:id"><xsl:value-of select="'sensor2obsTemplate'" /></xsl:attribute>
-														<om:phenomenonTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:phenomenonTime>
-														<om:resultTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:resultTime>
-														<om:procedure>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-														</om:procedure>
-														<om:observedProperty>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-														</om:observedProperty>
-														<om:featureOfInterest>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-														</om:featureOfInterest>
-														<om:result/>
-													</om:OM_Observation>
+													<ctl:call-function name="sosFunctions:getOMObservationTemplate">
+														<ctl:with-param name="procedure" select="$procedure" />
+														<ctl:with-param name="observableProperty" select="$observableProperty" />
+														<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+													</ctl:call-function>
 												</sos:observationTemplate>
 												<sos:resultStructure>
 													<swe:DataRecord>
@@ -21317,25 +20769,11 @@
 											<sos:ResultTemplate>
 												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 												<sos:observationTemplate>
-													<om:OM_Observation>
-														<xsl:attribute name="gml:id"><xsl:value-of select="'sensor2obsTemplate'" /></xsl:attribute>
-														<om:phenomenonTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:phenomenonTime>
-														<om:resultTime>
-															<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
-														</om:resultTime>
-														<om:procedure>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
-														</om:procedure>
-														<om:observedProperty>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
-														</om:observedProperty>
-														<om:featureOfInterest>
-															<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
-														</om:featureOfInterest>
-														<om:result/>
-													</om:OM_Observation>
+													<ctl:call-function name="sosFunctions:getOMObservationTemplate">
+														<ctl:with-param name="procedure" select="$procedure" />
+														<ctl:with-param name="observableProperty" select="$observableProperty" />
+														<ctl:with-param name="featureOfInterest" select="$featureOfInterest" />
+													</ctl:call-function>
 												</sos:observationTemplate>
 												<sos:resultStructure>
 													<swe:DataRecord>
@@ -25945,7 +25383,91 @@
         </ctl:code>
     </ctl:function>
 	
+	<!-- create OM_Measure -->
+	<ctl:function name="sosFunctions:getOMObservation">
+		<ctl:param name="observationType">The observationType</ctl:param>
+		<ctl:param name="procedure">The procedure</ctl:param>
+		<ctl:param name="observableProperty">The observableProperty</ctl:param>
+		<ctl:param name="featureOfInterest">The featureOfInterest</ctl:param>
+        <ctl:return>The OM_Observation document if it's valid</ctl:return>
+        <ctl:description>Return a OM_Observation by params.</ctl:description>
+        <ctl:code>
+			<om:OM_Observation>
+				<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest1'" /></xsl:attribute>
+				<om:type>
+					<xsl:attribute name="xlink:href"><xsl:value-of select="$observationType" /></xsl:attribute>
+				</om:type>
+				<om:phenomenonTime>
+					<gml:TimeInstant gml:id="phenomenonTime">
+						<xsl:attribute name="gml:id"><xsl:value-of select="'phenomenonTime'" /></xsl:attribute>
+						<gml:timePosition><xsl:value-of select="current-dateTime()" /></gml:timePosition>
+					</gml:TimeInstant>
+				</om:phenomenonTime>	
+				<om:resultTime>												
+					<xsl:attribute name="xlink:href"><xsl:value-of select="'#phenomenonTime'" /></xsl:attribute>
+				</om:resultTime>
+				<om:procedure>
+					<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
+				</om:procedure>
+				<om:parameter>
+					<om:NamedValue>
+						<om:name>
+							<xsl:attribute name="xlink:href"><xsl:value-of select="'http://www.opengis.net/req/omxml/2.0/data/samplingGeometry'" /></xsl:attribute>
+						</om:name>
+						<om:value>
+							<gml:Point>
+								<xsl:attribute name="gml:id"><xsl:value-of select="'SamplingPoint2'" /></xsl:attribute>
+								<gml:pos>
+									<xsl:attribute name="srsName"><xsl:value-of select="'http://www.opengis.net/def/crs/EPSG/0/4326'" /></xsl:attribute>
+									<xsl:value-of select="'54.9 10.52'" />
+								</gml:pos>
+							</gml:Point>
+						</om:value>
+					</om:NamedValue>
+				</om:parameter>
+				<om:observedProperty>
+					<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
+				</om:observedProperty>
+				<om:featureOfInterest>
+					<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
+				</om:featureOfInterest>
+				<om:result>
+					<xsl:attribute name="xsi:type"><xsl:value-of select="'gml:MeasureType'" /></xsl:attribute>
+					<xsl:attribute name="uom"><xsl:value-of select="'urn:ogc:def:uom:OGC:m'" /></xsl:attribute>
+					<xsl:value-of select="'0.28'" />
+				</om:result>
+			</om:OM_Observation>
+        </ctl:code>
+    </ctl:function>
 	
+	<ctl:function name="sosFunctions:getOMObservationTemplate">
+		<ctl:param name="procedure">The procedure</ctl:param>
+		<ctl:param name="observableProperty">The observableProperty</ctl:param>
+		<ctl:param name="featureOfInterest">The featureOfInterest</ctl:param>
+        <ctl:return>The OM_Observation document if it's valid</ctl:return>
+        <ctl:description>Return a OM_Observation by params.</ctl:description>
+        <ctl:code>
+			<om:OM_Observation>
+				<xsl:attribute name="gml:id"><xsl:value-of select="'obsTest2'" /></xsl:attribute>
+				<om:phenomenonTime>
+					<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
+				</om:phenomenonTime>	
+				<om:resultTime>												
+					<xsl:attribute name="nilReason"><xsl:value-of select="'template'" /></xsl:attribute>
+				</om:resultTime>
+				<om:procedure>
+					<xsl:attribute name="xlink:href"><xsl:value-of select="$procedure" /></xsl:attribute>
+				</om:procedure>
+				<om:observedProperty>
+					<xsl:attribute name="xlink:href"><xsl:value-of select="$observableProperty" /></xsl:attribute>
+				</om:observedProperty>
+				<om:featureOfInterest>
+					<xsl:attribute name="xlink:href"><xsl:value-of select="$featureOfInterest" /></xsl:attribute>
+				</om:featureOfInterest>
+				<om:result />
+			</om:OM_Observation>
+        </ctl:code>
+    </ctl:function>
 	</ctl:package>
 
 </ctl:package>
