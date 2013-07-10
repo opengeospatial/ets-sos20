@@ -29,7 +29,7 @@
 	</ctl:suite>
 
 	<ctl:test name="sos:Main">
-		<ctl:assertion>The IUT satisfies all applicable assertions.</ctl:assertion>
+		<ctl:assertion>The implementation satisfies all applicable assertions.</ctl:assertion>
 		<ctl:code>
 			<!-- User Input Form -->
 			<xsl:variable name="form-values">
@@ -14956,7 +14956,7 @@
 							<ctl:form height="750" width="1024">
 								<body>
 									<h2>DeleteSensor</h2>
-									<p>Please select which proceduer will be deleted.</p>
+									<p>Please select which procedure will be deleted.</p>
 									<blockquote>
 										<table border="1" padding="4" bgcolor="#00ffff" align="center">
 											<tr>
