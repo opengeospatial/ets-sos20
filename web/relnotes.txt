@@ -1,8 +1,11 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+[Revision r4]
+- Cleaned documentation.
+
 [Revision r3]
 - fixed some error occurred when testing by TE2 (via GET or via SOAP).
-- cleaned documentation.
+- Cleaned documentation.
 
 [Revision r2]
 - fixed 1 message error (SOS_ETS.xml line.512 Run GetObservationById test via GET)
