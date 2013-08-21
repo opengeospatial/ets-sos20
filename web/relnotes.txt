@@ -1,5 +1,9 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+[Revision r5, 2013-MM-DD]
+- Fixed CITE-694: GetFeatureOfInterest-Test fails due to missing schema 
+  (http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd)
+
 [Revision r4]
 - Cleaned documentation.
 
