@@ -8467,217 +8467,128 @@
 						<xsl:variable name="responseFormat" select="string('http%3A%2F%2Fwww.opengis.net%2Fom%2F2.0')" />
 						<ctl:message>The responseFormat was:  <xsl:value-of select="$responseFormat" /></ctl:message>
 						
-						<!-- get a valid getObservationResponse-->
-						<xsl:variable name="getObservationResponse">
-							<xsl:choose>
-								<xsl:when test="$isGetObservationGET eq 'true'">
-									<ctl:request>
-										<ctl:url>
-											<xsl:value-of select="$GetObservationURL"/>
-										</ctl:url>
-										<ctl:method>get</ctl:method>
-										<ctl:param name="service">SOS</ctl:param>	
-										<ctl:param name="version">2.0.0</ctl:param>	
-										<ctl:param name="request">GetObservation</ctl:param>	
-										<ctl:param name="procedure"><xsl:value-of select="$procedure" /></ctl:param>
-										<ctl:param name="offering"><xsl:value-of select="$offering" /></ctl:param>
-										<ctl:param name="observedProperty"><xsl:value-of select="$observableProperty" /></ctl:param>								
-										<parsers:XMLValidatingParser>
-											<parsers:schemas>
-												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
-												<parsers:schema>
-													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
-													<xsl:value-of select="$observationResponseSchemaLocation" />
-												</parsers:schema>
-											</parsers:schemas>
-										</parsers:XMLValidatingParser>
-									</ctl:request>
-								</xsl:when>
-								<xsl:when test="$isSOAP eq 'true'">
-									<ctl:soap-request version="1.2" charset="UTF-8">
-										<ctl:url>
-											<xsl:value-of select="$GetObservationURL"/>
-										</ctl:url>
-										<ctl:body>
-											<sos:GetObservation service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-												xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
-												http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd"
-												xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" >
-												<sos:procedure><xsl:value-of select="$procedure" /></sos:procedure>
-												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-												<sos:observedProperty><xsl:value-of select="$observableProperty" /></sos:observedProperty>
-											</sos:GetObservation>
-										</ctl:body>
-										<parsers:SOAPParser return="content">
-											<parsers:XMLValidatingParser>
-												<parsers:schemas>
-													<parsers:schema>
-														<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
-														<xsl:value-of select="$observationResponseSchemaLocation" />
-													</parsers:schema>
-												</parsers:schemas>
-											</parsers:XMLValidatingParser>
-										</parsers:SOAPParser>
-									</ctl:soap-request>
-								</xsl:when>
-								<xsl:otherwise>
-									<ctl:request>
-										<ctl:url>
-											<xsl:value-of select="$GetObservationURL" />
-										</ctl:url>
-										<ctl:method>post</ctl:method>
-										<ctl:body>
-											<sos:GetObservation service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-												xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
-												http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
-												<sos:procedure><xsl:value-of select="$procedure" /></sos:procedure>
-												<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-												<sos:observedProperty><xsl:value-of select="$observableProperty" /></sos:observedProperty>
-											</sos:GetObservation>
-										</ctl:body>
-										<parsers:XMLValidatingParser>
-											<parsers:schemas>
-												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
-												<parsers:schema>
-													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
-													<xsl:value-of select="$observationResponseSchemaLocation" />
-												</parsers:schema>
-											</parsers:schemas>
-										</parsers:XMLValidatingParser>
-									</ctl:request>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						<xsl:choose>
-							<xsl:when test="not($getObservationResponse/*)">
-								<ctl:message>FAILURE: Missing or invalid getObservationResponse entity.</ctl:message>
-								<ctl:fail/>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- get a valid observation //just use offering id....wait the response by SOS2 mailing list.-->
-								<xsl:variable name="observation" select="$getObservationResponse//sos:observationData[1]/om:OM_Observation[1]/@gml:id[1]" />
-								<ctl:message>The observation was:  <xsl:value-of select="$observation" /></ctl:message>
-								<xsl:if test="$test0701 eq 'true'">
-									<ctl:message select="'******************** 07.01.RequestNoService ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestNoService">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0702 eq 'true'">
-									<ctl:message select="'******************** 07.02.RequestNullService ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestNullService">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0703 eq 'true'">
-									<ctl:message select="'******************** 07.03.RequestInvalidService ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestInvalidService">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0704 eq 'true'">
-									<ctl:message select="'******************** 07.04.RequestNoVersion ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestNoVersion">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0705 eq 'true'">
-									<ctl:message select="'******************** 07.05.RequestNullVersion ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestNullVersion">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0706 eq 'true'">
-									<ctl:message select="'******************** 07.06.RequestInvalidVersion ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestInvalidVersion">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0707 eq 'true'">
-									<ctl:message select="'******************** 07.07.RequestNullobservation ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestNullobservation">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0708 eq 'true'">
-									<ctl:message select="'******************** 07.08.RequestInvalidobservation ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestInvalidobservation">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-								<xsl:if test="$test0709 eq 'true'">
-									<ctl:message select="'******************** 07.09.RequestValidRequest ********************'"/>
-									<ctl:call-test name="sos:GOBIRequestValidRequest">
-										<ctl:with-param name="serviceURL" select="$serviceURL" />
-										<ctl:with-param name="isGET" select="$isGET"/>
-										<ctl:with-param name="isSOAP" select="$isSOAP"/>
-										<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
-										<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
-										<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
-										<ctl:with-param name="observation" select="$observation" />
-									</ctl:call-test>
-								</xsl:if>
-							
-							
-							</xsl:otherwise>
-						</xsl:choose>
+						<!-- get a valid observation //just use offering id....wait the response by SOS2 mailing list.-->
+						<!-- <xsl:variable name="observation" select="$getObservationResponse//sos:observationData[1]/om:OM_Observation[1]/@gml:id[1]" /> -->
+						<xsl:variable name="observation" select="$getCapabilitiesResponse//ows:OperationsMetadata/ows:Operation[@name='GetObservationById']/ows:Parameter[@name='observation']/ows:AllowedValues/ows:Value[1]" />
+						<ctl:message>The observation was:  <xsl:value-of select="$observation" /></ctl:message>
+						<xsl:if test="$test0701 eq 'true'">
+							<ctl:message select="'******************** 07.01.RequestNoService ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestNoService">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0702 eq 'true'">
+							<ctl:message select="'******************** 07.02.RequestNullService ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestNullService">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0703 eq 'true'">
+							<ctl:message select="'******************** 07.03.RequestInvalidService ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestInvalidService">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0704 eq 'true'">
+							<ctl:message select="'******************** 07.04.RequestNoVersion ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestNoVersion">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0705 eq 'true'">
+							<ctl:message select="'******************** 07.05.RequestNullVersion ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestNullVersion">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0706 eq 'true'">
+							<ctl:message select="'******************** 07.06.RequestInvalidVersion ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestInvalidVersion">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0707 eq 'true'">
+							<ctl:message select="'******************** 07.07.RequestNullobservation ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestNullobservation">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0708 eq 'true'">
+							<ctl:message select="'******************** 07.08.RequestInvalidobservation ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestInvalidobservation">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						<xsl:if test="$test0709 eq 'true'">
+							<ctl:message select="'******************** 07.09.RequestValidRequest ********************'"/>
+							<ctl:call-test name="sos:GOBIRequestValidRequest">
+								<ctl:with-param name="serviceURL" select="$serviceURL" />
+								<ctl:with-param name="isGET" select="$isGET"/>
+								<ctl:with-param name="isSOAP" select="$isSOAP"/>
+								<ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+								<ctl:with-param name="GetObservationByIdRootElementName" select="$GetObservationByIdRootElementName" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaLocation" select="$GetObservationByIdResponseSchemaLocation" />
+								<ctl:with-param name="GetObservationByIdResponseSchemaType" select="$GetObservationByIdResponseSchemaType" />
+								<ctl:with-param name="observation" select="$observation" />
+							</ctl:call-test>
+						</xsl:if>
+						
 					</xsl:otherwise>
 				</xsl:choose>
 			</ctl:code>
@@ -9611,7 +9522,9 @@
 						<xsl:if test="$GetObservationByIdResponse/*">
 							<!-- check the root is "sos:GetObservationByIdResponse" and empty context.-->
 							<xsl:variable name="responseRoot" select="local-name-from-QName(node-name($GetObservationByIdResponse/*[1]))" />
+							<ctl:message>responseRoot:  "<xsl:value-of select="$responseRoot" />".</ctl:message>
 							<xsl:variable name="responseRoot2" select="local-name-from-QName(node-name($GetObservationByIdResponse/soap12:Envelope/soap12:Body/*[1]))" />
+							<ctl:message>responseRoot2:  "<xsl:value-of select="$responseRoot2" />".</ctl:message>
 							<xsl:variable name="gmlidentifier" select="$GetObservationByIdResponse//sos:GetObservationByIdResponse/sos:observation[1]/om:OM_Observation[1]/@gml:id" />
 							<xsl:choose>
 								<xsl:when test="not($responseRoot=$GetObservationByIdRootElementName) and not($responseRoot2=$GetObservationByIdRootElementName)">
