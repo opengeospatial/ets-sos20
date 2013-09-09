@@ -9,16 +9,129 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 </head>
 <body>
-<h1>Overview</h1>
-<p>This test suite is based on the following OGC specifications:</p>
+<h1>Sensor Observation Service (SOS) 2.0 Conformance Test Suite</h1>
+
+<h2>Scope</h2>
+<p>This test suite verifies conformance with Sensor Observation Service (SOS) 2.0. It is based on the following OGC specifications:</p>
 <ul>
+    <li><em>OpenGIS Sensor Observation Service Implementation Specification</em>, Version 2.0 <a href="https://portal.opengeospatial.org/files/?artifact_id=47599">[OGC 12-006]</a></li>
+ 
     <li><em>OGC Web Services Common Specification</em>, Version 1.1.0 <a href="http://portal.opengeospatial.org/files/?artifact_id=20040">[OGC 06-121r3]</a></li>
     <li><em>Definition Identifier URNs in OGC Namespace</em>, Version 1.1.0 <a href="http://portal.opengeospatial.org/files/?artifact_id=4700">[OGC 06-023r1]</a></a> 
         (ISO/CD 19136, OGC 03-105r1)</li>
-    <li><em>OpenGIS Sensor Observation Service Implementation Specification</em>, Version 2.0 <a href="https://portal.opengeospatial.org/files/?artifact_id=47599">[OGC 12-006]</a></li>
+ </ul>
+
+<h2>Test Coverage</h2>
+
+<table border="1" style="border-collapse: collapse;">
+            <thead>
+               <tr>
+                   <th>Conformance Class Name</th>
+                   <th>Reference</th>
+                   <th>Notes</th>
+                   <th>Available in Test Suite</th>
+               </tr>
+                
+            </thead>
+            <tbody>
+                <tr>
+                    <th>SOS Core</th>
+                    <th>14.1.1</th>
+                    <th><i>GetCapabilities, DescribeSensor, and GetObservation</i></th>
+                    <th>YES</th>
+                </tr>
+                <tr>
+                    <th>SOS Feature of Interest Retrieval</th>
+                    <th>14.2.1</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Observation Retrieval By ID</th>
+                    <th>14.2.2</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Insertion Capabilities</th>
+                    <th>14.3.1</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Sensor Insertion</th>
+                    <th>14.3.2</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Sensor Deletion</th>
+                    <th>14.3.3</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Observation Insertion</th>
+                    <th>14.3.4</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Result Insertion</th>
+                    <th>14.4.1</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Result Retrieval</th>
+                    <th>14.4.2</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS Spatial Filtering Profile</th>
+                    <th>14.5.1</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS XML Encoding</th>
+                    <th>14.6.1</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS KVP Binding Extension</th>
+                    <th>14.6.2</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS GetFeatureOfInterest KVP Binding</th>
+                    <th>14.6.3</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>SOS SOAP Binding</th>
+                    <th>14.6.4</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tbody>
+            
+        </table>
+
+<h2>Minimum Conformance classes to pass the test</h2>
+<p>To pass the test it is necessary to pass the following conformance classes: </p>
+<ul>
+<li>Pass the SOS Core</li>
+<li>Pass the SOS KVP Binding Extension or SOS SOAP Binding</li>
 </ul>
+</p>
 
 <h2>What is tested</h2>
+
 <ul>
 	<li>GetCapabilities, <i>GET / POST / SOAP</i> method</li>
 	<li>DescribeSenor, <i>GET / POST / SOAP</i> method</li>
