@@ -1,6 +1,11 @@
 SOS 2.0 Test Suite Release Notes
 ================================
 
+Revision r6
+-----------------------
+2013-09-13
+- Updated documentation
+
 Revision r5
 ------------------------
 2013-09-03

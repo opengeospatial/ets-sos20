@@ -1,8 +1,4 @@
-
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>SOS 2.0 Compliance Test Suite</title>
@@ -17,14 +13,16 @@
     <li><em>OpenGIS Sensor Observation Service Implementation Specification</em>, Version 2.0 <a href="https://portal.opengeospatial.org/files/?artifact_id=47599">[OGC 12-006]</a></li>
  
     <li><em>OGC Web Services Common Specification</em>, Version 1.1.0 <a href="http://portal.opengeospatial.org/files/?artifact_id=20040">[OGC 06-121r3]</a></li>
-    <li><em>Definition Identifier URNs in OGC Namespace</em>, Version 1.1.0 <a href="http://portal.opengeospatial.org/files/?artifact_id=4700">[OGC 06-023r1]</a></a> 
+    <li><em>Definition Identifier URNs in OGC Namespace</em>, Version 1.1.0 <a href="http://portal.opengeospatial.org/files/?artifact_id=4700">[OGC 06-023r1]</a>
         (ISO/CD 19136, OGC 03-105r1)</li>
  </ul>
 
-<h2>Test Coverage</h2>
+<h2>Test Coverage by Conformance Class</h2>
 
-<table border="1" style="border-collapse: collapse;">
-            <thead>
+<p>The following table provides information about the conformance class that are implemented in the test and reference to the section in the specification.</p>
+
+   <table border="1">
+            
                <tr>
                    <th>Conformance Class Name</th>
                    <th>Reference</th>
@@ -32,153 +30,175 @@
                    <th>Available in Test Suite</th>
                </tr>
                 
-            </thead>
-            <tbody>
+       
+          
                 <tr>
-                    <th>SOS Core</th>
-                    <th>14.1.1</th>
-                    <th><i>GetCapabilities, DescribeSensor, and GetObservation</i></th>
-                    <th>YES</th>
+                   <td>SOS Core</td>
+                   <td>14.1.1</td>
+                   <td><i>GetCapabilities, DescribeSensor, and GetObservation</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS Feature of Interest Retrieval</th>
-                    <th>14.2.1</th>
-                    <th><i>GetFeatureOfInterest</i></th>
-                    <th>YES</th>
+                   <td>SOS Feature of Interest Retrieval</td>
+                   <td>14.2.1</td>
+                   <td><i>GetFeatureOfInterest</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS Observation Retrieval By ID</th>
-                    <th>14.2.2</th>
-                    <th><i>GetObservationById</i></th>
-                    <th>YES</th>
+                   <td>SOS Observation Retrieval By ID</td>
+                   <td>14.2.2</td>
+                   <td><i>GetObservationById</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS Insertion Capabilities</th>
-                    <th>14.3.1</th>
-                    <th><i>GetCapabilities</i></th>
-                    <th>YES</th>
+                   <td>SOS Insertion Capabilities</td>
+                   <td>14.3.1</td>
+                   <td><i>GetCapabilities</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS Sensor Insertion</th>
-                    <th>14.3.2</th>
-                    <th><i>InsertSensor</i></th>
-                    <th>NO</th>
+                   <td>SOS Sensor Insertion</td>
+                   <td>14.3.2</td>
+                   <td><i>InsertSensor</i></td>
+                   <td>NO</td>
                 </tr>
                 <tr>
-                    <th>SOS Sensor Deletion</th>
-                    <th>14.3.3</th>
-                    <th><i>DeleteSensor</i></th>
-                    <th>NO</th>
+                   <td>SOS Sensor Deletion</td>
+                   <td>14.3.3</td>
+                   <td><i>DeleteSensor</i></td>
+                   <td>NO</td>
                 </tr>
                 <tr>
-                    <th>SOS Observation Insertion</th>
-                    <th>14.3.4</th>
-                    <th><i>InsertObservation</i></th>
-                    <th>NO</th>
+                   <td>SOS Observation Insertion</td>
+                   <td>14.3.4</td>
+                   <td><i>InsertObservation</i></td>
+                   <td>NO</td>
                 </tr>
                 <tr>
-                    <th>SOS Result Insertion</th>
-                    <th>14.4.1</th>
-                    <th><i>InsertResult, InsertResultTemplate</i></th>
-                    <th>NO</th>
+                   <td>SOS Result Insertion</td>
+                   <td>14.4.1</td>
+                   <td><i>InsertResult, InsertResultTemplate</i></td>
+                   <td>NO</td>
                 </tr>
                 <tr>
-                    <th>SOS Result Retrieval</th>
-                    <th>14.4.2</th>
-                    <th><i>GetResult, GetResultTemplate</i></th>
-                    <th>YES</th>
+                   <td>SOS Result Retrieval</td>
+                   <td>14.4.2</td>
+                   <td><i>GetResult, GetResultTemplate</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS Spatial Filtering Profile</th>
-                    <th>14.5.1</th>
-                    <th><i>GetCapabilities, GetObservation</i></th>
-                    <th>YES</th>
+                   <td>SOS Spatial Filtering Profile</td>
+                   <td>14.5.1</td>
+                   <td><i>GetCapabilities, GetObservation</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS XML Encoding</th>
-                    <th>14.6.1</th>
-                    <th><i>All interface</i></th>
-                    <th>YES</th>
+                   <td>SOS XML Encoding</td>
+                   <td>14.6.1</td>
+                   <td><i>All interface</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS KVP Binding Extension</th>
-                    <th>14.6.2</th>
-                    <th><i>GetCapabilities, DescribeSensor, GetObservation</i></th>
-                    <th>YES</th>
+                   <td>SOS KVP Binding Extension</td>
+                   <td>14.6.2</td>
+                   <td><i>GetCapabilities, DescribeSensor, GetObservation</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS GetFeatureOfInterest KVP Binding</th>
-                    <th>14.6.3</th>
-                    <th><i>GetFeatureOfInterest</i></th>
-                    <th>YES</th>
+                   <td>SOS GetFeatureOfInterest KVP Binding</td>
+                   <td>14.6.3</td>
+                   <td><i>GetFeatureOfInterest</i></td>
+                   <td>YES</td>
                 </tr>
                 <tr>
-                    <th>SOS SOAP Binding</th>
-                    <th>14.6.4</th>
-                    <th><i>GetCapabilities, DescribeSensor, GetObservation, GetObservationByID, GetFeatureOfInterest, GetResultTemplate, GetResult</i></th>
-                    <th>YES</th>
+                   <td>SOS SOAP Binding</td>
+                   <td>14.6.4</td>
+                   <td><i>GetCapabilities, DescribeSensor, GetObservation, GetObservationByID, GetFeatureOfInterest, GetResultTemplate, GetResult</i></td>
+                   <td>YES</td>
                 </tr>
-            </tbody>
-            
+           
         </table>
+        
+        
 
-<h2>Minimum Conformance classes to pass the test</h2>
+<p></p>
+
+
+<h2>Minimum Conformance Classes to Pass the Test</h2>
 <p>To pass the test it is necessary to pass the following conformance classes: </p>
 <ul>
 <li>Pass the SOS Core</li>
 <li>Pass the SOS KVP Binding Extension or SOS SOAP Binding</li>
 </ul>
-</p>
 
-<h2>What is tested</h2>
 
+<h2>Test Coverage by Operation</h2>
+<p>The following operations are tested:</p>
 <ul>
-	<li>GetCapabilities, <i>GET / POST / SOAP</i> method</li>
-	<li>DescribeSenor, <i>GET / POST / SOAP</i> method</li>
-	<li>GetObservation, <i>GET / POST / SOAP</i> method</li>
-	<li>GetObservationByID, <i>GET / POST / SOAP</i> method</li>
-	<li>GetFeatureOfInterest, <i>GET / POST / SOAP</i> method</li>
-	<li>GetResultTemplate, <i>GET / POST / SOAP</i> method</li>
-	<li>GetResult, <i>GET / POST / SOAP</i> method</li>
+   <li>GetCapabilities, <i>GET / POST / SOAP</i> </li>
+   <li>DescribeSenor, <i>GET / POST / SOAP</i> </li>
+   <li>GetObservation, <i>GET / POST / SOAP</i> </li>
+   <li>GetObservationByID, <i>GET / POST / SOAP</i> </li>
+   <li>GetFeatureOfInterest, <i>GET / POST / SOAP</i> </li>
+   <li>GetResultTemplate, <i>GET / POST / SOAP</i></li> 
+   <li>GetResult, <i>GET / POST / SOAP</i></li>
 </ul>
-<h2>What is not tested</h2>
+<p>The following operations are not tested:</p>
 <ul>
-	<li>InsertSensor, <i>GET / POST / SOAP</i> method</li>
-	<li>DeleteSensor, <i>GET / POST / SOAP</i> method</li>
-	<li>InsertObservation, <i>GET / POST / SOAP</i> method</li>
-	<li>InsertResult, <i>GET / POST / SOAP</i> method</li>
-	<li>InsertResultTemplate, <i>GET / POST / SOAP</i> method</li>
+   <li>InsertSensor, <i>GET / POST / SOAP</i> </li>
+   <li>DeleteSensor, <i>GET / POST / SOAP</i></li>
+   <li>InsertObservation, <i>GET / POST / SOAP</i></li>
+   <li>InsertResult, <i>GET / POST / SOAP</i> </li>
+   <li>InsertResultTemplate, <i>GET / POST / SOAP</i> </li>
 </ul>
 
 
 
 <h2>Namespaces</h2>
-<ul>
-	<li><h3>Service being tested must use these namespaces:</h3>
-		<table>	
-			<tr><td>fes</td><td>-</td><td>http://www.opengis.net/fes/2.0</td></tr>
-			<tr><td>gml</td><td>-</td><td>http://www.opengis.net/gml/3.2</td></tr>
-			<tr><td>om</td><td>-</td><td>http://www.opengis.net/om/2.0</td></tr>
-			<tr><td>ows</td><td>-</td><td>http://www.opengis.net/ows/1.1</td></tr>
-			<tr><td>soap11</td><td>-</td><td>http://schemas.xmlsoap.org/soap/</td></tr>
-			<tr><td>soap12</td><td>-</td><td>http://www.w3.org/2003/05/soap-envelope</td></tr>
-			<tr><td>sos</td><td>-</td><td>http://www.opengis.net/sos/2.0</td></tr>
-			<tr><td>swe</td><td>-</td><td>http://www.opengis.net/swe/2.0</td></tr>
-			<tr><td>swes</td><td>-</td><td>http://www.opengis.net/swes/2.0</td></tr>
-			<tr><td>wsa</td><td>-</td><td>http://www.w3.org/2005/08/addressing</td></tr>
-			<tr><td>xs</td><td>-</td><td>http://www.w3.org/2001/XMLSchema</td></tr>
-		</table>
-	</li>
-</ul>
+<p>Services being tested must use the following namespaces:</p>
+
+      <table border="1">
+          <tr><th>Abbreviation</th><th>URL</th></tr>
+         <tr><td>fes</td><td>http://www.opengis.net/fes/2.0</td></tr>
+         <tr><td>gml</td><td>http://www.opengis.net/gml/3.2</td></tr>
+         <tr><td>om</td><td>http://www.opengis.net/om/2.0</td></tr>
+         <tr><td>ows</td><td>http://www.opengis.net/ows/1.1</td></tr>
+         <tr><td>soap11</td><td>http://schemas.xmlsoap.org/soap/</td></tr>
+         <tr><td>soap12</td><td>http://www.w3.org/2003/05/soap-envelope</td></tr>
+         <tr><td>sos</td><td>http://www.opengis.net/sos/2.0</td></tr>
+         <tr><td>swe</td><td>http://www.opengis.net/swe/2.0</td></tr>
+         <tr><td>swes</td><td>http://www.opengis.net/swes/2.0</td></tr>
+         <tr><td>wsa</td><td>http://www.w3.org/2005/08/addressing</td></tr>
+         <tr><td>xs</td><td>http://www.w3.org/2001/XMLSchema</td></tr>
+      </table>
+
 
 <h2>Schemas</h2>
 <p>All schemas used for validation in these tests can be found at:  <a href="http://schemas.opengis.net/">http://schemas.opengis.net/</a>
 </p>
 
+<h2>Reference Implementation</h2>
+<p>The reference implementation URLs are:</p>
+<ul>
+<li>For KVP tests is:
+   <a href="http://sensorweb.demo.52north.org/52n-sos-webapp/sos/kvp?request=GetCapabilities&service=SOS">http://sensorweb.demo.52north.org/52n-sos-webapp/sos/kvp?request=GetCapabilities&service=SOS</a></li>
+
+<li>For SOAP tests is:
+http://sensorweb.demo.52north.org/52n-sos-webapp/sos/soap</li>
+</ul>
+
+<p>Notes: When you are asked for <b>GetResultTemplate</b> select the following: </p>
+   <ul>
+      <li>Offering: http://www.52north.org/test/offering/6</li>
+      <li>ObservedProperty = http://www.52north.org/test/observableProperty/6 </li>
+      
+   </ul>
+
+
 <h2>Release Notes</h2>
 <p>
   Release notes are available from the <a href="relnotes.txt">relnotes.txt</a>.
 </p>
-	
+   
 </body>
 </html>

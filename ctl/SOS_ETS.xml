@@ -37,7 +37,7 @@
 					<body>
 						<h2 align="center">Compliance test suite for Sensor Observation Service (SOS) 2.0</h2>
 						<p>
-              Information about this test suite can be found <a href="../../../about/sos/2.0/web/" target="_blank">here</a>.
+              Information about this test suite can be found <a href="../../../about/sos/2.0.0/web/" target="_blank">here</a>.
               </p>
 						<h3 align="center">Service metadata and test options</h3>
 						<p>Please provide a URL from which a capabilities document can be retrieved. </p>
