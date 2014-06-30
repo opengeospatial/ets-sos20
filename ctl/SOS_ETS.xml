@@ -53,15 +53,15 @@
 								</tr>				
 							</table>
 						</blockquote>
-						<p>Please select how tho send this request.</p>
+						<p>Please select how to send this request.</p>
 						<blockquote>
 							<table border="1" padding="4" bgcolor="#00ffff" align="center">
 								<tr>
 									<td><input type="radio" name="request-via" value="GET">HTTP Get</input></td>
 									<td><input type="radio" name="request-via" value="POST">HTTP Post</input></td>
 									<td><input type="radio" name="request-via" checked="true" value="SOAP">SOAP Binding</input></td>
-								</tr>				
-							</table>						
+								</tr>
+							</table>
 						</blockquote>
 						<p>Please select whether to run all tests or just selected tests.</p>
 						<blockquote>
