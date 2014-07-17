@@ -14,7 +14,7 @@
         <description>Checks conformance to OGC 12-006.</description>
       </suite>
       <revision>
-        <name>r7</name>
+        <name>r8</name>
         <sources>
           <source>sos/2.0.0/ctl</source>
         </sources>
