@@ -14,12 +14,12 @@
         <description>Checks conformance to OGC 12-006.</description>
       </suite>
       <revision>
-        <name>r8</name>
+        <name>${project.version}</name>
         <sources>
-          <source>sos/2.0.0/ctl</source>
+          <source>sos/${spec-version}/ctl</source>
         </sources>
-        <resources>sos/2.0.0/resources</resources>
-        <webdir>sos/2.0.0/web</webdir>
+        <resources>sos/${spec-version}/resources</resources>
+        <webdir>sos/${spec-version}/site</webdir>
       </revision>
     </version>
   </standard>
