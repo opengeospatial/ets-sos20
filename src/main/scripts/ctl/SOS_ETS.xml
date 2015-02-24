@@ -422,6 +422,7 @@
 						</ctl:url>
 						<ctl:method>get</ctl:method>
 						<ctl:param name="request">GetCapabilities</ctl:param>
+						<ctl:param name="service"><xsl:value-of select="'SOS'" /></ctl:param>
 					</ctl:request>
 				</xsl:if>
 				<xsl:if test="($request-via eq 'POST')">
@@ -1787,7 +1788,8 @@
 									<xsl:value-of select="$serviceURL"/>
 								</ctl:url>
 								<ctl:method>get</ctl:method>
-								<ctl:param name="request">GetCapabilities</ctl:param>				   
+								<ctl:param name="request">GetCapabilities</ctl:param>	
+								<ctl:param name="service"><xsl:value-of select="'SOS'" /></ctl:param>
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
@@ -2156,7 +2158,8 @@
 									<xsl:value-of select="$serviceURL"/>
 								</ctl:url>
 								<ctl:method>get</ctl:method>
-								<ctl:param name="request">GetCapabilities</ctl:param>				   
+								<ctl:param name="request">GetCapabilities</ctl:param>
+								<ctl:param name="service"><xsl:value-of select="'SOS'" /></ctl:param>
 								<ctl:param name="sections">WrongSections</ctl:param>
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
@@ -9359,7 +9362,15 @@
 								<ctl:param name="version">2.0.0</ctl:param>	
 								<ctl:param name="request">GetObservationById</ctl:param>	
 								<ctl:param name="observation"><xsl:value-of select="current-dateTime()" /></ctl:param>
-								<ctl:call-function name="sosFunctions:validateExceptionReport" />
+								<parsers:XMLValidatingParser>
+									<parsers:schemas>
+										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema>
+											<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
+											<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
+										</parsers:schema>
+									</parsers:schemas>
+								</parsers:XMLValidatingParser>
 							</ctl:request>
 						</xsl:when>
 						<xsl:when test="$isSOAP eq 'true'">
@@ -9375,7 +9386,16 @@
 										<sos:observation><xsl:value-of select="current-dateTime()" /></sos:observation>
 									</sos:GetObservationById>
 								</ctl:body>
-								<ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+								<parsers:SOAPParser return="content">
+									<parsers:XMLValidatingParser>
+										<parsers:schemas>
+											<parsers:schema>
+												<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
+												<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
+											</parsers:schema>
+										</parsers:schemas>
+									</parsers:XMLValidatingParser>
+								</parsers:SOAPParser>
 							</ctl:soap-request>
 						</xsl:when>
 						<xsl:otherwise>
@@ -9391,7 +9411,15 @@
 										<sos:observation><xsl:value-of select="current-dateTime()" /></sos:observation>
 									</sos:GetObservationById>
 								</ctl:body>
-								<ctl:call-function name="sosFunctions:validateExceptionReport" />
+								<parsers:XMLValidatingParser>
+									<parsers:schemas>
+										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema>
+											<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
+											<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
+										</parsers:schema>
+									</parsers:schemas>
+								</parsers:XMLValidatingParser>
 							</ctl:request>
 						</xsl:otherwise>
 					</xsl:choose>
@@ -9441,6 +9469,7 @@
 			<ctl:comment>Pass if the observation listed in GetObservationByIdResponse are same to GetObservationById request; fail otherwise.</ctl:comment>
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
+				<ctl:message>observation:  "<xsl:value-of select="$observation" />".</ctl:message>
 				<xsl:variable name="GetObservationByIdResponse">
 					<xsl:choose>
 						<xsl:when test="$isGET eq 'true'">

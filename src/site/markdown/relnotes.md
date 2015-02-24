@@ -1,5 +1,10 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+Revision r8 (2015-02-24)
+-----------------------------
+
+- Fixed bug : The service parameter in the GetCapabilities request is mandatory and Fixed value: "SOS".
+- Fixed bug : The test "sos:GOBIRequestInvalidobservation_obsByIdRetrieval" return a empty GetObservationByIdResponse, not a exception.
 
 Revision r 1.8 (2015-02-19)
 -----------------------------

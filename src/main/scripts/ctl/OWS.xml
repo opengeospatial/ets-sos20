@@ -1283,6 +1283,7 @@
 								<xsl:value-of select="$serviceURL"/>
 							</ctl:url>
 							<ctl:method>get</ctl:method>
+							<ctl:param name="service"><xsl:value-of select="$serviceType" /></ctl:param>
 							<ctl:param name="request">GetCapabilities</ctl:param>
 							<ctl:param name="sections">ServiceIdentification,OperationsMetadata</ctl:param>
 							<parsers:XMLValidatingParser>
