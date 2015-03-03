@@ -462,96 +462,226 @@
 					<!-- Set Operations's URL -->
 					<!-- GetCapabilities parameters -->
 					
+					<!-- 處理URL -->
+					<xsl:variable name="form2-values">
+						<ctl:form height="750" width="1024">
+							<body>
+								<h2>Please select URL for each interfaces:</h2>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- GetCapabilities -->
+										<tr>
+											<td colspan="2">GetCapabilities</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="GetCapabilities_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetCapabilities']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_GetCapabilities" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_GetCapabilities" /></xsl:attribute><xsl:value-of select="$GET_GetCapabilities" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetCapabilities']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_GetCapabilities" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_GetCapabilities" /></xsl:attribute><xsl:value-of select="$Post_GetCapabilities" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- DescribeSensor -->
+										<tr>
+											<td colspan="2">DescribeSensor</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="DescribeSensor_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='DescribeSensor']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_DescribeSensor" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_DescribeSensor" /></xsl:attribute><xsl:value-of select="$GET_DescribeSensor" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='DescribeSensor']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_DescribeSensor" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_DescribeSensor" /></xsl:attribute><xsl:value-of select="$Post_DescribeSensor" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- GetObservation -->
+										<tr>
+											<td colspan="2">GetObservation</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="GetObservation_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetObservation']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_GetObservation" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_GetObservation" /></xsl:attribute><xsl:value-of select="$GET_GetObservation" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetObservation']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_GetObservation" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_GetObservation" /></xsl:attribute><xsl:value-of select="$Post_GetObservation" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- GetFeatureOfInterest -->
+										<tr>
+											<td colspan="2">GetFeatureOfInterest</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="GetFeatureOfInterest_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetFeatureOfInterest']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_GetFeatureOfInterest" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_GetFeatureOfInterest" /></xsl:attribute><xsl:value-of select="$GET_GetFeatureOfInterest" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetFeatureOfInterest']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_GetFeatureOfInterest" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_GetFeatureOfInterest" /></xsl:attribute><xsl:value-of select="$Post_GetFeatureOfInterest" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- GetObservationById -->
+										<tr>
+											<td colspan="2">GetObservationById</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="GetObservationById_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetObservationById']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_GetObservationById" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_GetObservationById" /></xsl:attribute><xsl:value-of select="$GET_GetObservationById" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetObservationById']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_GetObservationById" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_GetObservationById" /></xsl:attribute><xsl:value-of select="$Post_GetObservationById" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- DeleteSensor -->
+										<tr>
+											<td colspan="2">DeleteSensor(only POST or SOAP)</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="DeleteSensor_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='DeleteSensor']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_DeleteSensor" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_DeleteSensor" /></xsl:attribute><xsl:value-of select="$GET_DeleteSensor" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='DeleteSensor']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_DeleteSensor" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_DeleteSensor" /></xsl:attribute><xsl:value-of select="$Post_DeleteSensor" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- GetResultTemplate -->
+										<tr>
+											<td colspan="2">GetResultTemplate</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="GetResultTemplate_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetResultTemplate']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_GetResultTemplate" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_GetResultTemplate" /></xsl:attribute><xsl:value-of select="$GET_GetResultTemplate" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetResultTemplate']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_GetResultTemplate" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_GetResultTemplate" /></xsl:attribute><xsl:value-of select="$Post_GetResultTemplate" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<blockquote>
+									<table border="1" padding="4" bgcolor="#00ffff" align="center">
+										<!-- GetResult -->
+										<tr>
+											<td colspan="2">GetResult</td>
+										</tr>
+										<tr>
+											<td>
+												<select name="GetResult_DropDown">
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetResult']//ows:Get/@xlink:href">
+														<xsl:variable name="GET_GetResult" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$GET_GetResult" /></xsl:attribute><xsl:value-of select="$GET_GetResult" /></option> 
+													</xsl:for-each>
+													<xsl:for-each select="$user-capabilities//ows:Operation[@name='GetResult']//ows:Post/@xlink:href">
+														<xsl:variable name="Post_GetResult" select="." />
+														<option><xsl:attribute name="value"><xsl:value-of select="$Post_GetResult" /></xsl:attribute><xsl:value-of select="$Post_GetResult" /></option> 
+													</xsl:for-each>
+												</select>
+											</td>
+										</tr>
+									</table>						
+								</blockquote>
+								<p>Please press the "Submit" button to start testing.</p>
+								<div align="center">
+									<input type="submit" value="Submit"/>						
+								</div>
+							</body>
+						</ctl:form>
+					</xsl:variable>
+				
 					<xsl:variable name="IsGetCapabilities-GET" select="($request-via eq 'GET') and (count($user-capabilities//ows:Operation[@name='GetCapabilities']//ows:Get) > 0)" />
 					<xsl:variable name="IsGetCapabilities-POST" select="count($user-capabilities//ows:Operation[@name='GetCapabilities']//ows:Post) > 0" />
-					<xsl:variable name="GetCapabilities-URL">
-						<xsl:choose>
-							<xsl:when test="not($request-via eq 'GET') and ($IsGetCapabilities-POST)">
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetCapabilities']//ows:Post/@xlink:href"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetCapabilities']//ows:Get/@xlink:href"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					<xsl:variable name="GetCapabilities-URL" select="$form2-values/values/value[@key='GetCapabilities_DropDown']"/>
 					<ctl:message select="concat('Run GetCapabilities test via GET:',$IsGetCapabilities-GET,', URL:',$GetCapabilities-URL)"/>
 					
 					<!-- DescribeSensor parameters -->
 					<xsl:variable name="IsDescribeSensor-GET" select="($request-via eq 'GET') and (count($user-capabilities//ows:Operation[@name='DescribeSensor']//ows:Get) > 0)" />
 					<xsl:variable name="IsDescribeSensor-POST" select="count($user-capabilities//ows:Operation[@name='DescribeSensor']//ows:Post) > 0" />
-					<xsl:variable name="DescribeSensor-URL">
-						<xsl:choose>
-							<xsl:when test="not($request-via eq 'GET') and ($IsDescribeSensor-POST)">
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='DescribeSensor']//ows:Post/@xlink:href"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='DescribeSensor']//ows:Get/@xlink:href"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					<xsl:variable name="DescribeSensor-URL" select="$form2-values/values/value[@key='DescribeSensor_DropDown']"/>
 					<ctl:message select="concat('Run DescribeSensor test via GET: ',$IsDescribeSensor-GET,', URL:',$DescribeSensor-URL)"/>
 					
 					<!-- GetObservation parameters -->
 					<xsl:variable name="IsGetObservation-GET" select="($request-via eq 'GET') and (count($user-capabilities//ows:Operation[@name='GetObservation']//ows:Get) > 0)" />
 					<xsl:variable name="IsGetObservation-POST" select="count($user-capabilities//ows:Operation[@name='GetObservation']//ows:Post) > 0" />
-					<xsl:variable name="GetObservation-URL">
-						<xsl:choose>
-							<xsl:when test="not($request-via eq 'GET') and ($IsGetObservation-POST)">
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetObservation']//ows:Post/@xlink:href"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetObservation']//ows:Get/@xlink:href"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					<xsl:variable name="GetObservation-URL" select="$form2-values/values/value[@key='GetObservation_DropDown']"/>
 					<ctl:message select="concat('Run GetObservation test via GET: ',$IsGetObservation-GET,', URL:',$GetObservation-URL)"/>
 					
 					<!-- GetFeatureOfInterest parameters -->
 					<xsl:variable name="hasGetFeatureOfInterest" select="count($user-capabilities//ows:Operation[@name='GetFeatureOfInterest']) > 0" />
 					<xsl:variable name="IsGetFeatureOfInterest-GET" select="($request-via eq 'GET') and (count($user-capabilities//ows:Operation[@name='GetFeatureOfInterest']//ows:Get) > 0)" />
 					<xsl:variable name="IsGetFeatureOfInterest-POST" select="count($user-capabilities//ows:Operation[@name='GetFeatureOfInterest']//ows:Post) > 0" />
-					<xsl:variable name="GetFeatureOfInterest-URL">
-						<xsl:choose>
-							<xsl:when test="not($request-via eq 'GET') and ($IsGetFeatureOfInterest-POST)">
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetFeatureOfInterest']//ows:Post/@xlink:href"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetFeatureOfInterest']//ows:Get/@xlink:href"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					<xsl:variable name="GetFeatureOfInterest-URL" select="$form2-values/values/value[@key='GetFeatureOfInterest_DropDown']"/>
 					<ctl:message select="concat('Run GetFeatureOfInterest test via GET: ',$IsGetFeatureOfInterest-GET,', URL:',$GetFeatureOfInterest-URL)"/>
 					
 					<!-- GetObservationById parameters -->
 					<xsl:variable name="hasGetObservationById" select="count($user-capabilities//ows:Operation[@name='GetObservationById']) > 0" />
 					<xsl:variable name="IsGetObservationById-GET" select="($request-via eq 'GET') and (count($user-capabilities//ows:Operation[@name='GetObservationById']//ows:Get) > 0)" />
 					<xsl:variable name="IsGetObservationById-POST" select="count($user-capabilities//ows:Operation[@name='GetObservationById']//ows:Post) > 0" />
-					<xsl:variable name="GetObservationById-URL">
-						<xsl:choose>
-							<xsl:when test="not($request-via eq 'GET') and ($IsGetObservationById-POST)">
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetObservationById']//ows:Post/@xlink:href"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetObservationById']//ows:Get/@xlink:href"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					<xsl:variable name="GetObservationById-URL" select="$form2-values/values/value[@key='GetObservationById_DropDown']"/>
 					<ctl:message select="concat('Run GetObservationById test via GET: ',$IsGetObservationById-GET,', URL:',$GetObservationById-URL)"/>
 					
-					<!-- InsertSensor parameters 
-					<xsl:variable name="hasInsertSensor" select="count($user-capabilities//ows:Operation[@name='InsertSensor']) > 0" />
-					<ctl:message select="concat('hasInsertSensor:',$hasInsertSensor)"/>
-					<xsl:variable name="IsInsertSensor-POST" select="count($user-capabilities//ows:Operation[@name='InsertSensor']//ows:Post) > 0" />
-					<ctl:message select="concat('IsInsertSensor-POST:',$IsInsertSensor-POST)"/>
-					<xsl:if test="hasInsertSensor and not($IsInsertSensor-POST)">
-						<ctl:message>FAILURE: If InsertSensor Operation is supported by service, the InsertSensor operation must support Http-post .</ctl:message>
-						<ctl:fail/>
-					</xsl:if>
-					<xsl:variable name="InsertSensor-URL">
-						<xsl:value-of select="$user-capabilities//ows:Operation[@name='InsertSensor']//ows:Post/@xlink:href"/>
-					</xsl:variable>
-					<ctl:message select="concat('Run InsertSensor test via GET: false, URL:',$InsertSensor-URL)"/>
-					-->
 					<!-- DeleteSensor parameters -->
 					<xsl:variable name="hasDeleteSensor" select="count($user-capabilities//ows:Operation[@name='DeleteSensor']) > 0" />
 					<xsl:variable name="IsDeleteSensor-POST" select="count($user-capabilities//ows:Operation[@name='DeleteSensor']//ows:Post) > 0" />
@@ -559,77 +689,20 @@
 						<ctl:message>FAILURE: If DeleteSensor Operation is supported by service, the DeleteSensor operation must support Http-post .</ctl:message>
 						<ctl:fail/>
 					</xsl:if>
-					<xsl:variable name="DeleteSensor-URL">
-						<xsl:value-of select="$user-capabilities//ows:Operation[@name='DeleteSensor']//ows:Post/@xlink:href"/>
-					</xsl:variable>
+					<xsl:variable name="DeleteSensor-URL" select="$form2-values/values/value[@key='DeleteSensor_DropDown']"/>
 					<ctl:message select="concat('Run DeleteSensor test via GET: false, URL:',$DeleteSensor-URL)"/>
 					
-					<!-- InsertObservation parameters 
-					<xsl:variable name="hasInsertObservation" select="count($user-capabilities//ows:Operation[@name='InsertObservation']) > 0" />
-					<xsl:variable name="IsInsertObservation-POST" select="count($user-capabilities//ows:Operation[@name='InsertObservation']//ows:Post) > 0" />
-					<xsl:if test="hasInsertObservation and not($IsInsertObservation-POST)">
-						<ctl:message>FAILURE: If InsertObservation Operation is supported by service, the InsertObservation operation must support Http-post .</ctl:message>
-						<ctl:fail/>
-					</xsl:if>
-					<xsl:variable name="InsertObservation-URL">
-						<xsl:value-of select="$user-capabilities//ows:Operation[@name='InsertObservation']//ows:Post/@xlink:href"/>
-					</xsl:variable>
-					<ctl:message select="concat('Run InsertObservation test via GET: false, URL:',$InsertObservation-URL)"/>
-					-->
-					<!-- InsertResultTemplate parameters 
-					<xsl:variable name="hasInsertResultTemplate" select="count($user-capabilities//ows:Operation[@name='InsertResultTemplate']) > 0" />
-					<xsl:variable name="IsInsertResultTemplate-POST" select="count($user-capabilities//ows:Operation[@name='InsertResultTemplate']//ows:Post) > 0" />
-					<xsl:if test="hasInsertResultTemplate and not($IsInsertResultTemplate-POST)">
-						<ctl:message>FAILURE: If InsertResultTemplate Operation is supported by service, the InsertResultTemplate operation must support Http-post .</ctl:message>
-						<ctl:fail/>
-					</xsl:if>
-					<xsl:variable name="InsertResultTemplate-URL">
-						<xsl:value-of select="$user-capabilities//ows:Operation[@name='InsertResultTemplate']//ows:Post/@xlink:href"/>
-					</xsl:variable>
-					<ctl:message select="concat('Run InsertResultTemplate test via GET: false, URL:',$InsertResultTemplate-URL)"/>
-					-->
-					<!-- InsertResult parameters 
-					<xsl:variable name="hasInsertResult" select="count($user-capabilities//ows:Operation[@name='InsertResult']) > 0" />
-					<xsl:variable name="IsInsertResult-POST" select="count($user-capabilities//ows:Operation[@name='InsertResult']//ows:Post) > 0" />
-					<xsl:if test="hasInsertResult and not($IsInsertResult-POST)">
-						<ctl:message>FAILURE: If InsertResult Operation is supported by service, the InsertResult operation must support Http-post .</ctl:message>
-						<ctl:fail/>
-					</xsl:if>
-					<xsl:variable name="InsertResult-URL">
-						<xsl:value-of select="$user-capabilities//ows:Operation[@name='InsertResult']//ows:Post/@xlink:href"/>
-					</xsl:variable>
-					<ctl:message select="concat('Run InsertResult test via GET: false, URL:',$InsertResult-URL)"/>
-					-->
-					<!-- GetResultTemplate parameters -->
 					<xsl:variable name="hasGetResultTemplate" select="count($user-capabilities//ows:Operation[@name='GetResultTemplate']) > 0" />
 					<xsl:variable name="IsGetResultTemplate-GET" select="($request-via eq 'GET') and (count($user-capabilities//ows:Operation[@name='GetResultTemplate']//ows:Get) > 0)" />
 					<xsl:variable name="IsGetResultTemplate-POST" select="count($user-capabilities//ows:Operation[@name='GetResultTemplate']//ows:Post) > 0" />
-					<xsl:variable name="GetResultTemplate-URL">
-						<xsl:choose>
-							<xsl:when test="not($request-via eq 'GET') and ($IsGetResultTemplate-POST)">
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetResultTemplate']//ows:Post/@xlink:href"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetResultTemplate']//ows:Get/@xlink:href"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					<xsl:variable name="GetResultTemplate-URL" select="$form2-values/values/value[@key='GetResultTemplate_DropDown']"/>
 					<ctl:message select="concat('Run GetResultTemplate test via GET: ',$IsGetResultTemplate-GET,', URL:',$GetResultTemplate-URL)"/>
 					
 					<!-- GetResult parameters -->
 					<xsl:variable name="hasGetResult" select="count($user-capabilities//ows:Operation[@name='GetResult']) > 0" />
 					<xsl:variable name="IsGetResult-GET" select="($request-via eq 'GET') and (count($user-capabilities//ows:Operation[@name='GetResult']//ows:Get) > 0)" />
 					<xsl:variable name="IsGetResult-POST" select="count($user-capabilities//ows:Operation[@name='GetResult']//ows:Post) > 0" />
-					<xsl:variable name="GetResult-URL">
-						<xsl:choose>
-							<xsl:when test="not($request-via eq 'GET') and ($IsGetResult-POST)">
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetResult']//ows:Post/@xlink:href"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$user-capabilities//ows:Operation[@name='GetResult']//ows:Get/@xlink:href"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
+					<xsl:variable name="GetResult-URL" select="$form2-values/values/value[@key='GetResult_DropDown']"/>
 					<ctl:message select="concat('Run GetResult test via GET: ',$IsGetResult-GET,', URL:',$GetResult-URL)"/>
 					
 					<!-- Set selected tests.-->
