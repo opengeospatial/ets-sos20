@@ -5,6 +5,8 @@ Revision r8 (2015-02-24)
 
 - Fixed bug : The service parameter in the GetCapabilities request is mandatory and Fixed value: "SOS".
 - Fixed bug : The test "sos:GOBIRequestInvalidobservation_obsByIdRetrieval" return a empty GetObservationByIdResponse, not a exception.
+- User should select URL for each interface(some website have server urls for different interface).
+- Fixed bug : Reported by David Archer, exception xpath should be ows:ExceptionReport/ows:Exception (OWS 1.1.0) whatever the response is SOAP or not.
 
 Revision r 1.8 (2015-02-19)
 -----------------------------
