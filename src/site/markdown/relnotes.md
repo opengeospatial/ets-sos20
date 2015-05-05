@@ -1,16 +1,16 @@
 SOS 2.0 Test Suite Release Notes
 ================================
-Revision r8 (2015-02-24)
------------------------------
+
+Revision 1.9 (2015-05-05)
+---------------------------
 
 - Fixed bug : The service parameter in the GetCapabilities request is mandatory and Fixed value: "SOS".
 - Fixed bug : The test "sos:GOBIRequestInvalidobservation_obsByIdRetrieval" return a empty GetObservationByIdResponse, not a exception.
 - User should select URL for each interface(some website have server urls for different interface).
-- Fixed bug : Reported by David Archer, exception xpath should be ows:ExceptionReport/ows:Exception (OWS 1.1.0) whatever the response is SOAP or not.
+- Fixed [#15](https://github.com/opengeospatial/ets-sos20/issues/15) : Reported by David Archer, exception xpath should be ows:ExceptionReport/ows:Exception (OWS 1.1.0) whatever the response is SOAP or not.
 
-Revision r 1.8 (2015-02-19)
+Revision 1.8  (2015-02-24)
 -----------------------------
-
 - Cleaned the structure of the test. The test scripts (ctl) have not changed.
 - Starting this revision, the revision number will follow the revision documented [here](https://github.com/opengeospatial/cite/wiki/OGC-Compliance-Testing-Tools)
 
