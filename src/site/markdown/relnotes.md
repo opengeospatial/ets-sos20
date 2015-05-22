@@ -1,5 +1,7 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+Revision 1.10 (2015-05-05)
+- Fixed bug : Reported by David Archer, the responseFormat for the SOAP test or Post test should not be URL encoded.
 
 Revision 1.9 (2015-05-05)
 ---------------------------
