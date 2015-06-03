@@ -1494,7 +1494,7 @@
         <ctl:description></ctl:description>
         <ctl:code>
 			<xsl:if test="$PostEncodingIsSOAP=string('true')">
-				<xsl:variable name="exceptionElement" select="$exceptionReport//soap12:Detail/ows:Exception" />
+				<xsl:variable name="exceptionElement" select="$exceptionReport//ows:Exception[1]" />
 				<xsl:variable name="exceptionCodeValue" select="$exceptionElement/@exceptionCode" />
 				<xsl:variable name="locatorValue" select="$exceptionElement/@locator" />
 				<xsl:choose>
@@ -1507,7 +1507,7 @@
 				</xsl:choose>
 			</xsl:if>
 			<xsl:if test="not($PostEncodingIsSOAP=string('true'))">
-				<xsl:variable name="exceptionElement" select="$exceptionReport//ows:ExceptionReport/ows:Exception" />
+				<xsl:variable name="exceptionElement" select="$exceptionReport//ows:Exception[1]" />
 				<xsl:variable name="exceptionCodeValue" select="$exceptionElement/@exceptionCode" />
 				<xsl:variable name="locatorValue" select="$exceptionElement/@locator" />
 				<xsl:choose>
