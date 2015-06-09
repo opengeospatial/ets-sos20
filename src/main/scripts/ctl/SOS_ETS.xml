@@ -6034,6 +6034,7 @@
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
 				<xsl:variable name="targetResponseFormat" select="string('http%3A%2F%2Fwww.opengis.net%2Fom%2F2.0')" />
+				<xsl:variable name="targetResponseFormatPost" select="string('http://www.opengis.net/om/2.0')" />
 				<xsl:variable name="getObservationResponse">
 					<xsl:choose>
 						<xsl:when test="$isGET eq 'true'">
@@ -6073,7 +6074,7 @@
 										<sos:procedure><xsl:value-of select="$procedure" /></sos:procedure>
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observedProperty><xsl:value-of select="$observableProperty" /></sos:observedProperty>
-										<sos:responseFormat><xsl:value-of select="$targetResponseFormat" /></sos:responseFormat>
+										<sos:responseFormat><xsl:value-of select="$targetResponseFormatPost" /></sos:responseFormat>
 									</sos:GetObservation>
 								</ctl:body>
 								<parsers:SOAPParser return="content">
@@ -6101,7 +6102,7 @@
 										<sos:procedure><xsl:value-of select="$procedure" /></sos:procedure>
 										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
 										<sos:observedProperty><xsl:value-of select="$observableProperty" /></sos:observedProperty>
-										<sos:responseFormat><xsl:value-of select="$targetResponseFormat" /></sos:responseFormat>
+										<sos:responseFormat><xsl:value-of select="$targetResponseFormatPost" /></sos:responseFormat>
 									</sos:GetObservation>
 								</ctl:body>
 								<parsers:XMLValidatingParser>
