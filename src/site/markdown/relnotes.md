@@ -1,5 +1,8 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+1.12 (2015-08-10)
+- Add  <parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema> to every test of GetObservation.
+- Add namespace "xmlns:fes="http://www.opengis.net/fes/2.0" to <ctl:test name="sos:GORequestEmptyObservation_core"> (Line 6214)
 
 1.11 (2015-07-30)
 -----------------

@@ -48,7 +48,7 @@
 									<td align="center">
 										<input name="service-url" size="128" 
 										type="text" 
-										value="http://sensorweb.demo.52north.org/52n-sos-webapp/sos/soap"/>
+										value="http://sensorweb.demo.52north.org/52n-sos-webapp/service/kvp"/>
 									</td>
 								</tr>				
 							</table>
@@ -3874,6 +3874,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -3900,6 +3901,7 @@
 								<parsers:SOAPParser return="content">
 									<parsers:XMLValidatingParser>
 										<parsers:schemas>
+											<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 											<parsers:schema>
 												<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 												<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -3927,6 +3929,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -6053,6 +6056,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -6080,6 +6084,7 @@
 								<parsers:SOAPParser return="content">
 									<parsers:XMLValidatingParser>
 										<parsers:schemas>
+											 <parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 											<parsers:schema>
 												<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 												<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -6108,6 +6113,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -6190,6 +6196,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -6204,7 +6211,7 @@
 									<xsl:value-of select="$serviceURL"/>
 								</ctl:url>
 								<ctl:body>
-									<sos:GetObservation service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									<sos:GetObservation service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fes="http://www.opengis.net/fes/2.0"
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd"
 										xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" >
@@ -6237,6 +6244,7 @@
 								<parsers:SOAPParser return="content">
 									<parsers:XMLValidatingParser>
 										<parsers:schemas>
+											<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 											<parsers:schema>
 												<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 												<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -6253,7 +6261,7 @@
 								</ctl:url>
 								<ctl:method>post</ctl:method>
 								<ctl:body>
-									<sos:GetObservation service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									<sos:GetObservation service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fes="http://www.opengis.net/fes/2.0"
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" >
 										<sos:procedure><xsl:value-of select="$procedure" /></sos:procedure>
@@ -6285,6 +6293,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -9439,6 +9448,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
@@ -9463,6 +9473,7 @@
 								<parsers:SOAPParser return="content">
 									<parsers:XMLValidatingParser>
 										<parsers:schemas>
+											<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 											<parsers:schema>
 												<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
 												<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
@@ -9488,6 +9499,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
@@ -9559,6 +9571,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
@@ -9583,6 +9596,7 @@
 								<parsers:SOAPParser return="content">
 									<parsers:XMLValidatingParser>
 										<parsers:schemas>
+											<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 											<parsers:schema>
 												<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
 												<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
@@ -9608,6 +9622,7 @@
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+										<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 										<parsers:schema>
 											<xsl:attribute name="type"><xsl:value-of select="$GetObservationByIdResponseSchemaType" /></xsl:attribute>
 											<xsl:value-of select="$GetObservationByIdResponseSchemaLocation" />
@@ -16124,6 +16139,7 @@
 										<parsers:SOAPParser return="content">
 											<parsers:XMLValidatingParser>
 												<parsers:schemas>
+													<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 													<parsers:schema>
 														<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 														<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -16148,6 +16164,7 @@
 										<parsers:XMLValidatingParser>
 											<parsers:schemas>
 												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+												<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 												<parsers:schema>
 													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 													<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -16174,6 +16191,7 @@
 										<parsers:XMLValidatingParser>
 											<parsers:schemas>
 												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+												<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 												<parsers:schema>
 													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 													<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -18905,6 +18923,7 @@
 										<parsers:XMLValidatingParser>
 											<parsers:schemas>
 												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+												<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 												<parsers:schema>
 													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 													<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -18931,6 +18950,7 @@
 										<parsers:SOAPParser return="content">
 											<parsers:XMLValidatingParser>
 												<parsers:schemas>
+													<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 													<parsers:schema>
 														<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 														<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -18958,6 +18978,7 @@
 										<parsers:XMLValidatingParser>
 											<parsers:schemas>
 												<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+												<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 												<parsers:schema>
 													<xsl:attribute name="type"><xsl:value-of select="$observationResponseSchemaType" /></xsl:attribute>
 													<xsl:value-of select="$observationResponseSchemaLocation" />
@@ -25077,7 +25098,7 @@
 								</ctl:url>
 								<ctl:method>post</ctl:method>
 								<ctl:body>
-									<sos:GetResult service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									<sos:GetResult service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fes="http://www.opengis.net/fes/2.0"
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2"
 										xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" >
@@ -25369,6 +25390,7 @@
         <ctl:code>
 			<parsers:XMLValidatingParser>
 				<parsers:schemas>
+					<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 					<parsers:schema type="resource">
 						<xsl:value-of select="sosFunctions:getSchemaLocation(string('sosGetObservation.xsd'))" />
 					</parsers:schema>
@@ -25387,6 +25409,7 @@
 			<parsers:SOAPParser return="content">
 				<parsers:XMLValidatingParser>
 					<parsers:schemas>
+						<parsers:schema type="url">http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</parsers:schema>
 						<parsers:schema type="resource">
 							<xsl:value-of select="sosFunctions:getSchemaLocation(string('sosGetObservation.xsd'))" />
 						</parsers:schema>
