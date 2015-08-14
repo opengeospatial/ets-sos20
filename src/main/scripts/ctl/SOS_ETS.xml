@@ -6188,10 +6188,10 @@
 								<ctl:param name="offering"><xsl:value-of select="$offering" /></ctl:param>
 								<ctl:param name="observedProperty"><xsl:value-of select="$observableProperty" /></ctl:param>
 								<xsl:if test="($TemporalOperatorTEquals>0)">
-									<ctl:param name="temporalFilter">om:phenomenonTime,2020-01-01T01:00:00Z</ctl:param>
+									<ctl:param name="temporalFilter">phenomenonTime,2020-01-01T01:00:00Z</ctl:param>
 								</xsl:if>
 								<xsl:if test="not($TemporalOperatorTEquals>0)">
-									<ctl:param name="temporalFilter">om:phenomenonTime,2020-01-01T01:00:00Z/2020-01-01T01:00:01Z</ctl:param>
+									<ctl:param name="temporalFilter">phenomenonTime,2020-01-01T01:00:00Z/2020-01-01T01:00:01Z</ctl:param>
 								</xsl:if>
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
@@ -25044,7 +25044,7 @@
 								<ctl:param name="request">GetResult</ctl:param>	
 								<ctl:param name="offering"><xsl:value-of select="$offering" /></ctl:param>
 								<ctl:param name="observedProperty"><xsl:value-of select="$observedProperty" /></ctl:param>
-								<ctl:param name="temporalFilter"><xsl:value-of select="'om:phenomenonTime,40000-01-10T10:00:00Z/40000-01-10T11:00:00Z'" /></ctl:param>
+								<ctl:param name="temporalFilter"><xsl:value-of select="'phenomenonTime,40000-01-10T10:00:00Z/40000-01-10T11:00:00Z'" /></ctl:param>
 								<parsers:XMLValidatingParser>
 									<parsers:schemas>
 										<parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
@@ -25070,7 +25070,7 @@
 										<sos:observedProperty><xsl:value-of select="$observedProperty" /></sos:observedProperty>
 										<sos:temporalFilter>
 											<fes:During>
-												<fes:ValueReference>om:phenomenonTime</fes:ValueReference>
+												<fes:ValueReference>phenomenonTime</fes:ValueReference>
 												<gml:TimePeriod gml:id="TimePeriod">
 													<gml:beginPosition>40000-01-10T10:00:00Z</gml:beginPosition>
 													<gml:endPosition>40000-01-10T11:00:00Z</gml:endPosition>
@@ -25098,7 +25098,7 @@
 								</ctl:url>
 								<ctl:method>post</ctl:method>
 								<ctl:body>
-									<sos:GetResult service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fes="http://www.opengis.net/fes/2.0"
+									<sos:GetResult service="SOS" version="2.0.0" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2"
 										xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" >
@@ -25106,7 +25106,7 @@
 										<sos:observedProperty><xsl:value-of select="$observedProperty" /></sos:observedProperty>
 										<sos:temporalFilter>
 											<fes:During>
-												<fes:ValueReference>om:phenomenonTime</fes:ValueReference>
+												<fes:ValueReference>phenomenonTime</fes:ValueReference>
 												<gml:TimePeriod gml:id="TimePeriod">
 													<gml:beginPosition>40000-01-10T10:00:00Z</gml:beginPosition>
 													<gml:endPosition>40000-01-10T11:00:00Z</gml:endPosition>
