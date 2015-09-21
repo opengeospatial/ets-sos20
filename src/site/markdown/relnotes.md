@@ -1,5 +1,9 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+1.13 (2015-09-21)
+-----------------
+- Fixed bug : 09.SOS resultRetrieval: GetResult - 09.07.RequestNulloffering - invalid test request for POST
+
 1.12 (2015-08-10)
 -----------------
 - Fixed bug : Reported by David Archer, GetObservation-Test should add samplingSpatial parsers. 
