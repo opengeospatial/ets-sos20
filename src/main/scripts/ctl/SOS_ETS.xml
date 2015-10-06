@@ -23062,7 +23062,7 @@
 								<ctl:param name="version">2.0.0</ctl:param>	
 								<ctl:param name="request">GetResultTemplate</ctl:param>	
 								<ctl:param name="offering"></ctl:param>
-								<ctl:param name="observedProperty"><xsl:value-of select="$observedProperty" /></ctl:param>
+								<ctl:param name="observedProperty"></ctl:param>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />
 							</ctl:request>
 						</xsl:when>
@@ -23094,8 +23094,8 @@
 										xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd 
 										http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd"
 										xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" >
-										<sos:offering><xsl:value-of select="$offering" /></sos:offering>
-										<sos:observedProperty></sos:observedProperty>
+										<sos:offering></sos:offering>
+										<sos:observedProperty><xsl:value-of select="$observedProperty" /></sos:observedProperty>
 									</sos:GetResultTemplate>
 								</ctl:body>
 								<ctl:call-function name="sosFunctions:validateExceptionReport" />

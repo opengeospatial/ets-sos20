@@ -1,5 +1,9 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+1.14 (2015-10-06)
+-----------------
+- Fixed bug : 08.SOS resultRetrieval: GetResultTemplate - 08.07.RequestNulloffering - invalid test request for POST
+
 1.13 (2015-09-21)
 -----------------
 - Fixed bug : 09.SOS resultRetrieval: GetResult - 09.07.RequestNulloffering - invalid test request for POST
