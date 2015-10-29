@@ -1,8 +1,6 @@
 # Sensor Observation Service (SOS) 2.0 Conformance Test Suite
 ## Scope
-This test suite verifies conformance with Sensor Observation Service (SOS)
-
-2.0. It is based on the following OGC specifications:
+This test suite verifies conformance with Sensor Observation Service (SOS) 2.0. It is based on the following OGC specifications:
 
   * _OpenGIS Sensor Observation Service Implementation Specification_, Version 2.0 [OGC 12-006](https://portal.opengeospatial.org/files/?artifact_id=47599)
   * _OGC Web Services Common Specification_, Version 1.1.0 [OGC 06-121r3](http://portal.opengeospatial.org/files/?artifact_id=20040)
@@ -59,17 +57,17 @@ The following operations are not tested:
 
 Services being tested must use the following namespaces:
 
-fes http://www.opengis.net/fes/2.0
-gml http://www.opengis.net/gml/3.2
-om http://www.opengis.net/om/2.0
-ows http://www.opengis.net/ows/1.1
-soap11 http://schemas.xmlsoap.org/soap/
-soap12 http://www.w3.org/2003/05/soap-envelope
-sos http://www.opengis.net/sos/2.0
-swe http://www.opengis.net/swe/2.0
-swes http://www.opengis.net/swes/2.0
-wsa http://www.w3.org/2005/08/addressing
-xs http://www.w3.org/2001/XMLSchema
+- fes http://www.opengis.net/fes/2.0
+- gml http://www.opengis.net/gml/3.2
+- om http://www.opengis.net/om/2.0
+- ows http://www.opengis.net/ows/1.1
+- soap11 http://schemas.xmlsoap.org/soap/
+- soap12 http://www.w3.org/2003/05/soap-envelope
+- sos http://www.opengis.net/sos/2.0
+- swe http://www.opengis.net/swe/2.0
+- swes http://www.opengis.net/swes/2.0
+- wsa http://www.w3.org/2005/08/addressing
+- xs http://www.w3.org/2001/XMLSchema
 
 ## Schemas
 All schemas used for validation in these tests can be found at:
