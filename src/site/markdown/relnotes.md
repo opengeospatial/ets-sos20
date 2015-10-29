@@ -1,17 +1,27 @@
 SOS 2.0 Test Suite Release Notes
 ================================
-1.14 (2015-10-06)
------------------
-- Fixed bug : 08.SOS resultRetrieval: GetResultTemplate - 08.07.RequestNulloffering - invalid test request for POST
 
-1.13 (2015-09-21)
------------------
-- Fixed bug : 09.SOS resultRetrieval: GetResult - 09.07.RequestNulloffering - invalid test request for POST
+1.12 (2015-10-29)
+--------------------
+  - [#22](https://github.com/opengeospatial/ets-sos20/issues/22) - 08.SOS resultRetrieval: GetResultTemplate - 08.07.RequestNulloffering - invalid test request for POST
+  - [#21](https://github.com/opengeospatial/ets-sos20/issues/21) - 09.SOS resultRetrieval: GetResult - 09.07.RequestNulloffering - invalid test request for POST
+  - [#20](https://github.com/opengeospatial/ets-sos20/issues/20) - 07.SOS enhancedOperations: GetObservationById - 07.09.RequestValidRequest Test - invalid test request for POST
+  - [#17](https://github.com/opengeospatial/ets-sos20/issues/17) - a namespace added to phenomenonTime in the sos:GORequestEmptyObservation_core shouldn't be there.
+  - [#16](https://github.com/opengeospatial/ets-sos20/issues/16) - spatial sampling feature from the O&M spec was missing in the SOS_ETS.xml
+  - [#14](https://github.com/opengeospatial/ets-sos20/issues/14) - SOS 2.0 Test Suite sos:IRTRequestInvalidproposedTemplate test fails for SOAP
+  - [#13](https://github.com/opengeospatial/ets-sos20/issues/13) - SOS 2.0 Test Suite sos:IRRequestValidRequest test fails for SOAP
+  - [#12](https://github.com/opengeospatial/ets-sos20/issues/12) - SOS 2.0 Test Suite sos:IRRequestInvalidresultValues test fails for SOAP
+  - [#11](https://github.com/opengeospatial/ets-sos20/issues/11) - SOS 2.0 Test Suite sos:IRTRequestValidRequest test fails for SOAP
+  - [#10](https://github.com/opengeospatial/ets-sos20/issues/10) - SOS 2.0 Test Suite sos:IRTRequestInvalidobservationType test fails for SOAP
+  - [#9](https://github.com/opengeospatial/ets-sos20/issues/9) - SOS 2.0 Test Suite sos:DeSRequestValidRequest  test fails for SOAP
+  - [#8](https://github.com/opengeospatial/ets-sos20/issues/8) - SOS 2.0 Test Suite sos:ISRequestValidRequest  test fails for SOAP
+  - [#7](https://github.com/opengeospatial/ets-sos20/issues/7) - SOS 2.0 Test Suite sos:GOBIRequestValidRequest test fails for SOAP
+  - [#6](https://github.com/opengeospatial/ets-sos20/issues/6) - SOS 2.0 Test Suite InsertResultTemplate-Test fail for SOAP
+  - [#5](https://github.com/opengeospatial/ets-sos20/issues/5) - SOS 2.0 Test Suite InsertObservation-Test fail for SOAP
+  - [#4](https://github.com/opengeospatial/ets-sos20/issues/4) - SOS 2.0 Test Suite InsertSensor-Test fail for SOAP
+  - [#3](https://github.com/opengeospatial/ets-sos20/issues/3) - SOS 2.0 Test Suite InsertSensor-Test fail for SOAP
+  - [#1](https://github.com/opengeospatial/ets-sos20/issues/1) - 01.04.OWS.GetCapabilities-Exceptions.5 - xpath
 
-1.12 (2015-08-10)
------------------
-- Fixed bug : Reported by David Archer, GetObservation-Test should add samplingSpatial parsers. 
-- Fixed bug : om:phenomenonTime should omit the namespace om: .
 
 1.11 (2015-07-30)
 -----------------
