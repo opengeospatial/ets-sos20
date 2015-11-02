@@ -58,8 +58,7 @@ r6 (2013-09-13)
 r5 (2013-09-03)
 ------------------------
 
-- Fixed CITE-694: GetFeatureOfInterest-Test fails due to missing schema 
-  (http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd)
+- Fixed CITE-694: GetFeatureOfInterest-Test fails due to missing schema spatialSamplingFeature.xsd
 - InsertSensor, InsertObservation, InsertResultTemplate, InsertResult not yet ready, so hide those test.
 - Also hide DeleteSensor operation,because no InsertSensor operation.
 
