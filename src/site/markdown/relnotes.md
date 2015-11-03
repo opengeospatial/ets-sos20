@@ -3,6 +3,7 @@ SOS 2.0 Test Suite Release Notes
 
 1.12 (2015-10-29)
 --------------------
+  - [#23](https://github.com/opengeospatial/ets-sos20/issues/23) - Link to provide more information about the test is not working
   - [#22](https://github.com/opengeospatial/ets-sos20/issues/22) - 08.SOS resultRetrieval: GetResultTemplate - 08.07.RequestNulloffering - invalid test request for POST
   - [#21](https://github.com/opengeospatial/ets-sos20/issues/21) - 09.SOS resultRetrieval: GetResult - 09.07.RequestNulloffering - invalid test request for POST
   - [#20](https://github.com/opengeospatial/ets-sos20/issues/20) - 07.SOS enhancedOperations: GetObservationById - 07.09.RequestValidRequest Test - invalid test request for POST
