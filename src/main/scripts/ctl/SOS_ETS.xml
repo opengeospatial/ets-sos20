@@ -172,7 +172,7 @@
 								</tr>
 								<tr>
 									<td><input type="checkbox" name="0519">05.19.RequestEmptyObservation</input></td>
-									<td><input type="checkbox" name="0520">05.20.RequestResponseExceedsSizeLimit</input></td>
+									<td>--<!--<input type="checkbox" name="0520">05.20.RequestResponseExceedsSizeLimit</input>--></td>
 									<td>--</td>
 								</tr>
 								<tr><th colspan="3" align="left"><input type="checkbox" name="06">06.SOS enhancedOperations: GetFeatureOfInterest</input></th></tr>
@@ -821,10 +821,12 @@
 					<xsl:variable name="test0518" select="($which-tests eq 'all' or $t05 eq 'on' or $t0518 eq 'on')"/>
 					<xsl:variable name="t0519" select="$form-values/values/value[@key='0519']"/>
 					<xsl:variable name="test0519" select="($which-tests eq 'all' or $t05 eq 'on' or $t0519 eq 'on')"/>
+					<!--
 					<xsl:variable name="t0520" select="$form-values/values/value[@key='0520']"/>
 					<xsl:variable name="test0520" select="($which-tests eq 'all' or $t05 eq 'on' or $t0520 eq 'on')"/>
-					<xsl:variable name="test05" select="$test0501 or $test0502 or $test0503 or $test0504 or $test0505 or $test0506 or $test0507 or $test0508 or $test0509 or $test0510 or $test0511 or $test0512 or $test0513 or $test0514 or $test0515 or $test0516 or $test0517 or $test0518 or $test0519 or $test0520"/><!-- all test in 05-->
-
+					<xsl:variable name="test05" select="$test0501 or $test0502 or $test0503 or $test0504 or $test0505 or $test0506 or $test0507 or $test0508 or $test0509 or $test0510 or $test0511 or $test0512 or $test0513 or $test0514 or $test0515 or $test0516 or $test0517 or $test0518 or $test0519 or $test0520"/>
+					-->
+					<xsl:variable name="test05" select="$test0501 or $test0502 or $test0503 or $test0504 or $test0505 or $test0506 or $test0507 or $test0508 or $test0509 or $test0510 or $test0511 or $test0512 or $test0513 or $test0514 or $test0515 or $test0516 or $test0517 or $test0518 or $test0519"/><!-- all test in 05-->
 					<xsl:variable name="t06" select="$form-values/values/value[@key='06']"/>
 					<xsl:variable name="t0601" select="$form-values/values/value[@key='0601']"/>
 					<xsl:variable name="test0601" select="($which-tests eq 'all' or $t06 eq 'on' or $t0601 eq 'on')"/>
@@ -1137,7 +1139,7 @@
 					<ctl:message select="concat('run 05.17.RequestNoResponseFormat: ',$test0517)"/>
 					<ctl:message select="concat('run 05.18.RequestOtherResponseFormat: ',$test0518)"/>
 					<ctl:message select="concat('run 05.19.RequestEmptyObservation: ',$test0519)"/>
-					<ctl:message select="concat('run 05.20.RequestResponseExceedsSizeLimit: ',$test0520)"/>
+					<!--<ctl:message select="concat('run 05.20.RequestResponseExceedsSizeLimit: ',$test0520)"/>-->
 					<ctl:message select="'*********************************************************'"/>				
 					<ctl:message select="concat('run 06.SOS enhancedOperations: GetFeatureOfInterest: ',$test06)"/>
 					<ctl:message select="concat('run 06.01.RequestNoService: ',$test0601)"/>
@@ -1415,7 +1417,7 @@
 							<ctl:with-param name="test0517" select="$test0517"/>
 							<ctl:with-param name="test0518" select="$test0518"/>
 							<ctl:with-param name="test0519" select="$test0519"/>
-							<ctl:with-param name="test0520" select="$test0520"/>
+							<!--<ctl:with-param name="test0520" select="$test0520"/>-->
 						</ctl:call-test>
 					</xsl:if>
 					
@@ -3836,7 +3838,7 @@
 			<ctl:param name="test0517" />
 			<ctl:param name="test0518" />
 			<ctl:param name="test0519" />
-			<ctl:param name="test0520" />
+			<!--<ctl:param name="test0520" />-->
 			<ctl:assertion>Execute GetObservation Test.</ctl:assertion>
 			<ctl:comment>Pass if all the subtest not fail; fail otherwise.</ctl:comment>
 			<ctl:code>
@@ -4222,6 +4224,7 @@
 								<ctl:with-param name="observableProperty" select="$observableProperty" />
 							</ctl:call-test>
 						</xsl:if>
+						<!--
 						<xsl:if test="$test0520 eq 'true'">
 							<ctl:message select="'******************** 05.20.RequestResponseExceedsSizeLimit ********************'"/>
 							<ctl:call-test name="sos:GORequestResponseExceedsSizeLimit_core">
@@ -4237,6 +4240,7 @@
 								<ctl:with-param name="observableProperty" select="$observableProperty" />
 							</ctl:call-test>
 						</xsl:if>
+						-->
 					</xsl:otherwise>
 				</xsl:choose>
 			</ctl:code>
@@ -6343,6 +6347,9 @@
 			<ctl:comment>Send GetObservation request for each format in content of Capabilities,check each response match specified format; fail otherwise.</ctl:comment>
 			<ctl:link title=""></ctl:link>
 			<ctl:code>
+				
+			
+			
 				<xsl:variable name="getObservationResponse">
 					<xsl:choose>
 						<xsl:when test="$isGET eq 'true'">
