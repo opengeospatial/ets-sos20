@@ -39,7 +39,7 @@ The following operations are tested:
 
   * GetCapabilities, _GET / POST / SOAP_
   * DescribeSenor, _GET / POST / SOAP_
-  * GetObservation, _GET / POST / SOAP_
+  * GetObservation, _GET / POST / (SOAP was ignored due to an [issue](https://github.com/opengeospatial/teamengine/issues/210)
   * GetObservationByID, _GET / POST / SOAP_
   * GetFeatureOfInterest, _GET / POST / SOAP_
   * GetResultTemplate, _GET / POST / SOAP_
