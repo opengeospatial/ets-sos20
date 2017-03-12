@@ -2,8 +2,7 @@ SOS 2.0 Test Suite Release Notes
 ================================
 1.13 (2017-03-01)
 --------------------
-  - [#2](https://github.com/opengeospatial/ets-sos20/issues/2) - SOS 2.0 Test Suite GetObservation-Test fail for SOAP
-    There is some issue in CTL - SOAPParser, so ignore the soap request of GetObservation test.
+  - [#2](https://github.com/opengeospatial/ets-sos20/issues/2) - SOS 2.0 Test Suite GetObservation-Test fail for SOAP. There is an issue in CTL - SOAPParser, so the soap request of GetObservation test is ignored.
 
 
 
