@@ -19,7 +19,7 @@
 	xmlns:owsFunctions="https://www.cite.opengeospatial.org/ows-1.0/functions">
 
 	<!--The main test that should be called by your ETS in order to execute the OWS Common tests.-->
-	<ctl:test name="owsTests:ows-main">
+	<ctl:test name="owsTests:ows-main" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL">The URL of the service being tested</ctl:param>
 		<ctl:param name="isGET">Test From HTTP-GET or HTTP-POST</ctl:param>
 		<ctl:param name="isSOAP">Test From HTTP-POST with SOAP-Binding</ctl:param>
@@ -304,7 +304,7 @@
 	</ctl:test>
 
 	<!-- test0101 -->
-	<ctl:test name="owsTests:ows-OWS.ContentType.1">
+	<ctl:test name="owsTests:ows-OWS.ContentType.1" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -382,7 +382,7 @@
 	</ctl:test>
 
 	<!-- test0102 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Exceptions.2">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Exceptions.2" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -491,7 +491,7 @@
 	</ctl:test>
 
 	<!-- test0103 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-UpdateSequence.1">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-UpdateSequence.1" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -604,7 +604,7 @@
 	</ctl:test>
 
 	<!-- test0104 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Exceptions.5">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Exceptions.5" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -680,7 +680,7 @@
 	</ctl:test>
 
 	<!-- test0105 -->
-	<ctl:test name="owsTests:ows-OWS.CaseInsensitiveKvpNames.1">
+	<ctl:test name="owsTests:ows-OWS.CaseInsensitiveKvpNames.1" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -790,7 +790,7 @@
 	</ctl:test>
 
 	<!-- test0106 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptVersions.1">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptVersions.1" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -898,7 +898,7 @@
 	</ctl:test>
 
 	<!-- test0107 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptVersions.2">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptVersions.2" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -1018,7 +1018,7 @@
 	</ctl:test>
 
 	<!-- test0108 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptVersions.3">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptVersions.3" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -1134,7 +1134,7 @@
 	</ctl:test>
 
 	<!-- test0109 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Sections.1">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Sections.1" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -1252,7 +1252,7 @@
 	</ctl:test>
 	
 	<!-- test0110 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Sections.2">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-Sections.2" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
@@ -1378,7 +1378,7 @@
 	</ctl:test>
 	
 	<!-- test0111 -->
-	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptFormats.1">
+	<ctl:test name="owsTests:ows-OWS.GetCapabilities-AcceptFormats.1" isConformanceClass="true" isBasic="true">
 		<ctl:param name="serviceURL"/>
 		<ctl:param name="isGET" />
 		<ctl:param name="isSOAP" />
