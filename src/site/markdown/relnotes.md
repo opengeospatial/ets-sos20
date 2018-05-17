@@ -1,10 +1,13 @@
 SOS 2.0 Test Suite Release Notes
 ================================
+
+1.14 (2018-05-17)
+--------------------
+  - [#25](https://github.com/opengeospatial/ets-sos20/issues/25) - Add conformance class configuration into the ets-sos20 test
+
 1.13 (2017-03-01)
 --------------------
   - [#2](https://github.com/opengeospatial/ets-sos20/issues/2) - SOS 2.0 Test Suite GetObservation-Test fail for SOAP. There is an issue in CTL - SOAPParser, so the soap request of GetObservation test is ignored.
-
-
 
 1.12 (2015-10-29)
 --------------------
@@ -27,7 +30,6 @@ SOS 2.0 Test Suite Release Notes
   - [#4](https://github.com/opengeospatial/ets-sos20/issues/4) - SOS 2.0 Test Suite InsertSensor-Test fail for SOAP
   - [#3](https://github.com/opengeospatial/ets-sos20/issues/3) - SOS 2.0 Test Suite InsertSensor-Test fail for SOAP
   - [#1](https://github.com/opengeospatial/ets-sos20/issues/1) - 01.04.OWS.GetCapabilities-Exceptions.5 - xpath
-
 
 1.11 (2015-07-30)
 -----------------
