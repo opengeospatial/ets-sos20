@@ -1,0 +1,1502 @@
+<ctl:package xmlns:ctl="http://www.occamlab.com/ctl" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:om="http://www.opengis.net/om/2.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:owsTests="http://www.opengis.net/ows/1.1" xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:soap11="http://schemas.xmlsoap.org/soap/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:sosFunctions="http://www.opengis.net/sos/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<!-- 04.SOS Core: DescribeSensor -->
+   <!-- 04 go each single test-->
+   <ctl:test name="sos:DescribeSensor-Test" isConformanceClass="true" isBasic="true">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:param name="test0401" />
+      <ctl:param name="test0402" />
+      <ctl:param name="test0403" />
+      <ctl:param name="test0404" />
+      <ctl:param name="test0405" />
+      <ctl:param name="test0406" />
+      <ctl:param name="test0407" />
+      <ctl:param name="test0408" />
+      <ctl:param name="test0409" />
+      <ctl:param name="test0410" />
+      <ctl:param name="test0411" />
+      <ctl:assertion>Execute DescribeSensor Test.</ctl:assertion>
+      <ctl:comment>Pass if all the subtest not fail; fail otherwise.</ctl:comment>
+      <ctl:code>
+         <xsl:if test="$test0401 eq 'true'">
+            <ctl:message select="'******************** 04.01.RequestNoService ********************'" />
+            <ctl:call-test name="sos:DSRequestNoService_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0402 eq 'true'">
+            <ctl:message select="'******************** 04.02.RequestNullService ********************'" />
+            <ctl:call-test name="sos:DSRequestNullService_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0403 eq 'true'">
+            <ctl:message select="'******************** 04.03.RequestInvalidService ********************'" />
+            <ctl:call-test name="sos:DSRequestInvalidService_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0404 eq 'true'">
+            <ctl:message select="'******************** 04.04.RequestNoVersion ********************'" />
+            <ctl:call-test name="sos:DSRequestNoVersion_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0405 eq 'true'">
+            <ctl:message select="'******************** 04.05.RequestNullVersion ********************'" />
+            <ctl:call-test name="sos:DSRequestNullVersion_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0406 eq 'true'">
+            <ctl:message select="'******************** 04.06.RequestInvalidVersion ********************'" />
+            <ctl:call-test name="sos:DSRequestInvalidVersion_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0407 eq 'true'">
+            <ctl:message select="'******************** 04.07.RequestNullProcedure ********************'" />
+            <ctl:call-test name="sos:DSRequestNullProcedure_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0408 eq 'true'">
+            <ctl:message select="'******************** 04.08.RequestInvalidProcedure ********************'" />
+            <ctl:call-test name="sos:DSRequestInvalidProcedure_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0409 eq 'true'">
+            <ctl:message select="'******************** 04.09.RequestNullProcedureDescriptionFormat ********************'" />
+            <ctl:call-test name="sos:DSRequestNullProcedureDescriptionFormat_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0410 eq 'true'">
+            <ctl:message select="'******************** 04.10.RequestInvalidProcedureDescriptionFormat ********************'" />
+            <ctl:call-test name="sos:DSRequestInvalidProcedureDescriptionFormat_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+         <xsl:if test="$test0411 eq 'true'">
+            <ctl:message select="'******************** 04.11.RequestValidRequest ********************'" />
+            <ctl:call-test name="sos:DSRequestValidRequest_core">
+               <ctl:with-param name="serviceURL" select="$serviceURL" />
+               <ctl:with-param name="isGET" select="$isGET" />
+               <ctl:with-param name="isSOAP" select="$isSOAP" />
+               <ctl:with-param name="getCapabilitiesResponse" select="$getCapabilitiesResponse" />
+            </ctl:call-test>
+         </xsl:if>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0401 Send DescribeSensor request without parameter service by KVP,the response must be a valid exception with code "MissingParameterValue " and locator "service".. -->
+   <!-- 0401 Send DescribeSensor request without parameter service by POST or SOAP ,the response must be a valid exception with code "InvalidRequest" and locator "Expected attribute: service in element DescribeSensor@http://www.opengis.net/swes/2.0".. -->
+   <ctl:test name="sos:DSRequestNoService_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request (KVP) without parameter "service",and the response must be a valid exception with code "MissingParameterValue" and locator "service". 
+			Send a request (POST or SOAP) without parameter "service",and the response must be a valid exception with code "InvalidRequest" and locator "Expected attribute: service in element DescribeSensor@http://www.opengis.net/swes/2.0".</ctl:assertion>
+      <ctl:comment>Pass if the server (KVP) returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "service"; fail otherwise.
+			Pass if the server (POST or SOAP) returns a valid exception message with an exceptionCode "InvalidRequest" and locator is "Expected attribute: service in element DescribeSensor@http://www.opengis.net/swes/2.0"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- get a valid procedure-->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <ctl:message>
+            The procedure is
+            <xsl:value-of select="$procedure" />
+            .
+         </ctl:message>
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <ctl:message>
+            The procedureDescriptionFormat is
+            <xsl:value-of select="$procedureDescriptionFormat" />
+            .
+         </ctl:message>
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="version">2.0.0</ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with no service parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <xsl:choose>
+                        <xsl:when test="$isGET eq 'true'">
+                           <ctl:call-function name="sosFunctions:checkExceptionReport">
+                              <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                              <ctl:with-param name="exceptionCodeToCheck" select="string('MissingParameterValue')" />
+                              <ctl:with-param name="locatorToCheck" select="string('service')" />
+                              <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                           </ctl:call-function>
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <ctl:call-function name="sosFunctions:checkExceptionReport">
+                              <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                              <ctl:with-param name="exceptionCodeToCheck" select="string('InvalidRequest')" />
+                              <ctl:with-param name="locatorToCheck" select="string('Expected attribute: service in element DescribeSensor@http://www.opengis.net/swes/2.0')" />
+                              <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                           </ctl:call-function>
+                        </xsl:otherwise>
+                     </xsl:choose>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <xsl:choose>
+                        <xsl:when test="$isGET eq 'true'">
+                           <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with no service parameter specified.</ctl:message>
+                           <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "MissingParameterValue" and a locator of "service".</ctl:message>
+                           <ctl:fail />
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with no service parameter specified.</ctl:message>
+                           <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "InvalidRequest" and a locator of "Expected attribute: service in element DescribeSensor@http://www.opengis.net/swes/2.0".</ctl:message>
+                           <ctl:fail />
+                        </xsl:otherwise>
+                     </xsl:choose>
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0402 Send DescribeSensor request with null parameter service ,the response must be a valid exception with code "MissingParameterValue" and locator "service".. -->
+   <ctl:test name="sos:DSRequestNullService_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with null parameter "service",and the response must be a valid exception with code "MissingParameterValue" and locator "service".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "service"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- 取得一個 procedure-->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('')" />
+                     </ctl:param>
+                     <ctl:param name="version">2.0.0</ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid service parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('MissingParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('service')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with null service parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "MissingParameterValue" and a locator of "service".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0403 Send DescribeSensor request with invalid parameter service ,the response must be a valid exception with code "InvalidParameterValue" and locator "service".. -->
+   <ctl:test name="sos:DSRequestInvalidService_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with invalid parameter "procedure",and the response must be a valid exception with code "InvalidParameterValue" and locator "service".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "InvalidParameterValue" and locator is "service"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- 取得一個 procedure-->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('999')" />
+                     </ctl:param>
+                     <ctl:param name="version">2.0.0</ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="999" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="999" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid service parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('InvalidParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('service')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with invalid service parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "InvalidParameterValue" and a locator of "service".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0404 Send DescribeSensor request without parameter version By KVP,the response must be a valid exception with code "MissingParameterValue" and locator "version".. -->
+   <!-- 0404 Send DescribeSensor request without parameter version By SOAP or POST,the response must be a valid exception with code "InvalidRequest" and locator "Expected attribute: version in element DescribeSensor@http://www.opengis.net/swes/2.0".. -->
+   <ctl:test name="sos:DSRequestNoVersion_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request (KVP) without parameter "version",and the response must be a valid exception with code "MissingParameterValue" and locator "version". 
+			Send a request (POST or SOAP) without parameter "version",and the response must be a valid exception with code "InvalidRequest" and locator "Expected attribute: version in element DescribeSensor@http://www.opengis.net/swes/2.0".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "version"; fail otherwise.
+			Pass if the server returns a valid exception message with an exceptionCode "InvalidRequest" and locator is "Expected attribute: version in element DescribeSensor@http://www.opengis.net/swes/2.0"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- 取得一個 procedure-->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('SOS')" />
+                     </ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with no version parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <xsl:choose>
+                        <xsl:when test="$isGET eq 'true'">
+                           <ctl:call-function name="sosFunctions:checkExceptionReport">
+                              <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                              <ctl:with-param name="exceptionCodeToCheck" select="string('MissingParameterValue')" />
+                              <ctl:with-param name="locatorToCheck" select="string('version')" />
+                              <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                           </ctl:call-function>
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <ctl:call-function name="sosFunctions:checkExceptionReport">
+                              <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                              <ctl:with-param name="exceptionCodeToCheck" select="string('InvalidRequest')" />
+                              <ctl:with-param name="locatorToCheck" select="string('Expected attribute: version in element DescribeSensor@http://www.opengis.net/swes/2.0')" />
+                              <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                           </ctl:call-function>
+                        </xsl:otherwise>
+                     </xsl:choose>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <xsl:choose>
+                        <xsl:when test="$isGET eq 'true'">
+                           <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with no version parameter specified.</ctl:message>
+                           <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "MissingParameterValue" and a locator of "version".</ctl:message>
+                           <ctl:fail />
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with no version parameter specified.</ctl:message>
+                           <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "InvalidRequest" and a locator of "Expected attribute: version in element DescribeSensor@http://www.opengis.net/swes/2.0".</ctl:message>
+                           <ctl:fail />
+                        </xsl:otherwise>
+                     </xsl:choose>
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0405 Send DescribeSensor request with null parameter version ,the response must be a valid exception with code "MissingParameterValue" and locator "version".. -->
+   <ctl:test name="sos:DSRequestNullVersion_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with null parameter "version",and the response must be a valid exception with code "MissingParameterValue" and locator "version".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "version"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- 取得一個 procedure-->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('SOS')" />
+                     </ctl:param>
+                     <ctl:param name="version">
+                        <xsl:value-of select="string('')" />
+                     </ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid version parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('MissingParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('version')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with null version parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "MissingParameterValue" and a locator of "version".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0406 Send DescribeSensor request with invalid parameter version ,the response must be a valid exception with code "InvalidParameterValue" and locator "version".. -->
+   <ctl:test name="sos:DSRequestInvalidVersion_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with invalid parameter "version",and the response must be a valid exception with code "InvalidParameterValue" and locator "version".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "InvalidParameterValue" and locator is "version"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- 取得一個 procedure-->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('SOS')" />
+                     </ctl:param>
+                     <ctl:param name="version">
+                        <xsl:value-of select="string('999')" />
+                     </ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="999">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="999">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid version parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('InvalidParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('version')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with invalid version parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "InvalidParameterValue" and a locator of "version".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0407 Send DescribeSensor request with null parameter procedure ,the response must be a valid exception with code "MissingParameterValue" and locator "procedure".. -->
+   <ctl:test name="sos:DSRequestNullProcedure_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with null parameter "procedure",and the response must be a valid exception with code "MissingParameterValue" and locator "procedure".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "procedure"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- set a invalid procedure -->
+         <xsl:variable name="procedure" select="string('')" />
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('SOS')" />
+                     </ctl:param>
+                     <ctl:param name="version">
+                        <xsl:value-of select="string('2.0.0')" />
+                     </ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid procedure parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('MissingParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('procedure')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with null procedure parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "MissingParameterValue" and a locator of "procedure".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0408 Send DescribeSensor request with invalid parameter procedure ,the response must be a valid exception with code "InvalidParameterValue" and locator "procedure".. -->
+   <ctl:test name="sos:DSRequestInvalidProcedure_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with invalid parameter "procedure",and the response must be a valid exception with code "InvalidParameterValue" and locator "procedure".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "InvalidParameterValue" and locator is "procedure"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- set a invalid procedure -->
+         <xsl:variable name="procedure" select="current-dateTime()" />
+         <!-- get procedureDescriptionFormat value first-->
+         <xsl:variable name="procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('SOS')" />
+                     </ctl:param>
+                     <ctl:param name="version">
+                        <xsl:value-of select="string('2.0.0')" />
+                     </ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid procedure parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('InvalidParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('procedure')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with invalid procedure parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "InvalidParameterValue" and a locator of "procedure".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0409 Send DescribeSensor request with null parameter ProcedureDescriptionFormat ,the response must be a valid exception with code "MissingParameterValue" and locator "ProcedureDescriptionFormat".. -->
+   <ctl:test name="sos:DSRequestNullProcedureDescriptionFormat_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with null parameter "ProcedureDescriptionFormat",and the response must be a valid exception with code "MissingParameterValue" and locator "ProcedureDescriptionFormat".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "MissingParameterValue" and locator is "ProcedureDescriptionFormat"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!--  get procedure value first -->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <!-- set a invalid procedureDescriptionFormat -->
+         <xsl:variable name="procedureDescriptionFormat" select="string('')" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('SOS')" />
+                     </ctl:param>
+                     <ctl:param name="version">
+                        <xsl:value-of select="string('2.0.0')" />
+                     </ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid procedureDescriptionFormat parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('MissingParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('procedureDescriptionFormat')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with null ProcedureDescriptionFormat parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "MissingParameterValue" and a locator of "procedureDescriptionFormat".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0410 Send DescribeSensor request with invalid parameter ProcedureDescriptionFormat ,the response must be a valid exception with code "InvalidParameterValue" and locator "ProcedureDescriptionFormat".. -->
+   <ctl:test name="sos:DSRequestInvalidProcedureDescriptionFormat_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a request with invalid parameter "ProcedureDescriptionFormat",and the response must be a valid exception with code "InvalidParameterValue" and locator "ProcedureDescriptionFormat".</ctl:assertion>
+      <ctl:comment>Pass if the server returns a valid exception message with an exceptionCode "InvalidParameterValue" and locator is "ProcedureDescriptionFormat"; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!--  get procedure value first -->
+         <xsl:variable name="procedure" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedure[1]" />
+         <!-- set a invalid procedureDescriptionFormat -->
+         <xsl:variable name="procedureDescriptionFormat" select="current-dateTime()" />
+         <!-- send request -->
+         <xsl:variable name="describeSensorResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">DescribeSensor</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="string('SOS')" />
+                     </ctl:param>
+                     <ctl:param name="version">
+                        <xsl:value-of select="string('2.0.0')" />
+                     </ctl:param>
+                     <ctl:param name="procedure">
+                        <xsl:value-of select="$procedure" />
+                     </ctl:param>
+                     <ctl:param name="procedureDescriptionFormat">
+                        <xsl:value-of select="$procedureDescriptionFormat" />
+                     </ctl:param>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReportSOAP" />
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <swes:DescribeSensor service="SOS" version="2.0.0">
+                           <swes:procedure>
+                              <xsl:value-of select="$procedure" />
+                           </swes:procedure>
+                           <swes:procedureDescriptionFormat>
+                              <xsl:value-of select="$procedureDescriptionFormat" />
+                           </swes:procedureDescriptionFormat>
+                        </swes:DescribeSensor>
+                     </ctl:body>
+                     <ctl:call-function name="sosFunctions:validateExceptionReport" />
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($describeSensorResponse/*)">
+               <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$describeSensorResponse/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($describeSensorResponse)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a DescribeSensor request with invalid procedureDescriptionFormat parameter.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$describeSensorResponse" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('InvalidParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('procedureDescriptionFormat')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a DescribeSensor request with invalid procedureDescriptionFormat parameter specified.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "InvalidParameterValue" and a locator of "procedureDescriptionFormat".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0411 Send valid DescribeSensor request, the response must be a valid sensorML. -->
+   <ctl:test name="sos:DSRequestValidRequest_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="getCapabilitiesResponse" />
+      <ctl:assertion>Send a valid request ,and there must be have a valid DescribeSensor response returned.</ctl:assertion>
+      <ctl:comment>Pass if the DescribeSensor responses for all procedures listed in GetCapabilities response are valid; fail otherwise.</ctl:comment>
+      <ctl:link title="" />
+      <ctl:code>
+         <!-- get the main procedureDescriptionFormat -->
+         <xsl:variable name="main_procedureDescriptionFormat" select="$getCapabilitiesResponse//sos:contents//swes:offering[1]//swes:procedureDescriptionFormat[1]" />
+         <!-- check every offering -->
+         <xsl:for-each select="$getCapabilitiesResponse//sos:contents/sos:SOSContents/swes:offering">
+            <xsl:variable name="procedure" select="./sos:SensorOffering/swes:procedure" />
+            <xsl:variable name="inner_procedureDescriptionFormat" select="./sos:SensorOffering/swes:observableProperty" />
+            <xsl:variable name="procedureDescriptionFormat">
+               <xsl:if test="$inner_procedureDescriptionFormat">
+                  <xsl:value-of select="$inner_procedureDescriptionFormat" />
+               </xsl:if>
+               <xsl:if test="not($inner_procedureDescriptionFormat)">
+                  <xsl:value-of select="$main_procedureDescriptionFormat" />
+               </xsl:if>
+            </xsl:variable>
+            <!-- 對每個 procedure 發出request 檢查回應是否正確 (swes:DescribeSensorResponse 開頭,有相同的 procedureDescriptionFormat )-->
+            <xsl:variable name="describeSensorResponse">
+               <xsl:choose>
+                  <xsl:when test="$isGET eq 'true'">
+                     <ctl:request>
+                        <ctl:url>
+                           <xsl:value-of select="$serviceURL" />
+                        </ctl:url>
+                        <ctl:method>get</ctl:method>
+                        <ctl:param name="request">DescribeSensor</ctl:param>
+                        <ctl:param name="service">
+                           <xsl:value-of select="string('SOS')" />
+                        </ctl:param>
+                        <ctl:param name="version">
+                           <xsl:value-of select="string('2.0.0')" />
+                        </ctl:param>
+                        <ctl:param name="procedure">
+                           <xsl:value-of select="$procedure" />
+                        </ctl:param>
+                        <ctl:param name="procedureDescriptionFormat">
+                           <xsl:value-of select="$procedureDescriptionFormat" />
+                        </ctl:param>
+                        <ctl:call-function name="sosFunctions:validateDescribeSensorResponse" />
+                     </ctl:request>
+                  </xsl:when>
+                  <xsl:when test="$isSOAP eq 'true'">
+                     <ctl:soap-request version="1.2" charset="UTF-8">
+                        <ctl:url>
+                           <xsl:value-of select="$serviceURL" />
+                        </ctl:url>
+                        <ctl:body>
+                           <swes:DescribeSensor service="SOS" version="2.0.0">
+                              <swes:procedure>
+                                 <xsl:value-of select="$procedure" />
+                              </swes:procedure>
+                              <swes:procedureDescriptionFormat>
+                                 <xsl:value-of select="$procedureDescriptionFormat" />
+                              </swes:procedureDescriptionFormat>
+                           </swes:DescribeSensor>
+                        </ctl:body>
+                        <ctl:call-function name="sosFunctions:validateDescribeSensorResponseSOAP" />
+                     </ctl:soap-request>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <ctl:request>
+                        <ctl:url>
+                           <xsl:value-of select="$serviceURL" />
+                        </ctl:url>
+                        <ctl:method>post</ctl:method>
+                        <ctl:body>
+                           <swes:DescribeSensor service="SOS" version="2.0.0">
+                              <swes:procedure>
+                                 <xsl:value-of select="$procedure" />
+                              </swes:procedure>
+                              <swes:procedureDescriptionFormat>
+                                 <xsl:value-of select="$procedureDescriptionFormat" />
+                              </swes:procedureDescriptionFormat>
+                           </swes:DescribeSensor>
+                        </ctl:body>
+                        <ctl:call-function name="sosFunctions:validateDescribeSensorResponse" />
+                     </ctl:request>
+                  </xsl:otherwise>
+               </xsl:choose>
+            </xsl:variable>
+            <xsl:choose>
+               <xsl:when test="not($describeSensorResponse/*)">
+                  <ctl:message>FAILURE:  The server did not return a response, or the response was not valid according to the DescribeSensor response schema for "SOS" /&gt;.</ctl:message>
+                  <ctl:fail />
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:variable name="ResponseRoot" select="local-name-from-QName(node-name($describeSensorResponse/*[1]))" />
+                  <xsl:variable name="TargetRoot" select="string('DescribeSensorResponse')" />
+                  <!-- check procedureDescriptionFormat -->
+                  <xsl:variable name="RespnseFormat" select="$describeSensorResponse//swes:procedureDescriptionFormat" />
+                  <xsl:choose>
+                     <xsl:when test="not($ResponseRoot=$TargetRoot)">
+                        <ctl:message>
+                           The root element from the response to a DescribeSensor request "
+                           <xsl:value-of select="$ResponseRoot" />
+                           " does not match the expected root element of "
+                           <xsl:value-of select="$TargetRoot" />
+                           "
+                        </ctl:message>
+                        <ctl:fail />
+                     </xsl:when>
+                     <xsl:when test="not($procedureDescriptionFormat=$RespnseFormat)">
+                        <ctl:message>
+                           The procedureDescriptionFormat from the response to a DescribeSensor request :"
+                           <xsl:value-of select="$RespnseFormat" />
+                           does not match the procedureDescriptionFormat :"
+                           <xsl:value-of select="$procedureDescriptionFormat" />
+                           " in the DescribeSensor request.
+                        </ctl:message>
+                        <ctl:fail />
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <ctl:message>
+                           procedure:"
+                           <xsl:value-of select="$procedure" />
+                           " check ok!
+                        </ctl:message>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:for-each>
+      </ctl:code>
+   </ctl:test>
+</ctl:package>
