@@ -1,0 +1,734 @@
+<ctl:package xmlns:ctl="http://www.occamlab.com/ctl" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:om="http://www.opengis.net/om/2.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:owsTests="http://www.opengis.net/ows/1.1" xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:soap11="http://schemas.xmlsoap.org/soap/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:sosFunctions="http://www.opengis.net/sos/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<!-- 03.SOS Core: Get Capabilities -->
+   <!-- 03 Send a valid GetCapailities (no parameters) ,Check the response (valid Capabilities) and pass the capabilities to other tests-->
+   <ctl:test name="sos:GetCapabilities-Test" isConformanceClass="true" isBasic="true">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="serviceType" />
+      <ctl:param name="serviceVersion" />
+      <ctl:param name="capabilitiesRootElementName" />
+      <ctl:param name="capabilitiesResponseSchemaLocation" />
+      <ctl:param name="capabilitiesResponseSchemaType" />
+      <ctl:param name="capabilitiesResponseContentType" />
+      <ctl:param name="exceptionReportSchemaLocation" />
+      <ctl:param name="exceptionReportSchemaType" />
+      <ctl:param name="test0301" />
+      <ctl:param name="test0302" />
+      <ctl:param name="test0303" />
+      <ctl:param name="test0304" />
+      <ctl:param name="test0305" />
+      <ctl:param name="test0306" />
+      <ctl:param name="test0307" />
+      <ctl:param name="test0308" />
+      <ctl:param name="test0309" />
+      <ctl:assertion>All assertions for "GetCapabilities" conformance are satisfied.</ctl:assertion>
+      <ctl:comment>Test driver for the GetCapabilities module.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="CapabilitiesResponse">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">GetCapabilities</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="'SOS'" />
+                     </ctl:param>
+                     <parsers:XMLValidatingParser>
+                        <parsers:schemas>
+                           <parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+                           <parsers:schema>
+                              <xsl:attribute name="type">
+                                 <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                              </xsl:attribute>
+                              <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                           </parsers:schema>
+                        </parsers:schemas>
+                     </parsers:XMLValidatingParser>
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <sos:GetCapabilities xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd            http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" />
+                     </ctl:body>
+                     <parsers:SOAPParser return="content">
+                        <parsers:XMLValidatingParser>
+                           <parsers:schemas>
+                              <parsers:schema>
+                                 <xsl:attribute name="type">
+                                    <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                                 </xsl:attribute>
+                                 <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                              </parsers:schema>
+                           </parsers:schemas>
+                        </parsers:XMLValidatingParser>
+                     </parsers:SOAPParser>
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <sos:GetCapabilities xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd            http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" />
+                     </ctl:body>
+                     <parsers:XMLValidatingParser>
+                        <parsers:schemas>
+                           <parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+                           <parsers:schema>
+                              <xsl:attribute name="type">
+                                 <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                              </xsl:attribute>
+                              <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                           </parsers:schema>
+                        </parsers:schemas>
+                     </parsers:XMLValidatingParser>
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($CapabilitiesResponse/*)">
+               <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <ctl:message select="concat('run 03.01.CorrectServiceParameter: ',$test0301)" />
+               <xsl:if test="$test0301 eq 'true'">
+                  <ctl:message select="'******************** 03.01.CorrectServiceParameter ********************'" />
+                  <ctl:call-test name="sos:GCCorrectServiceParameter_core">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="capabilitiesRootElementName" select="$capabilitiesRootElementName" />
+                     <ctl:with-param name="capabilitiesResponseSchemaLocation" select="$capabilitiesResponseSchemaLocation" />
+                     <ctl:with-param name="capabilitiesResponseSchemaType" select="$capabilitiesResponseSchemaType" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.02.OperationMetadataMandatory: ',$test0302)" />
+               <xsl:if test="$test0302 eq 'true'">
+                  <ctl:message select="'******************** 03.02.OperationMetadataMandatory ********************'" />
+                  <ctl:call-test name="sos:GCOperationMetadataMandatory_core">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="CapabilitiesResponse" select="$CapabilitiesResponse" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.03.RequiredSectionsInCapabilities: ',$test0303)" />
+               <xsl:if test="$test0303 eq 'true'">
+                  <ctl:message select="'******************** 03.03.RequiredSectionsInCapabilities ********************'" />
+                  <ctl:call-test name="sos:GCRequiredSectionsInCapabilities_core">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="CapabilitiesResponse" select="$CapabilitiesResponse" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.04.WrongSectionParameter: ',$test0304)" />
+               <xsl:if test="$test0304 eq 'true'">
+                  <ctl:message select="'******************** 03.04.WrongSectionParameter ********************'" />
+                  <ctl:call-test name="sos:GCWrongSectionParameter_core">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="capabilitiesRootElementName" select="$capabilitiesRootElementName" />
+                     <ctl:with-param name="capabilitiesResponseSchemaLocation" select="$capabilitiesResponseSchemaLocation" />
+                     <ctl:with-param name="capabilitiesResponseSchemaType" select="$capabilitiesResponseSchemaType" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.05.BBOX: ',$test0305)" />
+               <xsl:if test="$test0305 eq 'true'">
+                  <ctl:message select="'******************** 03.05.BBOX ********************'" />
+                  <ctl:call-test name="sos:GCBBOX_KVPBindingExtension">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="CapabilitiesResponse" select="$CapabilitiesResponse" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.06.OperatorDuringAndTEquals: ',$test0306)" />
+               <xsl:if test="$test0306 eq 'true'">
+                  <ctl:message select="'******************** 03.06.OperatorDuringAndTEquals ********************'" />
+                  <ctl:call-test name="sos:GCOperatorDuringAndTEquals_core">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="CapabilitiesResponse" select="$CapabilitiesResponse" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.07.ParametersInObservationOffering: ',$test0307)" />
+               <xsl:if test="$test0307 eq 'true'">
+                  <ctl:message select="'******************** 03.07.ParametersInObservationOffering ********************'" />
+                  <ctl:call-test name="sos:GCParametersInObservationOffering_core">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="CapabilitiesResponse" select="$CapabilitiesResponse" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.08.ResponseFormat: ',$test0308)" />
+               <xsl:if test="$test0308 eq 'true'">
+                  <ctl:message select="'******************** 03.08.ResponseFormat ********************'" />
+                  <ctl:call-test name="sos:GCResponseFormat_core">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="CapabilitiesResponse" select="$CapabilitiesResponse" />
+                  </ctl:call-test>
+               </xsl:if>
+               <ctl:message select="concat('run 03.09.InsertionCapabilities: ',$test0309)" />
+               <xsl:if test="$test0309 eq 'true'">
+                  <ctl:message select="'******************** 03.08.InsertionCapabilities ********************'" />
+                  <ctl:call-test name="sos:GCInsertionCapabilities_insertionCap">
+                     <ctl:with-param name="serviceURL" select="$serviceURL" />
+                     <ctl:with-param name="isGET" select="$isGET" />
+                     <ctl:with-param name="isSOAP" select="$isSOAP" />
+                     <ctl:with-param name="CapabilitiesResponse" select="$CapabilitiesResponse" />
+                  </ctl:call-test>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0301 Send GetCapabilities request with parameter service=SOS ,check the response is valid capabilities. -->
+   <ctl:test name="sos:GCCorrectServiceParameter_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="capabilitiesRootElementName" />
+      <ctl:param name="capabilitiesResponseSchemaLocation" />
+      <ctl:param name="capabilitiesResponseSchemaType" />
+      <ctl:assertion>The response to a GetCapabilities request that includes a service parameter
+			with CORRECT VALUE provided shall include an complete capabilities document.</ctl:assertion>
+      <ctl:comment>Pass if all of the following conditions are true:
+				(1) the response is schema valid;
+				(2) the root document matches the root element name.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="request">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">GetCapabilities</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="'SOS'" />
+                     </ctl:param>
+                     <parsers:XMLValidatingParser>
+                        <parsers:schemas>
+                           <parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+                           <parsers:schema>
+                              <xsl:attribute name="type">
+                                 <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                              </xsl:attribute>
+                              <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                           </parsers:schema>
+                        </parsers:schemas>
+                     </parsers:XMLValidatingParser>
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <sos:GetCapabilities service="SOS" xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd            http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" />
+                     </ctl:body>
+                     <parsers:SOAPParser return="content">
+                        <parsers:XMLValidatingParser>
+                           <parsers:schemas>
+                              <parsers:schema>
+                                 <xsl:attribute name="type">
+                                    <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                                 </xsl:attribute>
+                                 <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                              </parsers:schema>
+                           </parsers:schemas>
+                        </parsers:XMLValidatingParser>
+                     </parsers:SOAPParser>
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <sos:GetCapabilities service="SOS" xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd            http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd" />
+                     </ctl:body>
+                     <parsers:XMLValidatingParser>
+                        <parsers:schemas>
+                           <parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+                           <parsers:schema>
+                              <xsl:attribute name="type">
+                                 <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                              </xsl:attribute>
+                              <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                           </parsers:schema>
+                        </parsers:schemas>
+                     </parsers:XMLValidatingParser>
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($request/*)">
+               <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:variable name="responseRoot" select="local-name-from-QName(node-name($request/*[1]))" />
+               <xsl:choose>
+                  <xsl:when test="not($responseRoot=$capabilitiesRootElementName)">
+                     <ctl:message>
+                        FAILURE:  The root element from the response to a GetCapabilities request "
+                        <xsl:value-of select="$responseRoot" />
+                        " does not match the expected root element of "
+                        <xsl:value-of select="$capabilitiesRootElementName" />
+                        "
+                     </ctl:message>
+                     <ctl:fail />
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <ctl:message>Passed.</ctl:message>
+                  </xsl:otherwise>
+               </xsl:choose>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0302 Check test03 Capabilities OperationMetadata must contain GetCapabilities DescribeSensor GetObservation operations -->
+   <ctl:test name="sos:GCOperationMetadataMandatory_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="CapabilitiesResponse" />
+      <ctl:assertion>There are three operations ,GetCapabilities DescribeSensor and GetObservation, in OperationMetadata in the Capabilities.</ctl:assertion>
+      <ctl:comment>Pass if there are at least three operations in OperationMetadata Sections in the Capabilities.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="GetCapabilities" select="count($CapabilitiesResponse//ows:OperationsMetadata/ows:Operation[@name='GetCapabilities'])" />
+         <xsl:variable name="DescribeSensor" select="count($CapabilitiesResponse//ows:OperationsMetadata/ows:Operation[@name='DescribeSensor'])" />
+         <xsl:variable name="GetObservation" select="count($CapabilitiesResponse//ows:OperationsMetadata/ows:Operation[@name='GetObservation'])" />
+         <xsl:choose>
+            <xsl:when test="not($GetCapabilities=1)">
+               <ctl:message>FAILURE: Mandatory Operation "GetCapabilities" Missed in OperationMetadata.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:when test="not($DescribeSensor=1)">
+               <ctl:message>FAILURE: Mandatory Operation "DescribeSensor" Missed in OperationMetadata.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:when test="not($GetObservation=1)">
+               <ctl:message>FAILURE: Mandatory Operation "GetObservation" Missed in OperationMetadata.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <ctl:message>Passed.</ctl:message>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0303 Check test03 Capabilities must have and only have those sections ServiceIdentification ,ServiceProvider ,OperationMetadata ,filter_Capabilities ,contents [,extension] -->
+   <ctl:test name="sos:GCRequiredSectionsInCapabilities_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="CapabilitiesResponse" />
+      <ctl:assertion>There are required sections,ServiceIdentification ServiceProvider OperationMetadata filter_Capabilities and contents in the Capabilities.</ctl:assertion>
+      <ctl:comment>Pass if there are at least required sections in the Capabilities.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="ServiceIdentification" select="count($CapabilitiesResponse//ows:ServiceIdentification)" />
+         <xsl:variable name="ServiceProvider" select="count($CapabilitiesResponse//ows:ServiceProvider)" />
+         <xsl:variable name="OperationMetadata" select="count($CapabilitiesResponse//ows:OperationsMetadata)" />
+         <xsl:variable name="filterCapabilities" select="count($CapabilitiesResponse//sos:filterCapabilities)" />
+         <xsl:variable name="contents" select="count($CapabilitiesResponse//sos:contents)" />
+         <xsl:choose>
+            <xsl:when test="not($ServiceIdentification=1)">
+               <ctl:message>FAILURE: Required section "ServiceIdentification" Missed in the Capabilities.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:when test="not($ServiceProvider=1)">
+               <ctl:message>FAILURE: Required section "ServiceProvider" Missed in the Capabilities.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:when test="not($OperationMetadata=1)">
+               <ctl:message>FAILURE: Required section "OperationMetadata" Missed in the Capabilities.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:when test="not($filterCapabilities=1)">
+               <ctl:message>FAILURE: Required section "filterCapabilities" Missed in the Capabilities.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:when test="not($contents=1)">
+               <ctl:message>FAILURE: Required section "contents" Missed in the Capabilities.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <ctl:message>Passed.</ctl:message>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0304 Send GetCapabilities request with section='WrongSections',server must return an exception with exceptionCode='InvalidParameterValue' and location='section'. -->
+   <ctl:test name="sos:GCWrongSectionParameter_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="capabilitiesRootElementName" />
+      <ctl:param name="capabilitiesResponseSchemaLocation" />
+      <ctl:param name="capabilitiesResponseSchemaType" />
+      <ctl:assertion>The response to a GetCapabilities request that includes a sections parameter with WRONG VALUE provided 
+			shall be an exception with exceptionCode=InvalidParameterValue and location=section.</ctl:assertion>
+      <ctl:comment>Pass if the response is an exception response and schema valid and exceptionCode=InvalidParameterValue and location=section.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="request">
+            <xsl:choose>
+               <xsl:when test="$isGET eq 'true'">
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>get</ctl:method>
+                     <ctl:param name="request">GetCapabilities</ctl:param>
+                     <ctl:param name="service">
+                        <xsl:value-of select="'SOS'" />
+                     </ctl:param>
+                     <ctl:param name="sections">WrongSections</ctl:param>
+                     <parsers:XMLValidatingParser>
+                        <parsers:schemas>
+                           <parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+                           <parsers:schema>
+                              <xsl:attribute name="type">
+                                 <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                              </xsl:attribute>
+                              <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                           </parsers:schema>
+                        </parsers:schemas>
+                     </parsers:XMLValidatingParser>
+                  </ctl:request>
+               </xsl:when>
+               <xsl:when test="$isSOAP eq 'true'">
+                  <ctl:soap-request version="1.2" charset="UTF-8">
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:body>
+                        <sos:GetCapabilities xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd            http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd">
+                           <ows:Sections>
+                              <ows:Section>WrongSections</ows:Section>
+                           </ows:Sections>
+                        </sos:GetCapabilities>
+                     </ctl:body>
+                     <parsers:SOAPParser return="content">
+                        <parsers:XMLValidatingParser>
+                           <parsers:schemas>
+                              <parsers:schema>
+                                 <xsl:attribute name="type">
+                                    <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                                 </xsl:attribute>
+                                 <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                              </parsers:schema>
+                           </parsers:schemas>
+                        </parsers:XMLValidatingParser>
+                     </parsers:SOAPParser>
+                  </ctl:soap-request>
+               </xsl:when>
+               <xsl:otherwise>
+                  <ctl:request>
+                     <ctl:url>
+                        <xsl:value-of select="$serviceURL" />
+                     </ctl:url>
+                     <ctl:method>post</ctl:method>
+                     <ctl:body>
+                        <sos:GetCapabilities xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope http://www.w3.org/2003/05/soap-envelope/soap-envelope.xsd            http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sos.xsd">
+                           <ows:Sections>
+                              <ows:Section>WrongSections</ows:Section>
+                           </ows:Sections>
+                        </sos:GetCapabilities>
+                     </ctl:body>
+                     <parsers:XMLValidatingParser>
+                        <parsers:schemas>
+                           <parsers:schema type="resource">xsd/w3c/xml.xsd</parsers:schema>
+                           <parsers:schema>
+                              <xsl:attribute name="type">
+                                 <xsl:value-of select="$capabilitiesResponseSchemaType" />
+                              </xsl:attribute>
+                              <xsl:value-of select="$capabilitiesResponseSchemaLocation" />
+                           </parsers:schema>
+                        </parsers:schemas>
+                     </parsers:XMLValidatingParser>
+                  </ctl:request>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <xsl:choose>
+            <xsl:when test="not($request/*)">
+               <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:if test="$request/*">
+                  <xsl:if test="$isSOAP=string('true')">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfoSOAP($request)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <xsl:if test="not($isSOAP=string('true'))">
+                     <ctl:message>
+                        The response was:
+                        <xsl:value-of select="sosFunctions:getExceptionInfo($request)" />
+                     </ctl:message>
+                  </xsl:if>
+                  <ctl:message>Checking the validity of the response to a GetCapabilities request with section= 'WrongSections'.</ctl:message>
+                  <xsl:variable name="isCorrect">
+                     <ctl:call-function name="sosFunctions:checkExceptionReport">
+                        <ctl:with-param name="exceptionReport" select="$request" />
+                        <ctl:with-param name="exceptionCodeToCheck" select="string('InvalidParameterValue')" />
+                        <ctl:with-param name="locatorToCheck" select="string('section')" />
+                        <ctl:with-param name="PostEncodingIsSOAP" select="$isSOAP" />
+                     </ctl:call-function>
+                  </xsl:variable>
+                  <ctl:message>
+                     The validity check returned:
+                     <xsl:value-of select="$isCorrect" />
+                  </ctl:message>
+                  <xsl:if test="not(xsd:boolean($isCorrect))">
+                     <ctl:message>FAILURE:  The server did not return the expected exception report response to a GetCapabilities request with section= 'WrongSections'.</ctl:message>
+                     <ctl:message>The response was expected to be an ExceptionReport with an exceptionCode of "InvalidParameterValue" and a locator of "section".</ctl:message>
+                     <ctl:fail />
+                  </xsl:if>
+               </xsl:if>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0305 Check test03 Capabilities <sos:filterCapabilities>/<fes:Filter_Capabilities>/<fes:Spatial_Capabilities>/<fes:SpatialOperators> must contain <fes:SpatialOperator name="BBOX"/> -->
+   <ctl:test name="sos:GCBBOX_KVPBindingExtension">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="CapabilitiesResponse" />
+      <ctl:assertion>The spatial operator BBOX is listed in the
+			FilterCapabilities of the Capabilities document</ctl:assertion>
+      <ctl:comment>Pass if the BBOX operator is listed in the FilterCapabilities section.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="BBOX" select="count($CapabilitiesResponse//sos:filterCapabilities/fes:Filter_Capabilities/fes:Spatial_Capabilities/fes:SpatialOperators/fes:SpatialOperator[@name='BBOX'])" />
+         <xsl:choose>
+            <xsl:when test="not($BBOX=1)">
+               <ctl:message>FAILURE: The BBOX operator is not listed in the FilterCapabilities section.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <ctl:message>Passed.</ctl:message>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0306 Check test03 Capabilities <sos:filterCapabilities>/<fes:Filter_Capabilities>/<fes:Temporal_Capabilities>/<fes:TemporalOperators> must contain <fes:TemporalOperator name="During"/> and <fes:TemporalOperator name="TEquals"/> -->
+   <ctl:test name="sos:GCOperatorDuringAndTEquals_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="CapabilitiesResponse" />
+      <ctl:assertion>The During and TEquals TemporalOperators are listed in the
+			FilterCapabilities of the Capabilities document.</ctl:assertion>
+      <ctl:comment>Pass if the During and TEquals TemporalOperators are listed in the FilterCapabilities section.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="During" select="count($CapabilitiesResponse//sos:filterCapabilities/fes:Filter_Capabilities/fes:Temporal_Capabilities/fes:TemporalOperators/fes:TemporalOperator [@name='During'])" />
+         <xsl:variable name="TEquals" select="count($CapabilitiesResponse//sos:filterCapabilities/fes:Filter_Capabilities/fes:Temporal_Capabilities/fes:TemporalOperators/fes:TemporalOperator [@name='TEquals'])" />
+         <xsl:choose>
+            <xsl:when test="not($During=1)">
+               <ctl:message>FAILURE: The During TemporalOperator is not listed in the FilterCapabilities section.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:when test="not($TEquals=1)">
+               <ctl:message>FAILURE: The TEquals TemporalOperator is not listed in the FilterCapabilities section.</ctl:message>
+               <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+               <ctl:message>Passed.</ctl:message>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0307 Check test03 Capabilities Each ObservationOffering  
+			Element 					count
+			swes:identifier				1
+			observableProperty			1..* - -maybe in Contents
+			procedure 					1
+			procedureDescriptionFormat 	1..* - -maybe in Contents
+			observationType 			1..* - -maybe in Contents
+			observedArea 				0..1
+			phenomenonTime 				0..1
+			responseFormat 				1..* - -maybe in Contents
+			resultTime 					0..1 -->
+   <ctl:test name="sos:GCParametersInObservationOffering_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="CapabilitiesResponse" />
+      <ctl:assertion>Every elements in each observationOffering occur specified times.</ctl:assertion>
+      <ctl:comment>Pass if all elements in each observationOffering or in Contents occur specified times.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="ContentsobservableProperty" select="count($CapabilitiesResponse//sos:Contents/swes:observableProperty)" />
+         <xsl:variable name="ContentsprocedureDescriptionFormat" select="count($CapabilitiesResponse//sos:Contents/swes:procedureDescriptionFormat)" />
+         <xsl:variable name="ContentsobservationType" select="count($CapabilitiesResponse//sos:Contents/sos:observationType)" />
+         <xsl:variable name="ContentsresponseFormat" select="count($CapabilitiesResponse//sos:Contents/sos:responseFormat)" />
+         <xsl:for-each select="$CapabilitiesResponse//sos:ObservationOffering">
+            <ctl:message>1.identifier 1</ctl:message>
+            <xsl:variable name="identifier" select="./swes:identifier" />
+            <ctl:message>
+               identifier =
+               <xsl:value-of select="$identifier" />
+            </ctl:message>
+            <xsl:variable name="identifierCount" select="count(./swes:identifier)" />
+            <xsl:if test="not($identifierCount=1)">
+               <ctl:message>FAILURE: Each ObservationOffering must contains one and only one identifier.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>2.observableProperty 1 or more than 1</ctl:message>
+            <xsl:variable name="observablePropertyCount" select="count(./swes:observableProperty)" />
+            <xsl:if test="($ContentsobservableProperty=0 and $observablePropertyCount=0)">
+               <ctl:message>FAILURE: The Contents or Each ObservationOffering must contains one or more observableProperty.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>3.procedure 1</ctl:message>
+            <xsl:variable name="procedureCount" select="count(./swes:procedure)" />
+            <xsl:if test="not($procedureCount=1)">
+               <ctl:message>FAILURE: Each ObservationOffering must contains one and only one procedure.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>4.procedureDescriptionFormat 1 or more than 1</ctl:message>
+            <xsl:variable name="procedureDescriptionFormatCount" select="count(./swes:procedureDescriptionFormat)" />
+            <xsl:if test="($ContentsprocedureDescriptionFormat=0 and $procedureDescriptionFormatCount=0)">
+               <ctl:message>FAILURE: The Contents or Each ObservationOffering must contains one or more procedureDescriptionFormat.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>5.observationType 1 or more than 1</ctl:message>
+            <xsl:variable name="observationTypeCount" select="count(./sos:observationType)" />
+            <xsl:if test="($ContentsobservationType=0 and $observationTypeCount=0)">
+               <ctl:message>FAILURE: The Contents or Each ObservationOffering must contains one or more observationType.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>6.observedArea 0 or 1</ctl:message>
+            <xsl:variable name="observedAreaCount" select="count(./sos:observedArea)" />
+            <xsl:if test="not($observedAreaCount=1 or $observedAreaCount=0)">
+               <ctl:message>FAILURE: Each ObservationOffering must contains zero or one observedArea.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>7.phenomenonTime 0 or 1</ctl:message>
+            <xsl:variable name="phenomenonTimeCount" select="count(./sos:phenomenonTime)" />
+            <xsl:if test="not($phenomenonTimeCount=1 or $phenomenonTimeCount=0)">
+               <ctl:message>FAILURE: Each ObservationOffering must contains zero or one phenomenonTime.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>8.responseFormat 1 or more than 1</ctl:message>
+            <xsl:variable name="responseFormatCount" select="count(./sos:responseFormat)" />
+            <xsl:if test="($ContentsresponseFormat=0 and $responseFormatCount=0)">
+               <ctl:message>FAILURE: The Contents or Each ObservationOffering must contains one or more responseFormat.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+            <ctl:message>9.resultTime 0 or 1</ctl:message>
+            <xsl:variable name="resultTimeCount" select="count(./sos:resultTime)" />
+            <xsl:if test="not($resultTimeCount=1 or $resultTimeCount=0)">
+               <ctl:message>FAILURE: Each ObservationOffering must contains zero or one resultTime.</ctl:message>
+               <ctl:fail />
+            </xsl:if>
+         </xsl:for-each>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0308 Check test03 Capabilities ,in each ObservationOffering the responseFormat must contain "http://www.opengis.net/om/2.0". -->
+   <ctl:test name="sos:GCResponseFormat_core">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="CapabilitiesResponse" />
+      <ctl:assertion>The responseFormat element which value is "http://www.opengis.net/om/2.0" is listed in the
+			ObservationOffering or in the Contents of the Capabilities document.</ctl:assertion>
+      <ctl:comment>Pass if the responseFormat element which value is "http://www.opengis.net/om/2.0" is listed in the ObservationOffering or Contents element.</ctl:comment>
+      <ctl:code>
+         <xsl:for-each select="$CapabilitiesResponse//sos:ObservationOffering">
+            <xsl:variable name="identifier" select="./swes:identifier" />
+            <xsl:variable name="responseFormat" select="count(.[sos:responseFormat='http://www.opengis.net/om/2.0']/sos:responseFormat)" />
+            <xsl:if test="$responseFormat=0">
+               <ctl:message>
+                  FAILURE: The ObservationOffering (identifier =
+                  <xsl:value-of select="$identifier" />
+                  ) must contain responseFormat which value is "http://www.opengis.net/om/2.0".
+               </ctl:message>
+               <ctl:fail />
+            </xsl:if>
+         </xsl:for-each>
+      </ctl:code>
+   </ctl:test>
+   <!-- 0309 Check test03 Capabilities contains InsertionCapabilities and check that InsertionCapabilities are valid according to the model defined SOS 2.0 specification.. -->
+   <ctl:test name="sos:GCInsertionCapabilities_insertionCap">
+      <ctl:param name="serviceURL" />
+      <ctl:param name="isGET" />
+      <ctl:param name="isSOAP" />
+      <ctl:param name="CapabilitiesResponse" />
+      <ctl:assertion>Check that the InsertionCapabilities is contained in a Capabilities response, if it is requested.
+			If existed ,check that the InsertionCapabilities is structured as defined in Subclause 10.1.1 of SOS 2.0 specification.</ctl:assertion>
+      <ctl:comment>Pass if the InsertionCapabilities is contained in the Capabilities response and they are valid.</ctl:comment>
+      <ctl:code>
+         <xsl:variable name="SectionsInsertionCapabilitiesCount" select="count($CapabilitiesResponse//ows:OperationsMetadata/ows:Operation[@name='GetCapabilities']/ows:Parameter[@name='Sections']/ows:AllowedValues[ows:Value='InsertionCapabilities']/ows:Value)" />
+         <xsl:choose>
+            <xsl:when test="$SectionsInsertionCapabilitiesCount &gt; 0">
+               <xsl:variable name="InsertionCapabilitiesCount" select="count($CapabilitiesResponse//sos:extension/sos:InsertionCapabilities)" />
+               <xsl:choose>
+                  <xsl:when test="$InsertionCapabilitiesCount &gt; 0">
+                     <xsl:variable name="procedureDescriptionFormatCount" select="count($CapabilitiesResponse//sos:extension/sos:InsertionCapabilities/sos:procedureDescriptionFormat)" />
+                     <xsl:variable name="featureOfInterestTypeCount" select="count($CapabilitiesResponse//sos:extension/sos:InsertionCapabilities/sos:featureOfInterestType)" />
+                     <xsl:variable name="observationTypeCount" select="count($CapabilitiesResponse//sos:extension/sos:InsertionCapabilities/sos:observationType)" />
+                     <xsl:if test="$procedureDescriptionFormatCount eq 0">
+                        <ctl:message>Elements "sos:procedureDescriptionFormat" must be contained in sos:InsertionCapabilities (one or many).</ctl:message>
+                        <ctl:fail />
+                     </xsl:if>
+                     <xsl:if test="$featureOfInterestTypeCount eq 0">
+                        <ctl:message>Elements "sos:featureOfInterestType" must be contained in sos:InsertionCapabilities (one or many).</ctl:message>
+                        <ctl:fail />
+                     </xsl:if>
+                     <xsl:if test="$observationTypeCount eq 0">
+                        <ctl:message>Elements "sos:observationType" must be contained in sos:InsertionCapabilities (one or many).</ctl:message>
+                        <ctl:fail />
+                     </xsl:if>
+                     <xsl:for-each select="$CapabilitiesResponse//sos:extension/sos:InsertionCapabilities/*">
+                        <xsl:variable name="target" select="local-name-from-QName(node-name(.))" />
+                        <xsl:if test="not(($target eq string('procedureDescriptionFormat')) or ($target eq string('featureOfInterestType')) or ($target eq string('observationType')) or ($target eq string('supportedEncoding')))">
+                           <ctl:message>
+                              Elements "
+                              <xsl:value-of select="$target" />
+                              " in InsertionCapabilities must be one of "procedureDescriptionFormat,featureOfInterestType,observationType,supportedEncoding".
+                           </ctl:message>
+                           <ctl:fail />
+                        </xsl:if>
+                     </xsl:for-each>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <ctl:message>Elements "InsertionCapabilities" must be contained in sos:extension in the capabilities.</ctl:message>
+                     <ctl:fail />
+                  </xsl:otherwise>
+               </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+               <ctl:message>Section "InsertionCapabilities" is no contained in OperationsMetadata/Sections. So skip this test.</ctl:message>
+            </xsl:otherwise>
+         </xsl:choose>
+      </ctl:code>
+   </ctl:test>
+</ctl:package>
