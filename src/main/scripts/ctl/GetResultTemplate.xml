@@ -5,6 +5,7 @@
       <ctl:param name="hasGRT" />
       <ctl:param name="isGET" />
       <ctl:param name="isSOAP" />
+      <ctl:param name="isInteractive" />
       <ctl:param name="getCapabilitiesResponse" />
       <ctl:param name="serviceType" />
       <ctl:param name="serviceVersion" />
@@ -35,6 +36,8 @@
             <xsl:otherwise>
                <!--讓使用者選一個 offering 和 observedProperty -->
                <xsl:variable name="form-values">
+               <xsl:choose>
+						<xsl:when test="$isInteractive eq 'true'">
                   <ctl:form height="750" width="1024">
                      <body>
                         <h2>GetResultTemplate</h2>
@@ -83,6 +86,17 @@
                         </div>
                      </body>
                   </ctl:form>
+                  </xsl:when>
+						<xsl:otherwise>
+							<xsl:variable name="data">
+								<values>
+									<value key="offeringDropDown"><xsl:value-of select="($getCapabilitiesResponse//sos:contents//swes:offering//swes:identifier)[1]/text()" /></value>
+									<value key="observedPropertyDropDown"><xsl:value-of select="($getCapabilitiesResponse//sos:contents//swes:offering//swes:observableProperty)[1]/text()" /></value>
+								</values>
+							</xsl:variable>
+							<xsl:value-of select="$data" />
+						</xsl:otherwise>
+					</xsl:choose>
                </xsl:variable>
                <!-- get a valid offering-->
                <xsl:variable name="offering" select="$form-values/values/value[@key='offeringDropDown']" />

@@ -431,6 +431,9 @@
 			<ctl:message select="concat('Is SOAP Binding: ',$isSOAP)"/>
 			<ctl:message>($request-via eq 'GET'): <xsl:value-of select="($request-via eq 'GET')"/>.</ctl:message>
 			<ctl:message>($request-via eq 'POST'): <xsl:value-of select="($request-via eq 'POST')"/>.</ctl:message>
+			<!-- Enable the ctl:form if found in the subtests in interactive mode. -->
+			<xsl:variable name="isInteractive" select="false" />
+			
 			<!-- Get capabilities, find url and method(GET or POST) for all operations -->
 			<xsl:variable name="user-capabilities">
 				<xsl:if test="($request-via eq 'GET')">
@@ -1690,6 +1693,7 @@
 							<ctl:with-param name="hasGRT" select="$hasGetResultTemplate"/>
 							<ctl:with-param name="isGET" select="$IsGetResultTemplate-GET"/>
 							<ctl:with-param name="isSOAP" select="$isSOAP"/>
+							<ctl:with-param name="isInteractive" select="$isInteractive"/>
 							<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
 							<ctl:with-param name="serviceType" select="string('SOS')"/>
 							<ctl:with-param name="serviceVersion" select="$sos.version" />
@@ -1722,6 +1726,7 @@
 							<ctl:with-param name="hasGR" select="$hasGetResult"/>
 							<ctl:with-param name="isGET" select="$IsGetResult-GET"/>
 							<ctl:with-param name="isSOAP" select="$isSOAP"/>
+							<ctl:with-param name="isInteractive" select="$isInteractive"/>
 							<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
 							<ctl:with-param name="serviceType" select="string('SOS')"/>
 							<ctl:with-param name="serviceVersion" select="$sos.version" />

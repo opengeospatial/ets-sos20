@@ -50,6 +50,8 @@ public class TestRunArguments {
         } catch (NullPointerException e2) {
             throw new IllegalArgumentException(String.format("Missing required argument: %s", SOS20.SERVICE_URL));
         }
+        args.setProperty(SOS20.WHICH_TESTS, "all");
+        args.setProperty(SOS20.REQUEST_VIA, "GET");
         return args;
     }
 

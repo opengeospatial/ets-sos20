@@ -46,382 +46,12 @@
 		<ctl:starting-test>sos:Main-auto</ctl:starting-test>
 	</ctl:suite>
 
-	<ctl:test name="sos:Main-suto">
+	<ctl:test name="sos:Main-auto">
 		<ctl:param name="service-url"/>
 		<ctl:param name="request-via"/>
 		<ctl:param name="which-tests"/>
 		<ctl:assertion>The implementation satisfies all applicable assertions.</ctl:assertion>
 		<ctl:code>
-			<!-- User Input Form -->
-			<xsl:variable name="form-values">
-				<ctl:form height="750" width="1024">
-					<body>
-						<h2 align="center">Compliance test suite for Sensor Observation Service (SOS) 2.0</h2>
-						<p>
-              Information about this test suite can be found <a href="index.html" target="_blank">here</a>.
-              </p>
-						<h3 align="center">Service metadata and test options</h3>
-						<p>Please provide a URL from which a capabilities document can be retrieved. </p>
-						<blockquote>
-							<table border="1" padding="4" bgcolor="#00ffff" align="center">
-								<tr>
-									<td align="left">Service URL:</td>                        
-									<td align="center">
-										<input name="service-url" size="128" 
-										type="text" 
-										value="http://sensorweb.demo.52north.org/52n-sos-webapp/service/kvp"/>
-									</td>
-								</tr>				
-							</table>
-						</blockquote>
-						<p>Please select how to send this request.</p>
-						<blockquote>
-							<table border="1" padding="4" bgcolor="#00ffff" align="center">
-								<tr>
-									<td><input type="radio" name="request-via" value="GET">HTTP Get</input></td>
-									<td><input type="radio" name="request-via" value="POST">HTTP Post</input></td>
-									<td><input type="radio" name="request-via" checked="true" value="SOAP">SOAP Binding</input></td>
-								</tr>
-							</table>
-						</blockquote>
-						<p>Please select whether to run all tests or just selected tests.</p>
-						<blockquote>
-							<table border="1" padding="4" bgcolor="#00ffff" align="center">
-								<tr>
-									<td><input type="radio" name="which-tests" checked="true" value="all">Run all tests</input></td>
-									<td><input type="radio" name="which-tests" value="selected">Run selected tests</input></td>
-								</tr>				
-							</table>						
-						</blockquote>
-						<p>If you want to run selected tests, please select the checkboxes for the tests you want to run.</p>
-						<blockquote>
-							<table border="1" padding="4" bgcolor="#00ffff" align="center">
-								<tr><th colspan="3" align="left"><input type="checkbox" name="01">01.OWS Main</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0101">01.01.OWS.ContentType.1</input></td>
-									<td><input type="checkbox" name="0102">01.02.OWS.GetCapabilities-Exceptions.2</input></td>
-									<td><input type="checkbox" name="0103">01.03.OWS.GetCapabilities-UpdateSequence.1</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0104">01.04.OWS.GetCapabilities-Exceptions.5</input></td>
-									<td><input type="checkbox" name="0105">01.05.OWS.CaseInsensitiveKvpNames.1</input></td>
-									<td><input type="checkbox" name="0106">01.06.OWS.GetCapabilities-AcceptVersions.1</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0107">01.07.OWS.GetCapabilities-AcceptVersions.2</input></td>
-									<td><input type="checkbox" name="0108">01.08.OWS.GetCapabilities-AcceptVersions.3</input></td>
-									<td><input type="checkbox" name="0109">01.09.OWS.GetCapabilities-Sections.1</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0110">01.10.OWS.GetCapabilities-Sections.2</input></td>
-									<td><input type="checkbox" name="0111">01.11.OWS.GetCapabilities-AcceptFormats.1</input></td>
-									<td>--</td>
-								</tr>
-								<tr><th colspan="3" align="left"><input type="checkbox" name="02">02.SOS General Main</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0201">02.01.SOS.General-InvalidRequest.1</input></td>
-									<td>--</td>
-									<td>--</td>
-								</tr>
-								<tr><th colspan="3" align="left"><input type="checkbox" name="03">03.SOS Core: Get Capabilities</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0301">03.01.CorrectServiceParameter</input></td>
-									<td><input type="checkbox" name="0302">03.02.OperationMetadataMandatory</input></td>
-									<td><input type="checkbox" name="0303">03.03.RequiredSectionsInCapabilities</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0304">03.04.WrongSectionParameter</input></td>
-									<td><input type="checkbox" name="0305">03.05.BBOX</input></td>
-									<td><input type="checkbox" name="0306">03.06.OperatorDuringAndTEquals</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0307">03.07.ParametersInObservationOffering</input></td>
-									<td><input type="checkbox" name="0308">03.08.ResponseFormat</input></td>
-									<td><input type="checkbox" name="0309">03.09.InsertionCapabilities</input></td>
-								</tr>
-								<tr><th colspan="3" align="left"><input type="checkbox" name="04">04.SOS Core: DescribeSensor</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0401">04.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="0402">04.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="0403">04.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0404">04.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="0405">04.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="0406">04.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0407">04.07.RequestNullProcedure</input></td>
-									<td><input type="checkbox" name="0408">04.08.RequestInvalidProcedure</input></td>
-									<td><input type="checkbox" name="0409">04.09.RequestNullProcedureDescriptionFormat</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0410">04.10.RequestInvalidProcedureDescriptionFormat</input></td>
-									<td><input type="checkbox" name="0411">04.11.RequestValidRequest</input></td>
-									<td>--</td>
-								</tr>
-								<tr><th colspan="3" align="left"><input type="checkbox" name="05">05.SOS Core: GetObservation</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0501">05.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="0502">05.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="0503">05.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0504">05.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="0505">05.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="0506">05.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0507">05.07.RequestNullOffering</input></td>
-									<td><input type="checkbox" name="0508">05.08.RequestInvalidOffering</input></td>
-									<td><input type="checkbox" name="0509">05.09.RequestNullObservedProperty</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0510">05.10.RequestInvalidObservedProperty</input></td>
-									<td><input type="checkbox" name="0511">05.11.RequestNullProcedure</input></td>
-									<td><input type="checkbox" name="0512">05.12.RequestInvalidProcedure</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0513">05.13.RequestNullFeatureOfInterest</input></td>
-									<td><input type="checkbox" name="0514">05.14.RequestInvalidFeatureOfInterest</input></td>
-									<td><input type="checkbox" name="0515">05.15.RequestNullResponseFormat</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0516">05.16.RequestInvalidResponseFormat</input></td>
-									<td><input type="checkbox" name="0517">05.17.RequestNoResponseFormat</input></td>
-									<td><input type="checkbox" name="0518">05.18.RequestOtherResponseFormat</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0519">05.19.RequestEmptyObservation</input></td>
-									<td><input type="checkbox" name="0520">05.20.RequestResponseExceedsSizeLimit</input></td>
-									<td>--</td>
-								</tr>
-								<tr><th colspan="3" align="left"><input type="checkbox" name="06">06.SOS enhancedOperations: GetFeatureOfInterest</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0601">06.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="0602">06.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="0603">06.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0604">06.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="0605">06.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="0606">06.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0607">06.07.RequestNullProcedure</input></td>
-									<td><input type="checkbox" name="0608">06.08.RequestInvalidProcedure</input></td>
-									<td><input type="checkbox" name="0609">06.09.RequestNullObservedProperty</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0610">06.10.RequestInvalidObservedProperty</input></td>
-									<td><input type="checkbox" name="0611">06.11.RequestNullFeatureOfInterest</input></td>
-									<td><input type="checkbox" name="0612">06.12.RequestInvalidFeatureOfInterest</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0613">06.13.RequestNULLSpatialFilter</input></td>
-									<td><input type="checkbox" name="0614">06.14.RequestInvalidSpatialFilter</input></td>
-									<td><input type="checkbox" name="0615">06.15.RequestEmptyResponse</input></td>
-								</tr>
-								<!--
-								<tr>
-									<td><input type="checkbox" name="0616">06.16.RequestValidParameter</input></td>
-									<td><input type="checkbox" name="0617">06.17.RequestValidFilter</input></td>
-									<td><input type="checkbox" name="0618">06.18.RequestNormalRequest</input></td>
-								</tr>
-								-->
-								<tr><th colspan="3" align="left"><input type="checkbox" name="07">07.SOS enhancedOperations: GetObservationById</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0701">07.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="0702">07.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="0703">07.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0704">07.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="0705">07.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="0706">07.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0707">07.07.RequestNullobservation</input></td>
-									<td><input type="checkbox" name="0708">07.08.RequestInvalidobservation</input></td>
-									<td><input type="checkbox" name="0709">07.09.RequestValidRequest</input></td>
-								</tr>
-								<!--
-								<tr><th colspan="3" align="left"><input type="checkbox" name="08">08.SOS Transactional: InsertSensor</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0801">08.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="0802">08.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="0803">08.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0804">08.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="0805">08.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="0806">08.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0807">08.07.RequestNullprocedureDescriptionFormat</input></td>
-									<td><input type="checkbox" name="0808">08.08.RequestInvalidprocedureDescriptionFormat</input></td>
-									<td><input type="checkbox" name="0809">08.09.RequestNullfeatureOfInterestType</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0810">08.10.RequestInvalidfeatureOfInterestType</input></td>
-									<td><input type="checkbox" name="0811">08.11.RequestNullobservationType</input></td>
-									<td><input type="checkbox" name="0812">08.12.RequestInvalidobservationType</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0813">08.13.RequestValidRequest</input></td>
-									<td>- -</td>
-									<td>- -</td>
-								</tr>
-								-->
-								<!--
-								<tr><th colspan="3" align="left"><input type="checkbox" name="09">09.SOS Transactional: DeleteSensor</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="0901">09.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="0902">09.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="0903">09.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0904">09.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="0905">09.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="0906">09.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="0907">09.07.RequestNullProcedure</input></td>
-									<td><input type="checkbox" name="0908">09.08.RequestInvalidProcedure</input></td>
-									<td><input type="checkbox" name="0909">09.09.RequestValidRequest</input></td>
-								</tr>
-								-->
-								<!--
-								<tr><th colspan="3" align="left"><input type="checkbox" name="10">10.SOS Transactional: InsertObservation</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="1001">10.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="1002">10.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="1003">10.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1004">10.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="1005">10.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="1006">10.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1007">10.07.RequestNulloffering</input></td>
-									<td><input type="checkbox" name="1008">10.08.RequestInvalidoffering</input></td>
-									<td><input type="checkbox" name="1009">10.09.RequestNullobservationtype</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1010">10.10.RequestInvalidobservationtype</input></td>
-									<td><input type="checkbox" name="1011">10.11.RequestNullprocedure</input></td>
-									<td><input type="checkbox" name="1012">10.12.RequestInvalidprocedure</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1013">10.13.RequestNullobservedProperty</input></td>
-									<td><input type="checkbox" name="1014">10.14.RequestInvalidobservedProperty</input></td>
-									<td><input type="checkbox" name="1015">10.15.RequestNullfeatureOfInterest</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1016">10.16.RequestInvalidfeatureOfInterest</input></td>
-									<td><input type="checkbox" name="1017">10.17.RequestNullresulttype</input></td>
-									<td><input type="checkbox" name="1018">10.18.RequestInvalidresulttype</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1019">10.19.RequestValidRequest</input></td>
-									<td>- -</td>
-									<td>- -</td>
-								</tr>
-								-->
-								<!--
-								<tr><th colspan="3" align="left"><input type="checkbox" name="11">11.SOS resultHandling: InsertResultTemplate</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="1101">11.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="1102">11.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="1103">11.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1104">11.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="1105">11.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="1106">11.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1107">11.07.RequestInvalidobservationType</input></td>
-									<td><input type="checkbox" name="1108">11.08.RequestInvalidproposedTemplate</input></td>
-									<td><input type="checkbox" name="1109">11.09.RequestValidRequest</input></td>
-								</tr>
-								-->
-								<!--
-								<tr><th colspan="3" align="left"><input type="checkbox" name="12">12.SOS resultHandling: InsertResult</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="1201">12.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="1202">12.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="1203">12.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1204">12.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="1205">12.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="1206">12.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1207">12.07.RequestNulltemplate</input></td>
-									<td><input type="checkbox" name="1208">12.08.RequestInvalidtemplate</input></td>
-									<td><input type="checkbox" name="1209">12.09.RequestNullresultValues</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1210">12.10.RequestInvalidresultValues</input></td>
-									<td><input type="checkbox" name="1211">12.11.RequestValidRequest</input></td>
-									<td>- -</td>
-								</tr>
-								-->
-								<tr><th colspan="3" align="left"><input type="checkbox" name="13">08.SOS resultRetrieval: GetResultTemplate</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="1301">08.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="1302">08.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="1303">08.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1304">08.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="1305">08.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="1306">08.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1307">08.07.RequestNulloffering</input></td>
-									<td><input type="checkbox" name="1308">08.08.RequestInvalidoffering</input></td>
-									<td><input type="checkbox" name="1309">08.09.RequestNullobservedProperty</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1310">08.10.RequestInvalidobservedProperty</input></td>
-									<td><input type="checkbox" name="1311">08.11.RequestValidRequest</input></td>
-									<td>--</td>
-								</tr>
-								<tr><th colspan="3" align="left"><input type="checkbox" name="14">09.SOS resultRetrieval: GetResult</input></th></tr>
-								<tr>
-									<td><input type="checkbox" name="1401">09.01.RequestNoService</input></td>
-									<td><input type="checkbox" name="1402">09.02.RequestNullService</input></td>
-									<td><input type="checkbox" name="1403">09.03.RequestInvalidService</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1404">09.04.RequestNoVersion</input></td>
-									<td><input type="checkbox" name="1405">09.05.RequestNullVersion</input></td>
-									<td><input type="checkbox" name="1406">09.06.RequestInvalidVersion</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1407">09.07.RequestNulloffering</input></td>
-									<td><input type="checkbox" name="1408">09.08.RequestInvalidoffering</input></td>
-									<td><input type="checkbox" name="1409">09.09.RequestNullobservedProperty</input></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="1410">09.10.RequestInvalidobservedProperty</input></td>
-									<td><input type="checkbox" name="1411">09.11.RequestValidRequest</input></td>
-									<td><input type="checkbox" name="1412">09.12.RequestEmptyResponse</input></td>
-								</tr>
-							</table>						
-						</blockquote>
-
-						<p>Please press the "Start" button to start testing.</p>
-						<div align="center">
-							<input type="submit" value="Start"/>						
-						</div>
-					</body>
-				</ctl:form>
-			</xsl:variable>
 
 			<!-- Get user input, message user options -->	
 			<xsl:variable name="capabilities-url" select="$service-url"/>
@@ -434,6 +64,9 @@
 			<ctl:message select="concat('Is SOAP Binding: ',$isSOAP)"/>
 			<ctl:message>($request-via eq 'GET'): <xsl:value-of select="($request-via eq 'GET')"/>.</ctl:message>
 			<ctl:message>($request-via eq 'POST'): <xsl:value-of select="($request-via eq 'POST')"/>.</ctl:message>
+			<!-- Disable the ctl:form if found in the subtests in non-interactive mode. -->
+			<xsl:variable name="isInteractive" select="false" />
+			
 			<!-- Get capabilities, find url and method(GET or POST) for all operations -->
 			<xsl:variable name="user-capabilities">
 				<xsl:if test="($request-via eq 'GET')">
@@ -538,373 +171,121 @@
 					<ctl:message select="concat('Run GetResult test via GET: ',$IsGetResult-GET,', URL:',$GetResult-URL)"/>
 					
 					<!-- Set selected tests.-->
-					<xsl:variable name="t01" select="$form-values/values/value[@key='01']"/>
-					<xsl:variable name="t0101" select="$form-values/values/value[@key='0101']"/>
-					<xsl:variable name="test0101" select="($which-tests eq 'all' or $t01 eq 'on' or $t0101 eq 'on' )"/>
-					<xsl:variable name="t0102" select="$form-values/values/value[@key='0102']"/>
-					<xsl:variable name="test0102" select="($which-tests eq 'all' or $t01 eq 'on' or $t0102 eq 'on' )"/>
-					<xsl:variable name="t0103" select="$form-values/values/value[@key='0103']"/>
-					<xsl:variable name="test0103" select="($which-tests eq 'all' or $t01 eq 'on' or $t0103 eq 'on' )"/>
-					<xsl:variable name="t0104" select="$form-values/values/value[@key='0104']"/>
-					<xsl:variable name="test0104" select="($which-tests eq 'all' or $t01 eq 'on' or $t0104 eq 'on' )"/>
-					<xsl:variable name="t0105" select="$form-values/values/value[@key='0105']"/>
-					<xsl:variable name="test0105" select="($which-tests eq 'all' or $t01 eq 'on' or $t0105 eq 'on' )"/>
-					<xsl:variable name="t0106" select="$form-values/values/value[@key='0106']"/>
-					<xsl:variable name="test0106" select="($which-tests eq 'all' or $t01 eq 'on' or $t0106 eq 'on' )"/>
-					<xsl:variable name="t0107" select="$form-values/values/value[@key='0107']"/>
-					<xsl:variable name="test0107" select="($which-tests eq 'all' or $t01 eq 'on' or $t0107 eq 'on' )"/>
-					<xsl:variable name="t0108" select="$form-values/values/value[@key='0108']"/>
-					<xsl:variable name="test0108" select="($which-tests eq 'all' or $t01 eq 'on' or $t0108 eq 'on' )"/>
-					<xsl:variable name="t0109" select="$form-values/values/value[@key='0109']"/>
-					<xsl:variable name="test0109" select="($which-tests eq 'all' or $t01 eq 'on' or $t0109 eq 'on' )"/>
-					<xsl:variable name="t0110" select="$form-values/values/value[@key='0110']"/>
-					<xsl:variable name="test0110" select="($which-tests eq 'all' or $t01 eq 'on' or $t0110 eq 'on' )"/>
-					<xsl:variable name="t0111" select="$form-values/values/value[@key='0111']"/>
-					<xsl:variable name="test0111" select="($which-tests eq 'all' or $t01 eq 'on' or $t0111 eq 'on' )"/>
+					<xsl:variable name="test0101" select="($which-tests eq 'all')"/>					
+					<xsl:variable name="test0102" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0103" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0104" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0105" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0106" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0107" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0108" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0109" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0110" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0111" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test01" select="$test0101 or $test0102 or $test0103 or $test0104 or $test0105 or $test0106 or $test0107 or $test0108 or $test0109 or $test0110 or $test0111"/><!-- all test in 01-->
 					
-					<xsl:variable name="t02" select="$form-values/values/value[@key='02']"/>
-					<xsl:variable name="t0201" select="$form-values/values/value[@key='0201']"/>
-					<xsl:variable name="test0201" select="($which-tests eq 'all' or $t02 eq 'on' or $t0201 eq 'on')"/>
+					<xsl:variable name="test0201" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test02" select="$test0201"/><!-- all test in 02-->
 
-					<xsl:variable name="t03" select="$form-values/values/value[@key='03']"/>
-					<xsl:variable name="t0301" select="$form-values/values/value[@key='0301']"/>
-					<xsl:variable name="test0301" select="($which-tests eq 'all' or $t03 eq 'on' or $t0301 eq 'on')"/>
-					<xsl:variable name="t0302" select="$form-values/values/value[@key='0302']"/>
-					<xsl:variable name="test0302" select="($which-tests eq 'all' or $t03 eq 'on' or $t0302 eq 'on')"/>
-					<xsl:variable name="t0303" select="$form-values/values/value[@key='0303']"/>
-					<xsl:variable name="test0303" select="($which-tests eq 'all' or $t03 eq 'on' or $t0303 eq 'on')"/>
-					<xsl:variable name="t0304" select="$form-values/values/value[@key='0304']"/>
-					<xsl:variable name="test0304" select="($which-tests eq 'all' or $t03 eq 'on' or $t0304 eq 'on')"/>
-					<xsl:variable name="t0305" select="$form-values/values/value[@key='0305']"/>
-					<xsl:variable name="test0305" select="($which-tests eq 'all' or $t03 eq 'on' or $t0305 eq 'on')"/>
-					<xsl:variable name="t0306" select="$form-values/values/value[@key='0306']"/>
-					<xsl:variable name="test0306" select="($which-tests eq 'all' or $t03 eq 'on' or $t0306 eq 'on')"/>
-					<xsl:variable name="t0307" select="$form-values/values/value[@key='0307']"/>
-					<xsl:variable name="test0307" select="($which-tests eq 'all' or $t03 eq 'on' or $t0307 eq 'on')"/>
-					<xsl:variable name="t0308" select="$form-values/values/value[@key='0308']"/>
-					<xsl:variable name="test0308" select="($which-tests eq 'all' or $t03 eq 'on' or $t0308 eq 'on')"/>
-					<xsl:variable name="t0309" select="$form-values/values/value[@key='0309']"/>
-					<xsl:variable name="test0309" select="($which-tests eq 'all' or $t03 eq 'on' or $t0309 eq 'on')"/>
+					<xsl:variable name="test0301" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0302" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0303" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0304" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0305" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0306" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0307" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0308" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0309" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test03" select="$test0301 or $test0302 or $test0303 or $test0304 or $test0305 or $test0306 or $test0307 or $test0308 or $test0309"/><!-- all test in 03-->
 
-					<xsl:variable name="t04" select="$form-values/values/value[@key='04']"/>
-					<xsl:variable name="t0401" select="$form-values/values/value[@key='0401']"/>
-					<xsl:variable name="test0401" select="($which-tests eq 'all' or $t04 eq 'on' or $t0401 eq 'on')"/>
-					<xsl:variable name="t0402" select="$form-values/values/value[@key='0402']"/>
-					<xsl:variable name="test0402" select="($which-tests eq 'all' or $t04 eq 'on' or $t0402 eq 'on')"/>
-					<xsl:variable name="t0403" select="$form-values/values/value[@key='0403']"/>
-					<xsl:variable name="test0403" select="($which-tests eq 'all' or $t03 eq 'on' or $t0403 eq 'on')"/>
-					<xsl:variable name="t0404" select="$form-values/values/value[@key='0404']"/>
-					<xsl:variable name="test0404" select="($which-tests eq 'all' or $t04 eq 'on' or $t0404 eq 'on')"/>
-					<xsl:variable name="t0405" select="$form-values/values/value[@key='0405']"/>
-					<xsl:variable name="test0405" select="($which-tests eq 'all' or $t04 eq 'on' or $t0405 eq 'on')"/>
-					<xsl:variable name="t0406" select="$form-values/values/value[@key='0406']"/>
-					<xsl:variable name="test0406" select="($which-tests eq 'all' or $t04 eq 'on' or $t0406 eq 'on')"/>
-					<xsl:variable name="t0407" select="$form-values/values/value[@key='0407']"/>
-					<xsl:variable name="test0407" select="($which-tests eq 'all' or $t04 eq 'on' or $t0407 eq 'on')"/>
-					<xsl:variable name="t0408" select="$form-values/values/value[@key='0408']"/>
-					<xsl:variable name="test0408" select="($which-tests eq 'all' or $t04 eq 'on' or $t0408 eq 'on')"/>
-					<xsl:variable name="t0409" select="$form-values/values/value[@key='0409']"/>
-					<xsl:variable name="test0409" select="($which-tests eq 'all' or $t04 eq 'on' or $t0409 eq 'on')"/>
-					<xsl:variable name="t0410" select="$form-values/values/value[@key='0410']"/>
-					<xsl:variable name="test0410" select="($which-tests eq 'all' or $t04 eq 'on' or $t0410 eq 'on')"/>
-					<xsl:variable name="t0411" select="$form-values/values/value[@key='0411']"/>
-					<xsl:variable name="test0411" select="($which-tests eq 'all' or $t04 eq 'on' or $t0411 eq 'on')"/>
+					<xsl:variable name="test0401" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0402" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0403" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0404" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0405" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0406" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0407" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0408" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0409" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0410" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0411" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test04" select="$test0401 or $test0402 or $test0403 or $test0404 or $test0405 or $test0406 or $test0407 or $test0408 or $test0409 or $test0410 or $test0411"/><!-- all test in 04-->
 					
-					<xsl:variable name="t05" select="$form-values/values/value[@key='05']"/>
-					<xsl:variable name="t0501" select="$form-values/values/value[@key='0501']"/>
-					<xsl:variable name="test0501" select="($which-tests eq 'all' or $t05 eq 'on' or $t0501 eq 'on')"/>
-					<xsl:variable name="t0502" select="$form-values/values/value[@key='0502']"/>
-					<xsl:variable name="test0502" select="($which-tests eq 'all' or $t05 eq 'on' or $t0502 eq 'on')"/>
-					<xsl:variable name="t0503" select="$form-values/values/value[@key='0503']"/>
-					<xsl:variable name="test0503" select="($which-tests eq 'all' or $t05 eq 'on' or $t0503 eq 'on')"/>
-					<xsl:variable name="t0504" select="$form-values/values/value[@key='0504']"/>
-					<xsl:variable name="test0504" select="($which-tests eq 'all' or $t05 eq 'on' or $t0504 eq 'on')"/>
-					<xsl:variable name="t0505" select="$form-values/values/value[@key='0505']"/>
-					<xsl:variable name="test0505" select="($which-tests eq 'all' or $t05 eq 'on' or $t0505 eq 'on')"/>
-					<xsl:variable name="t0506" select="$form-values/values/value[@key='0506']"/>
-					<xsl:variable name="test0506" select="($which-tests eq 'all' or $t05 eq 'on' or $t0506 eq 'on')"/>
-					<xsl:variable name="t0507" select="$form-values/values/value[@key='0507']"/>
-					<xsl:variable name="test0507" select="($which-tests eq 'all' or $t05 eq 'on' or $t0507 eq 'on')"/>
-					<xsl:variable name="t0508" select="$form-values/values/value[@key='0508']"/>
-					<xsl:variable name="test0508" select="($which-tests eq 'all' or $t05 eq 'on' or $t0508 eq 'on')"/>
-					<xsl:variable name="t0509" select="$form-values/values/value[@key='0509']"/>
-					<xsl:variable name="test0509" select="($which-tests eq 'all' or $t05 eq 'on' or $t0509 eq 'on')"/>
-					<xsl:variable name="t0510" select="$form-values/values/value[@key='0510']"/>
-					<xsl:variable name="test0510" select="($which-tests eq 'all' or $t05 eq 'on' or $t0510 eq 'on')"/>
-					<xsl:variable name="t0511" select="$form-values/values/value[@key='0511']"/>
-					<xsl:variable name="test0511" select="($which-tests eq 'all' or $t05 eq 'on' or $t0511 eq 'on')"/>
-					<xsl:variable name="t0512" select="$form-values/values/value[@key='0512']"/>
-					<xsl:variable name="test0512" select="($which-tests eq 'all' or $t05 eq 'on' or $t0512 eq 'on')"/>
-					<xsl:variable name="t0513" select="$form-values/values/value[@key='0513']"/>
-					<xsl:variable name="test0513" select="($which-tests eq 'all' or $t05 eq 'on' or $t0513 eq 'on')"/>
-					<xsl:variable name="t0514" select="$form-values/values/value[@key='0514']"/>
-					<xsl:variable name="test0514" select="($which-tests eq 'all' or $t05 eq 'on' or $t0514 eq 'on')"/>
-					<xsl:variable name="t0515" select="$form-values/values/value[@key='0515']"/>
-					<xsl:variable name="test0515" select="($which-tests eq 'all' or $t05 eq 'on' or $t0515 eq 'on')"/>
-					<xsl:variable name="t0516" select="$form-values/values/value[@key='0516']"/>
-					<xsl:variable name="test0516" select="($which-tests eq 'all' or $t05 eq 'on' or $t0516 eq 'on')"/>
-					<xsl:variable name="t0517" select="$form-values/values/value[@key='0517']"/>
-					<xsl:variable name="test0517" select="($which-tests eq 'all' or $t05 eq 'on' or $t0517 eq 'on')"/>
-					<xsl:variable name="t0518" select="$form-values/values/value[@key='0518']"/>
-					<xsl:variable name="test0518" select="($which-tests eq 'all' or $t05 eq 'on' or $t0518 eq 'on')"/>
-					<xsl:variable name="t0519" select="$form-values/values/value[@key='0519']"/>
-					<xsl:variable name="test0519" select="($which-tests eq 'all' or $t05 eq 'on' or $t0519 eq 'on')"/>
-					<xsl:variable name="t0520" select="$form-values/values/value[@key='0520']"/>
-					<xsl:variable name="test0520" select="($which-tests eq 'all' or $t05 eq 'on' or $t0520 eq 'on')"/>
+					<xsl:variable name="test0501" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0502" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0503" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0504" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0505" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0506" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0507" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0508" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0509" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0510" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0511" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0512" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0513" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0514" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0515" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0516" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0517" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0518" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0519" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0520" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test05" select="$test0501 or $test0502 or $test0503 or $test0504 or $test0505 or $test0506 or $test0507 or $test0508 or $test0509 or $test0510 or $test0511 or $test0512 or $test0513 or $test0514 or $test0515 or $test0516 or $test0517 or $test0518 or $test0519 or $test0520"/>
-					<xsl:variable name="t06" select="$form-values/values/value[@key='06']"/>
-					<xsl:variable name="t0601" select="$form-values/values/value[@key='0601']"/>
-					<xsl:variable name="test0601" select="($which-tests eq 'all' or $t06 eq 'on' or $t0601 eq 'on')"/>
-					<xsl:variable name="t0602" select="$form-values/values/value[@key='0602']"/>
-					<xsl:variable name="test0602" select="($which-tests eq 'all' or $t06 eq 'on' or $t0602 eq 'on')"/>
-					<xsl:variable name="t0603" select="$form-values/values/value[@key='0603']"/>
-					<xsl:variable name="test0603" select="($which-tests eq 'all' or $t06 eq 'on' or $t0603 eq 'on')"/>
-					<xsl:variable name="t0604" select="$form-values/values/value[@key='0604']"/>
-					<xsl:variable name="test0604" select="($which-tests eq 'all' or $t06 eq 'on' or $t0604 eq 'on')"/>
-					<xsl:variable name="t0605" select="$form-values/values/value[@key='0605']"/>
-					<xsl:variable name="test0605" select="($which-tests eq 'all' or $t06 eq 'on' or $t0605 eq 'on')"/>
-					<xsl:variable name="t0606" select="$form-values/values/value[@key='0606']"/>
-					<xsl:variable name="test0606" select="($which-tests eq 'all' or $t06 eq 'on' or $t0606 eq 'on')"/>
-					<xsl:variable name="t0607" select="$form-values/values/value[@key='0607']"/>
-					<xsl:variable name="test0607" select="($which-tests eq 'all' or $t06 eq 'on' or $t0607 eq 'on')"/>
-					<xsl:variable name="t0608" select="$form-values/values/value[@key='0608']"/>
-					<xsl:variable name="test0608" select="($which-tests eq 'all' or $t06 eq 'on' or $t0608 eq 'on')"/>
-					<xsl:variable name="t0609" select="$form-values/values/value[@key='0609']"/>
-					<xsl:variable name="test0609" select="($which-tests eq 'all' or $t06 eq 'on' or $t0609 eq 'on')"/>
-					<xsl:variable name="t0610" select="$form-values/values/value[@key='0610']"/>
-					<xsl:variable name="test0610" select="($which-tests eq 'all' or $t06 eq 'on' or $t0610 eq 'on')"/>
-					<xsl:variable name="t0611" select="$form-values/values/value[@key='0611']"/>
-					<xsl:variable name="test0611" select="($which-tests eq 'all' or $t06 eq 'on' or $t0611 eq 'on')"/>
-					<xsl:variable name="t0612" select="$form-values/values/value[@key='0612']"/>
-					<xsl:variable name="test0612" select="($which-tests eq 'all' or $t06 eq 'on' or $t0612 eq 'on')"/>
-					<xsl:variable name="t0613" select="$form-values/values/value[@key='0613']"/>
-					<xsl:variable name="test0613" select="($which-tests eq 'all' or $t06 eq 'on' or $t0613 eq 'on')"/>
-					<xsl:variable name="t0614" select="$form-values/values/value[@key='0614']"/>
-					<xsl:variable name="test0614" select="($which-tests eq 'all' or $t06 eq 'on' or $t0614 eq 'on')"/>
-					<xsl:variable name="t0615" select="$form-values/values/value[@key='0615']"/>
-					<xsl:variable name="test0615" select="($which-tests eq 'all' or $t06 eq 'on' or $t0615 eq 'on')"/>
+					
+					<xsl:variable name="test0601" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0602" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0603" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0604" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0605" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0606" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0607" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0608" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0609" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0610" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0611" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0612" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0613" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0614" select="($which-tests eq 'all'"/>
+					<xsl:variable name="test0615" select="($which-tests eq 'all'"/>
 					<xsl:variable name="test06" select="$test0601 or $test0602 or $test0603 or $test0604 or $test0605 or $test0606 or $test0607 or $test0608 or $test0609 or $test0610 or $test0611 or $test0612 or $test0613 or $test0614 or $test0615"/><!-- all test in 06-->
 
-					<xsl:variable name="t07" select="$form-values/values/value[@key='07']"/>
-					<xsl:variable name="t0701" select="$form-values/values/value[@key='0701']"/>
-					<xsl:variable name="test0701" select="($which-tests eq 'all' or $t07 eq 'on' or $t0701 eq 'on')"/>
-					<xsl:variable name="t0702" select="$form-values/values/value[@key='0702']"/>
-					<xsl:variable name="test0702" select="($which-tests eq 'all' or $t07 eq 'on' or $t0702 eq 'on')"/>
-					<xsl:variable name="t0703" select="$form-values/values/value[@key='0703']"/>
-					<xsl:variable name="test0703" select="($which-tests eq 'all' or $t07 eq 'on' or $t0703 eq 'on')"/>
-					<xsl:variable name="t0704" select="$form-values/values/value[@key='0704']"/>
-					<xsl:variable name="test0704" select="($which-tests eq 'all' or $t07 eq 'on' or $t0704 eq 'on')"/>
-					<xsl:variable name="t0705" select="$form-values/values/value[@key='0705']"/>
-					<xsl:variable name="test0705" select="($which-tests eq 'all' or $t07 eq 'on' or $t0705 eq 'on')"/>
-					<xsl:variable name="t0706" select="$form-values/values/value[@key='0706']"/>
-					<xsl:variable name="test0706" select="($which-tests eq 'all' or $t07 eq 'on' or $t0706 eq 'on')"/>
-					<xsl:variable name="t0707" select="$form-values/values/value[@key='0707']"/>
-					<xsl:variable name="test0707" select="($which-tests eq 'all' or $t07 eq 'on' or $t0707 eq 'on')"/>
-					<xsl:variable name="t0708" select="$form-values/values/value[@key='0708']"/>
-					<xsl:variable name="test0708" select="($which-tests eq 'all' or $t07 eq 'on' or $t0708 eq 'on')"/>
-					<xsl:variable name="t0709" select="$form-values/values/value[@key='0709']"/>
-					<xsl:variable name="test0709" select="($which-tests eq 'all' or $t07 eq 'on' or $t0709 eq 'on')"/>
+					<xsl:variable name="test0701" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0702" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0703" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0704" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0705" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0706" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0707" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0708" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0709" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test07" select="$test0701 or $test0702 or $test0703 or $test0704 or $test0705 or $test0706 or $test0707 or $test0708 or $test0709"/><!-- all test in 07-->
-					<!--
-					<xsl:variable name="t08" select="$form-values/values/value[@key='08']"/>
-					<xsl:variable name="t0801" select="$form-values/values/value[@key='0801']"/>
-					<xsl:variable name="test0801" select="($which-tests eq 'all' or $t08 eq 'on' or $t0801 eq 'on')"/>
-					<xsl:variable name="t0802" select="$form-values/values/value[@key='0802']"/>
-					<xsl:variable name="test0802" select="($which-tests eq 'all' or $t08 eq 'on' or $t0802 eq 'on')"/>
-					<xsl:variable name="t0803" select="$form-values/values/value[@key='0803']"/>
-					<xsl:variable name="test0803" select="($which-tests eq 'all' or $t08 eq 'on' or $t0803 eq 'on')"/>
-					<xsl:variable name="t0804" select="$form-values/values/value[@key='0804']"/>
-					<xsl:variable name="test0804" select="($which-tests eq 'all' or $t08 eq 'on' or $t0804 eq 'on')"/>
-					<xsl:variable name="t0805" select="$form-values/values/value[@key='0805']"/>
-					<xsl:variable name="test0805" select="($which-tests eq 'all' or $t08 eq 'on' or $t0805 eq 'on')"/>
-					<xsl:variable name="t0806" select="$form-values/values/value[@key='0806']"/>
-					<xsl:variable name="test0806" select="($which-tests eq 'all' or $t08 eq 'on' or $t0806 eq 'on')"/>
-					<xsl:variable name="t0807" select="$form-values/values/value[@key='0807']"/>
-					<xsl:variable name="test0807" select="($which-tests eq 'all' or $t08 eq 'on' or $t0807 eq 'on')"/>
-					<xsl:variable name="t0808" select="$form-values/values/value[@key='0808']"/>
-					<xsl:variable name="test0808" select="($which-tests eq 'all' or $t08 eq 'on' or $t0808 eq 'on')"/>
-					<xsl:variable name="t0809" select="$form-values/values/value[@key='0809']"/>
-					<xsl:variable name="test0809" select="($which-tests eq 'all' or $t08 eq 'on' or $t0809 eq 'on')"/>
-					<xsl:variable name="t0810" select="$form-values/values/value[@key='0810']"/>
-					<xsl:variable name="test0810" select="($which-tests eq 'all' or $t08 eq 'on' or $t0810 eq 'on')"/>
-					<xsl:variable name="t0811" select="$form-values/values/value[@key='0811']"/>
-					<xsl:variable name="test0811" select="($which-tests eq 'all' or $t08 eq 'on' or $t0811 eq 'on')"/>
-					<xsl:variable name="t0812" select="$form-values/values/value[@key='0812']"/>
-					<xsl:variable name="test0812" select="($which-tests eq 'all' or $t08 eq 'on' or $t0812 eq 'on')"/>
-					<xsl:variable name="t0813" select="$form-values/values/value[@key='0813']"/>
-					<xsl:variable name="test0813" select="($which-tests eq 'all' or $t08 eq 'on' or $t0813 eq 'on')"/>
-					<xsl:variable name="test08" select="$test0801 or $test0802 or $test0803 or $test0804 or $test0805 or $test0806 or $test0807 or $test0808 or $test0809 or $test0810 or $test0811 or $test0812 or $test0813"/>
-					<!- - all test in 08-->
-					<!--
-					<xsl:variable name="t09" select="$form-values/values/value[@key='09']"/>
-					<xsl:variable name="t0901" select="$form-values/values/value[@key='0901']"/>
-					<xsl:variable name="test0901" select="($which-tests eq 'all' or $t09 eq 'on' or $t0901 eq 'on')"/>
-					<xsl:variable name="t0902" select="$form-values/values/value[@key='0902']"/>
-					<xsl:variable name="test0902" select="($which-tests eq 'all' or $t09 eq 'on' or $t0902 eq 'on')"/>
-					<xsl:variable name="t0903" select="$form-values/values/value[@key='0903']"/>
-					<xsl:variable name="test0903" select="($which-tests eq 'all' or $t09 eq 'on' or $t0903 eq 'on')"/>
-					<xsl:variable name="t0904" select="$form-values/values/value[@key='0904']"/>
-					<xsl:variable name="test0904" select="($which-tests eq 'all' or $t09 eq 'on' or $t0904 eq 'on')"/>
-					<xsl:variable name="t0905" select="$form-values/values/value[@key='0905']"/>
-					<xsl:variable name="test0905" select="($which-tests eq 'all' or $t09 eq 'on' or $t0905 eq 'on')"/>
-					<xsl:variable name="t0906" select="$form-values/values/value[@key='0906']"/>
-					<xsl:variable name="test0906" select="($which-tests eq 'all' or $t09 eq 'on' or $t0906 eq 'on')"/>
-					<xsl:variable name="t0907" select="$form-values/values/value[@key='0907']"/>
-					<xsl:variable name="test0907" select="($which-tests eq 'all' or $t09 eq 'on' or $t0907 eq 'on')"/>
-					<xsl:variable name="t0908" select="$form-values/values/value[@key='0908']"/>
-					<xsl:variable name="test0908" select="($which-tests eq 'all' or $t09 eq 'on' or $t0908 eq 'on')"/>
-					<xsl:variable name="t0909" select="$form-values/values/value[@key='0909']"/>
-					<xsl:variable name="test0909" select="($which-tests eq 'all' or $t09 eq 'on' or $t0909 eq 'on')"/>
-					<xsl:variable name="test09" select="$test0901 or $test0902 or $test0903 or $test0904 or $test0905 or $test0906 or $test0907 or $test0908 or $test0909"/>
-					<!- - all test in 09-->
-					<!--
-					<xsl:variable name="t10" select="$form-values/values/value[@key='10']"/>
-					<xsl:variable name="t1001" select="$form-values/values/value[@key='1001']"/>
-					<xsl:variable name="test1001" select="($which-tests eq 'all' or $t10 eq 'on' or $t1001 eq 'on')"/>
-					<xsl:variable name="t1002" select="$form-values/values/value[@key='1002']"/>
-					<xsl:variable name="test1002" select="($which-tests eq 'all' or $t10 eq 'on' or $t1002 eq 'on')"/>
-					<xsl:variable name="t1003" select="$form-values/values/value[@key='1003']"/>
-					<xsl:variable name="test1003" select="($which-tests eq 'all' or $t10 eq 'on' or $t1003 eq 'on')"/>
-					<xsl:variable name="t1004" select="$form-values/values/value[@key='1004']"/>
-					<xsl:variable name="test1004" select="($which-tests eq 'all' or $t10 eq 'on' or $t1004 eq 'on')"/>
-					<xsl:variable name="t1005" select="$form-values/values/value[@key='1005']"/>
-					<xsl:variable name="test1005" select="($which-tests eq 'all' or $t10 eq 'on' or $t1005 eq 'on')"/>
-					<xsl:variable name="t1006" select="$form-values/values/value[@key='1006']"/>
-					<xsl:variable name="test1006" select="($which-tests eq 'all' or $t10 eq 'on' or $t1006 eq 'on')"/>
-					<xsl:variable name="t1007" select="$form-values/values/value[@key='1007']"/>
-					<xsl:variable name="test1007" select="($which-tests eq 'all' or $t10 eq 'on' or $t1007 eq 'on')"/>
-					<xsl:variable name="t1008" select="$form-values/values/value[@key='1008']"/>
-					<xsl:variable name="test1008" select="($which-tests eq 'all' or $t10 eq 'on' or $t1008 eq 'on')"/>
-					<xsl:variable name="t1009" select="$form-values/values/value[@key='1009']"/>
-					<xsl:variable name="test1009" select="($which-tests eq 'all' or $t10 eq 'on' or $t1009 eq 'on')"/>
-					<xsl:variable name="t1010" select="$form-values/values/value[@key='1010']"/>
-					<xsl:variable name="test1010" select="($which-tests eq 'all' or $t10 eq 'on' or $t1010 eq 'on')"/>
-					<xsl:variable name="t1011" select="$form-values/values/value[@key='1011']"/>
-					<xsl:variable name="test1011" select="($which-tests eq 'all' or $t10 eq 'on' or $t1011 eq 'on')"/>
-					<xsl:variable name="t1012" select="$form-values/values/value[@key='1012']"/>
-					<xsl:variable name="test1012" select="($which-tests eq 'all' or $t10 eq 'on' or $t1012 eq 'on')"/>
-					<xsl:variable name="t1013" select="$form-values/values/value[@key='1013']"/>
-					<xsl:variable name="test1013" select="($which-tests eq 'all' or $t10 eq 'on' or $t1013 eq 'on')"/>
-					<xsl:variable name="t1014" select="$form-values/values/value[@key='1014']"/>
-					<xsl:variable name="test1014" select="($which-tests eq 'all' or $t10 eq 'on' or $t1014 eq 'on')"/>
-					<xsl:variable name="t1015" select="$form-values/values/value[@key='1015']"/>
-					<xsl:variable name="test1015" select="($which-tests eq 'all' or $t10 eq 'on' or $t1015 eq 'on')"/>
-					<xsl:variable name="t1016" select="$form-values/values/value[@key='1016']"/>
-					<xsl:variable name="test1016" select="($which-tests eq 'all' or $t10 eq 'on' or $t1016 eq 'on')"/>
-					<xsl:variable name="t1017" select="$form-values/values/value[@key='1017']"/>
-					<xsl:variable name="test1017" select="($which-tests eq 'all' or $t10 eq 'on' or $t1017 eq 'on')"/>
-					<xsl:variable name="t1018" select="$form-values/values/value[@key='1018']"/>
-					<xsl:variable name="test1018" select="($which-tests eq 'all' or $t10 eq 'on' or $t1018 eq 'on')"/>
-					<xsl:variable name="t1019" select="$form-values/values/value[@key='1019']"/>
-					<xsl:variable name="test1019" select="($which-tests eq 'all' or $t10 eq 'on' or $t1019 eq 'on')"/>
-					<xsl:variable name="test10" select="$test1001 or $test1002 or $test1003 or $test1004 or $test1005 or $test1006 or $test1007 or $test1008 or $test1009 or $test1010 or $test1011 or $test1012 or $test1013 or $test1014 or $test1015 or $test1016 or $test1017 or $test1018 or $test1019"/>
-					<!- - all test in 10-->
-					<!--
-					<xsl:variable name="t11" select="$form-values/values/value[@key='11']"/>
-					<xsl:variable name="t1101" select="$form-values/values/value[@key='1101']"/>
-					<xsl:variable name="test1101" select="($which-tests eq 'all' or $t11 eq 'on' or $t1101 eq 'on')"/>
-					<xsl:variable name="t1102" select="$form-values/values/value[@key='1102']"/>
-					<xsl:variable name="test1102" select="($which-tests eq 'all' or $t11 eq 'on' or $t1102 eq 'on')"/>
-					<xsl:variable name="t1103" select="$form-values/values/value[@key='1103']"/>
-					<xsl:variable name="test1103" select="($which-tests eq 'all' or $t11 eq 'on' or $t1103 eq 'on')"/>
-					<xsl:variable name="t1104" select="$form-values/values/value[@key='1104']"/>
-					<xsl:variable name="test1104" select="($which-tests eq 'all' or $t11 eq 'on' or $t1104 eq 'on')"/>
-					<xsl:variable name="t1105" select="$form-values/values/value[@key='1105']"/>
-					<xsl:variable name="test1105" select="($which-tests eq 'all' or $t11 eq 'on' or $t1105 eq 'on')"/>
-					<xsl:variable name="t1106" select="$form-values/values/value[@key='1106']"/>
-					<xsl:variable name="test1106" select="($which-tests eq 'all' or $t11 eq 'on' or $t1106 eq 'on')"/>
-					<xsl:variable name="t1107" select="$form-values/values/value[@key='1107']"/>
-					<xsl:variable name="test1107" select="($which-tests eq 'all' or $t11 eq 'on' or $t1107 eq 'on')"/>
-					<xsl:variable name="t1108" select="$form-values/values/value[@key='1108']"/>
-					<xsl:variable name="test1108" select="($which-tests eq 'all' or $t11 eq 'on' or $t1108 eq 'on')"/>
-					<xsl:variable name="t1109" select="$form-values/values/value[@key='1109']"/>
-					<xsl:variable name="test1109" select="($which-tests eq 'all' or $t11 eq 'on' or $t1109 eq 'on')"/>
-					<xsl:variable name="test11" select="$test1101 or $test1102 or $test1103 or $test1104 or $test1105 or $test1106 or $test1107 or $test1108 or $test1109"/>
-					<!- - all test in 11-->
-					<!--
-					<xsl:variable name="t12" select="$form-values/values/value[@key='12']"/>
-					<xsl:variable name="t1201" select="$form-values/values/value[@key='1201']"/>
-					<xsl:variable name="test1201" select="($which-tests eq 'all' or $t12 eq 'on' or $t1201 eq 'on')"/>
-					<xsl:variable name="t1202" select="$form-values/values/value[@key='1202']"/>
-					<xsl:variable name="test1202" select="($which-tests eq 'all' or $t12 eq 'on' or $t1202 eq 'on')"/>
-					<xsl:variable name="t1203" select="$form-values/values/value[@key='1203']"/>
-					<xsl:variable name="test1203" select="($which-tests eq 'all' or $t12 eq 'on' or $t1203 eq 'on')"/>
-					<xsl:variable name="t1204" select="$form-values/values/value[@key='1204']"/>
-					<xsl:variable name="test1204" select="($which-tests eq 'all' or $t12 eq 'on' or $t1204 eq 'on')"/>
-					<xsl:variable name="t1205" select="$form-values/values/value[@key='1205']"/>
-					<xsl:variable name="test1205" select="($which-tests eq 'all' or $t12 eq 'on' or $t1205 eq 'on')"/>
-					<xsl:variable name="t1206" select="$form-values/values/value[@key='1206']"/>
-					<xsl:variable name="test1206" select="($which-tests eq 'all' or $t12 eq 'on' or $t1206 eq 'on')"/>
-					<xsl:variable name="t1207" select="$form-values/values/value[@key='1207']"/>
-					<xsl:variable name="test1207" select="($which-tests eq 'all' or $t12 eq 'on' or $t1207 eq 'on')"/>
-					<xsl:variable name="t1208" select="$form-values/values/value[@key='1208']"/>
-					<xsl:variable name="test1208" select="($which-tests eq 'all' or $t12 eq 'on' or $t1208 eq 'on')"/>
-					<xsl:variable name="t1209" select="$form-values/values/value[@key='1209']"/>
-					<xsl:variable name="test1209" select="($which-tests eq 'all' or $t12 eq 'on' or $t1209 eq 'on')"/>
-					<xsl:variable name="t1210" select="$form-values/values/value[@key='1210']"/>
-					<xsl:variable name="test1210" select="($which-tests eq 'all' or $t12 eq 'on' or $t1210 eq 'on')"/>
-					<xsl:variable name="t1211" select="$form-values/values/value[@key='1211']"/>
-					<xsl:variable name="test1211" select="($which-tests eq 'all' or $t12 eq 'on' or $t1211 eq 'on')"/>
-					<xsl:variable name="test12" select="$test1108 and ($test1201 or $test1202 or $test1203 or $test1204 or $test1205 or $test1206 or $test1207 or $test1208 or $test1209 or $test1210 or $test1211)"/>
-					<!- - all test in 12
-					<xsl:if test="$test12 and not($test1108) ">
-						<ctl:message>*****:If you want to run test12 ,you should run test1108 first.</ctl:message>
-					</xsl:if>
-					-->
-					<xsl:variable name="t13" select="$form-values/values/value[@key='13']"/>
-					<xsl:variable name="t1301" select="$form-values/values/value[@key='1301']"/>
-					<xsl:variable name="test1301" select="($which-tests eq 'all' or $t13 eq 'on' or $t1301 eq 'on')"/>
-					<xsl:variable name="t1302" select="$form-values/values/value[@key='1302']"/>
-					<xsl:variable name="test1302" select="($which-tests eq 'all' or $t13 eq 'on' or $t1302 eq 'on')"/>
-					<xsl:variable name="t1303" select="$form-values/values/value[@key='1303']"/>
-					<xsl:variable name="test1303" select="($which-tests eq 'all' or $t13 eq 'on' or $t1303 eq 'on')"/>
-					<xsl:variable name="t1304" select="$form-values/values/value[@key='1304']"/>
-					<xsl:variable name="test1304" select="($which-tests eq 'all' or $t13 eq 'on' or $t1304 eq 'on')"/>
-					<xsl:variable name="t1305" select="$form-values/values/value[@key='1305']"/>
-					<xsl:variable name="test1305" select="($which-tests eq 'all' or $t13 eq 'on' or $t1305 eq 'on')"/>
-					<xsl:variable name="t1306" select="$form-values/values/value[@key='1306']"/>
-					<xsl:variable name="test1306" select="($which-tests eq 'all' or $t13 eq 'on' or $t1306 eq 'on')"/>
-					<xsl:variable name="t1307" select="$form-values/values/value[@key='1307']"/>
-					<xsl:variable name="test1307" select="($which-tests eq 'all' or $t13 eq 'on' or $t1307 eq 'on')"/>
-					<xsl:variable name="t1308" select="$form-values/values/value[@key='1308']"/>
-					<xsl:variable name="test1308" select="($which-tests eq 'all' or $t13 eq 'on' or $t1308 eq 'on')"/>
-					<xsl:variable name="t1309" select="$form-values/values/value[@key='1309']"/>
-					<xsl:variable name="test1309" select="($which-tests eq 'all' or $t13 eq 'on' or $t1309 eq 'on')"/>
-					<xsl:variable name="t1310" select="$form-values/values/value[@key='1310']"/>
-					<xsl:variable name="test1310" select="($which-tests eq 'all' or $t13 eq 'on' or $t1310 eq 'on')"/>
-					<xsl:variable name="t1311" select="$form-values/values/value[@key='1311']"/>
-					<xsl:variable name="test1311" select="($which-tests eq 'all' or $t13 eq 'on' or $t1311 eq 'on')"/>
+
+					<xsl:variable name="test1301" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1302" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1303" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1304" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1305" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1306" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1307" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1308" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1309" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1310" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1311" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test13" select="$test1301 or $test1302 or $test1303 or $test1304 or $test1305 or $test1306 or $test1307 or $test1308 or $test1309 or $test1310 or $test1311"/><!-- all test in 13-->
 					
-					<xsl:variable name="t14" select="$form-values/values/value[@key='14']"/>
-					<xsl:variable name="t1401" select="$form-values/values/value[@key='1401']"/>
-					<xsl:variable name="test1401" select="($which-tests eq 'all' or $t14 eq 'on' or $t1401 eq 'on')"/>
-					<xsl:variable name="t1402" select="$form-values/values/value[@key='1402']"/>
-					<xsl:variable name="test1402" select="($which-tests eq 'all' or $t14 eq 'on' or $t1402 eq 'on')"/>
-					<xsl:variable name="t1403" select="$form-values/values/value[@key='1403']"/>
-					<xsl:variable name="test1403" select="($which-tests eq 'all' or $t14 eq 'on' or $t1403 eq 'on')"/>
-					<xsl:variable name="t1404" select="$form-values/values/value[@key='1404']"/>
-					<xsl:variable name="test1404" select="($which-tests eq 'all' or $t14 eq 'on' or $t1404 eq 'on')"/>
-					<xsl:variable name="t1405" select="$form-values/values/value[@key='1405']"/>
-					<xsl:variable name="test1405" select="($which-tests eq 'all' or $t14 eq 'on' or $t1405 eq 'on')"/>
-					<xsl:variable name="t1406" select="$form-values/values/value[@key='1406']"/>
-					<xsl:variable name="test1406" select="($which-tests eq 'all' or $t14 eq 'on' or $t1406 eq 'on')"/>
-					<xsl:variable name="t1407" select="$form-values/values/value[@key='1407']"/>
-					<xsl:variable name="test1407" select="($which-tests eq 'all' or $t14 eq 'on' or $t1407 eq 'on')"/>
-					<xsl:variable name="t1408" select="$form-values/values/value[@key='1408']"/>
-					<xsl:variable name="test1408" select="($which-tests eq 'all' or $t14 eq 'on' or $t1408 eq 'on')"/>
-					<xsl:variable name="t1409" select="$form-values/values/value[@key='1409']"/>
-					<xsl:variable name="test1409" select="($which-tests eq 'all' or $t14 eq 'on' or $t1409 eq 'on')"/>
-					<xsl:variable name="t1410" select="$form-values/values/value[@key='1410']"/>
-					<xsl:variable name="test1410" select="($which-tests eq 'all' or $t14 eq 'on' or $t1410 eq 'on')"/>
-					<xsl:variable name="t1411" select="$form-values/values/value[@key='1411']"/>
-					<xsl:variable name="test1411" select="($which-tests eq 'all' or $t14 eq 'on' or $t1411 eq 'on')"/>
-					<xsl:variable name="t1412" select="$form-values/values/value[@key='1412']"/>
-					<xsl:variable name="test1412" select="($which-tests eq 'all' or $t14 eq 'on' or $t1412 eq 'on')"/>
+					<xsl:variable name="test1401" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1402" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1403" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1404" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1405" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1406" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1407" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1408" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1409" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1410" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1411" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test1412" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test14" select="$test1401 or $test1402 or $test1403 or $test1404 or $test1405 or $test1406 or $test1407 or $test1408 or $test1409 or $test1410 or $test1411 or $test1412"/><!-- all test in 14-->
 					
 					
@@ -997,87 +378,6 @@
 					<ctl:message select="concat('run 07.07.RequestNullobservation: ',$test0707)"/>
 					<ctl:message select="concat('run 07.08.RequestInvalidobservation: ',$test0708)"/>
 					<ctl:message select="concat('run 07.09.RequestValidRequest: ',$test0709)"/>
-					<!--
-					<ctl:message select="'*********************************************************'"/>
-					<ctl:message select="concat('run 08.SOS Transactional: InsertSensor: ',$test08)"/>
-					<ctl:message select="concat('run 08.01.RequestNoService: ',$test0801)"/>
-					<ctl:message select="concat('run 08.02.RequestNullService: ',$test0802)"/>
-					<ctl:message select="concat('run 08.03.RequestInvalidService: ',$test0803)"/>
-					<ctl:message select="concat('run 08.04.RequestNoVersion: ',$test0804)"/>
-					<ctl:message select="concat('run 08.05.RequestNullVersion: ',$test0805)"/>
-					<ctl:message select="concat('run 08.06.RequestInvalidVersion: ',$test0806)"/>
-					<ctl:message select="concat('run 08.07.RequestNullprocedureDescriptionFormat: ',$test0807)"/>
-					<ctl:message select="concat('run 08.08.RequestInvalidprocedureDescriptionFormat: ',$test0808)"/>
-					<ctl:message select="concat('run 08.09.RequestNullfeatureOfInterestType: ',$test0809)"/>
-					<ctl:message select="concat('run 08.10.RequestInvalidfeatureOfInterestType: ',$test0810)"/>
-					<ctl:message select="concat('run 08.11.RequestNullobservationType: ',$test0811)"/>
-					<ctl:message select="concat('run 08.12.RequestInvalidobservationType: ',$test0812)"/>
-					<ctl:message select="concat('run 08.13.RequestValidRequest: ',$test0813)"/>
-					-->
-					<!--
-					<ctl:message select="'*********************************************************'"/>
-					<ctl:message select="concat('run 09.SOS Transactional: DeleteSensor: ',$test10)"/>
-					<ctl:message select="concat('run 09.01.RequestNoService: ',$test0901)"/>
-					<ctl:message select="concat('run 09.02.RequestNullService: ',$test0902)"/>
-					<ctl:message select="concat('run 09.03.RequestInvalidService: ',$test0903)"/>
-					<ctl:message select="concat('run 09.04.RequestNoVersion: ',$test0904)"/>
-					<ctl:message select="concat('run 09.05.RequestNullVersion: ',$test0905)"/>
-					<ctl:message select="concat('run 09.06.RequestInvalidVersion: ',$test0906)"/>
-					<ctl:message select="concat('run 09.07.RequestNullProcedure: ',$test0907)"/>
-					<ctl:message select="concat('run 09.08.RequestInvalidProcedure: ',$test0908)"/>
-					<ctl:message select="concat('run 09.09.RequestValidRequest: ',$test0909)"/>
-					-->
-					<!--
-					<ctl:message select="'*********************************************************'"/>
-					<ctl:message select="concat('run 10.SOS Transactional: InsertObservation: ',$test10)"/>
-					<ctl:message select="concat('run 10.01.RequestNoService: ',$test1001)"/>
-					<ctl:message select="concat('run 10.02.RequestNullService: ',$test1002)"/>
-					<ctl:message select="concat('run 10.03.RequestInvalidService: ',$test1003)"/>
-					<ctl:message select="concat('run 10.04.RequestNoVersion: ',$test1004)"/>
-					<ctl:message select="concat('run 10.05.RequestNullVersion: ',$test1005)"/>
-					<ctl:message select="concat('run 10.06.RequestInvalidVersion: ',$test1006)"/>
-					<ctl:message select="concat('run 10.07.RequestNulloffering: ',$test1007)"/>
-					<ctl:message select="concat('run 10.08.RequestInvalidoffering: ',$test1008)"/>
-					<ctl:message select="concat('run 10.09.RequestNullobservationType: ',$test1009)"/>
-					<ctl:message select="concat('run 10.10.RequestInvalidobservationType: ',$test1010)"/>
-					<ctl:message select="concat('run 10.11.RequestNullprocedure: ',$test1011)"/>
-					<ctl:message select="concat('run 10.12.RequestInvalidprocedure: ',$test1012)"/>
-					<ctl:message select="concat('run 10.13.RequestNullobservedProperty: ',$test1013)"/>
-					<ctl:message select="concat('run 10.14.RequestInvalidobservedProperty: ',$test1014)"/>
-					<ctl:message select="concat('run 10.15.RequestNullfeatureOfInterest: ',$test1015)"/>
-					<ctl:message select="concat('run 10.16.RequestInvalidfeatureOfInterest: ',$test1016)"/>
-					<ctl:message select="concat('run 10.17.RequestNullresultType: ',$test1017)"/>
-					<ctl:message select="concat('run 10.18.RequestInvalidresultType: ',$test1018)"/>
-					<ctl:message select="concat('run 10.19.RequestValidRequest: ',$test1019)"/>
-					-->
-					<!--
-					<ctl:message select="'*********************************************************'"/>
-					<ctl:message select="concat('run 11.SOS resultHandling: InsertResultTemplate: ',$test11)"/>
-					<ctl:message select="concat('run 11.01.RequestNoService: ',$test1101)"/>
-					<ctl:message select="concat('run 11.02.RequestNullService: ',$test1102)"/>
-					<ctl:message select="concat('run 11.03.RequestInvalidService: ',$test1103)"/>
-					<ctl:message select="concat('run 11.04.RequestNoVersion: ',$test1104)"/>
-					<ctl:message select="concat('run 11.05.RequestNullVersion: ',$test1105)"/>
-					<ctl:message select="concat('run 11.06.RequestInvalidVersion: ',$test1106)"/>
-					<ctl:message select="concat('run 11.07.RequestInvalidobservationType: ',$test1107)"/>
-					<ctl:message select="concat('run 11.08.RequestInvalidproposedTemplate: ',$test1108)"/>
-					<ctl:message select="concat('run 11.09.RequestValidRequest: ',$test1109)"/>
-					-->
-					<!--
-					<ctl:message select="'*********************************************************'"/>
-					<ctl:message select="concat('run 12.SOS resultHandling: InsertResult: ',$test12)"/>
-					<ctl:message select="concat('run 12.01.RequestNoService: ',$test1201)"/>
-					<ctl:message select="concat('run 12.02.RequestNullService: ',$test1202)"/>
-					<ctl:message select="concat('run 12.03.RequestInvalidService: ',$test1203)"/>
-					<ctl:message select="concat('run 12.04.RequestNoVersion: ',$test1204)"/>
-					<ctl:message select="concat('run 12.05.RequestNullVersion: ',$test1205)"/>
-					<ctl:message select="concat('run 12.06.RequestInvalidVersion: ',$test1206)"/>
-					<ctl:message select="concat('run 12.07.RequestNulltemplate: ',$test1207)"/>
-					<ctl:message select="concat('run 12.08.RequestInvalidtemplate: ',$test1208)"/>
-					<ctl:message select="concat('run 12.09.RequestNullresultValues: ',$test1209)"/>
-					<ctl:message select="concat('run 12.10.RequestInvalidresultValues: ',$test1210)"/>
-					<ctl:message select="concat('run 12.11.RequestValidRequest: ',$test1211)"/>
-					-->
 					<ctl:message select="'*********************************************************'"/>
 					<ctl:message select="concat('run 08.SOS resultRetrieval: GetResultTemplate: ',$test13)"/>
 					<ctl:message select="concat('run 08.01.RequestNoService: ',$test1301)"/>
@@ -1323,178 +623,7 @@
 							<ctl:with-param name="test0709" select="$test0709"/>
 						</ctl:call-test>
 					</xsl:if>
-					<!--
-					<xsl:if test="$request-via eq 'GET'">
-						<ctl:message select="'Those test does not support KVP type request,so passed tests: InsertSensor,DeleteSensor,InsertObservation,InsertResultTemplate ,InsertResult .'"/>
-					</xsl:if>
-					<xsl:if test="not($request-via eq 'GET')">
-						<xsl:if test="$test08">
-							<ctl:message>****************************</ctl:message>
-							<ctl:message>Running 08.SOS Transactional: InsertSensor Tests...</ctl:message>
-							<ctl:message>****************************</ctl:message>
-							<ctl:call-test name="sos:InsertSensor-Test">
-								<ctl:with-param name="serviceURL" select="$InsertSensor-URL"/>
-								<ctl:with-param name="hasIS" select="$hasInsertSensor"/>
-								<ctl:with-param name="isSOAP" select="$isSOAP"/>
-								<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
-								<ctl:with-param name="serviceType" select="string('SOS')"/>
-								<ctl:with-param name="serviceVersion" select="$sos.version" />
-								<ctl:with-param name="InsertSensorRootElementName" select="string('InsertSensorResponse')" />
-								<ctl:with-param name="InsertSensorResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosInsertSensor.xsd')"/>
-								<ctl:with-param name="InsertSensorResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="InsertSensorResponseContentType" select="string('text/xml')" />
-								<ctl:with-param name="exceptionReportSchemaLocation" select="$exceptionReportSchema"/>
-								<ctl:with-param name="exceptionReportSchemaType" select="string('resource')" />
-								<ctl:with-param name="test0801" select="$test0801"/>
-								<ctl:with-param name="test0802" select="$test0802"/>
-								<ctl:with-param name="test0803" select="$test0803"/>
-								<ctl:with-param name="test0804" select="$test0804"/>
-								<ctl:with-param name="test0805" select="$test0805"/>
-								<ctl:with-param name="test0806" select="$test0806"/>
-								<ctl:with-param name="test0807" select="$test0807"/>
-								<ctl:with-param name="test0808" select="$test0808"/>
-								<ctl:with-param name="test0809" select="$test0809"/>
-								<ctl:with-param name="test0810" select="$test0810"/>
-								<ctl:with-param name="test0811" select="$test0811"/>
-								<ctl:with-param name="test0812" select="$test0812"/>
-								<ctl:with-param name="test0813" select="$test0813"/>
-							</ctl:call-test>
-						</xsl:if>
-						
-						<xsl:if test="$test09">
-							<ctl:message>****************************</ctl:message>
-							<ctl:message>Running 09.SOS Transactional: DeleteSensor Tests...</ctl:message>
-							<ctl:message>****************************</ctl:message>
-							<ctl:call-test name="sos:DeleteSensor-Test">
-								<ctl:with-param name="GetCapabilitiesURL" select="$GetCapabilities-URL"/>
-								<ctl:with-param name="isGetCapabilitiesGET" select="$IsGetCapabilities-GET"/>
-								<ctl:with-param name="capabilitiesResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="capabilitiesResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosGetCapabilities.xsd')"/>
-								<ctl:with-param name="serviceURL" select="$DeleteSensor-URL"/>
-								<ctl:with-param name="hasDeS" select="$hasDeleteSensor"/>
-								<ctl:with-param name="isSOAP" select="$isSOAP"/>
-								<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
-								<ctl:with-param name="serviceType" select="string('SOS')"/>
-								<ctl:with-param name="serviceVersion" select="$sos.version" />
-								<ctl:with-param name="DeleteSensorRootElementName" select="string('DeleteSensorResponse')" />
-								<ctl:with-param name="DeleteSensorResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $swes.version,'swes', 'swesDeleteSensor.xsd')"/>
-								<ctl:with-param name="DeleteSensorResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="DeleteSensorResponseContentType" select="string('text/xml')" />
-								<ctl:with-param name="exceptionReportSchemaLocation" select="$exceptionReportSchema"/>
-								<ctl:with-param name="exceptionReportSchemaType" select="string('resource')" />
-								<ctl:with-param name="test0901" select="$test0901"/>
-								<ctl:with-param name="test0902" select="$test0902"/>
-								<ctl:with-param name="test0903" select="$test0903"/>
-								<ctl:with-param name="test0904" select="$test0904"/>
-								<ctl:with-param name="test0905" select="$test0905"/>
-								<ctl:with-param name="test0906" select="$test0906"/>
-								<ctl:with-param name="test0907" select="$test0907"/>
-								<ctl:with-param name="test0908" select="$test0908"/>
-								<ctl:with-param name="test0909" select="$test0909"/>
-							</ctl:call-test>
-						</xsl:if>
-
-						<xsl:if test="$test10">
-							<ctl:message>****************************</ctl:message>
-							<ctl:message>Running 10.SOS Transactional: InsertObservation Tests...</ctl:message>
-							<ctl:message>****************************</ctl:message>
-							<ctl:call-test name="sos:InsertObservation-Test">
-								<ctl:with-param name="GetCapabilitiesURL" select="$GetCapabilities-URL"/>
-								<ctl:with-param name="isGetCapabilitiesGET" select="$IsGetCapabilities-GET"/>
-								<ctl:with-param name="capabilitiesResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="capabilitiesResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosGetCapabilities.xsd')"/>
-								<ctl:with-param name="GetObservationURL" select="$GetObservation-URL"/>
-								<ctl:with-param name="isGetObservationGET" select="$IsGetObservation-GET"/>
-								<ctl:with-param name="observationResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="observationResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosGetObservation.xsd')"/>
-								<ctl:with-param name="serviceURL" select="$InsertObservation-URL"/>
-								<ctl:with-param name="hasIO" select="$hasInsertObservation"/>
-								<ctl:with-param name="isSOAP" select="$isSOAP"/>
-								<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
-								<ctl:with-param name="serviceType" select="string('SOS')"/>
-								<ctl:with-param name="serviceVersion" select="$sos.version" />
-								<ctl:with-param name="InsertObservationRootElementName" select="string('InsertObservationResponse')" />
-								<ctl:with-param name="InsertObservationResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosInsertObservation.xsd')"/>
-								<ctl:with-param name="InsertObservationResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="InsertObservationResponseContentType" select="string('text/xml')" />
-								<ctl:with-param name="exceptionReportSchemaLocation" select="$exceptionReportSchema"/>
-								<ctl:with-param name="exceptionReportSchemaType" select="string('resource')" />
-								<ctl:with-param name="test1001" select="$test1001"/>
-								<ctl:with-param name="test1002" select="$test1002"/>
-								<ctl:with-param name="test1003" select="$test1003"/>
-								<ctl:with-param name="test1004" select="$test1004"/>
-								<ctl:with-param name="test1005" select="$test1005"/>
-								<ctl:with-param name="test1006" select="$test1006"/>
-								<ctl:with-param name="test1007" select="$test1007"/>
-								<ctl:with-param name="test1008" select="$test1008"/>
-								<ctl:with-param name="test1009" select="$test1009"/>
-								<ctl:with-param name="test1010" select="$test1010"/>
-								<ctl:with-param name="test1011" select="$test1011"/>
-								<ctl:with-param name="test1012" select="$test1012"/>
-								<ctl:with-param name="test1013" select="$test1013"/>
-								<ctl:with-param name="test1014" select="$test1014"/>
-								<ctl:with-param name="test1015" select="$test1015"/>
-								<ctl:with-param name="test1016" select="$test1016"/>
-								<ctl:with-param name="test1017" select="$test1017"/>
-								<ctl:with-param name="test1018" select="$test1018"/>
-								<ctl:with-param name="test1019" select="$test1019"/>
-							</ctl:call-test>
-						</xsl:if>
-
-						<xsl:if test="$test11">
-							<ctl:message>****************************</ctl:message>
-							<ctl:message>Running 11.SOS resultHandling: InsertResultTemplate Tests...</ctl:message>
-							<ctl:message>****************************</ctl:message>
-							<ctl:call-test name="sos:InsertResultTemplate-Test">
-								<ctl:with-param name="GetCapabilitiesURL" select="$GetCapabilities-URL"/>
-								<ctl:with-param name="isGetCapabilitiesGET" select="$IsGetCapabilities-GET"/>
-								<ctl:with-param name="capabilitiesResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="capabilitiesResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosGetCapabilities.xsd')"/>
-								<ctl:with-param name="GetObservationURL" select="$GetObservation-URL"/>
-								<ctl:with-param name="isGetObservationGET" select="$IsGetObservation-GET"/>
-								<ctl:with-param name="observationResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="observationResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosGetObservation.xsd')"/>
-								<ctl:with-param name="serviceURL" select="$InsertResultTemplate-URL"/>
-								<ctl:with-param name="hasIRT" select="$hasInsertResultTemplate"/>
-								<ctl:with-param name="isSOAP" select="$isSOAP"/>
-								<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
-								<ctl:with-param name="serviceType" select="string('SOS')"/>
-								<ctl:with-param name="serviceVersion" select="$sos.version" />
-								<ctl:with-param name="InsertResultTemplateRootElementName" select="string('InsertResultTemplateResponse')" />
-								<ctl:with-param name="InsertResultTemplateResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosInsertResultTemplate.xsd')"/>
-								<ctl:with-param name="InsertResultTemplateResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="InsertResultTemplateResponseContentType" select="string('text/xml')" />
-								<ctl:with-param name="test1101" select="$test1101"/>
-								<ctl:with-param name="test1102" select="$test1102"/>
-								<ctl:with-param name="test1103" select="$test1103"/>
-								<ctl:with-param name="test1104" select="$test1104"/>
-								<ctl:with-param name="test1105" select="$test1105"/>
-								<ctl:with-param name="test1106" select="$test1106"/>
-								<ctl:with-param name="test1107" select="$test1107"/>
-								<ctl:with-param name="test1108" select="$test1108"/>
-								<ctl:with-param name="test1109" select="$test1109"/>
-								<ctl:with-param name="test12" select="$test12"/>
-								<ctl:with-param name="InsertResult-URL" select="$InsertResult-URL"/>
-								<ctl:with-param name="hasInsertResult" select="$hasInsertResult"/>
-								<ctl:with-param name="InsertResultRootElementName" select="string('InsertResultResponse')" />
-								<ctl:with-param name="InsertResultResponseSchemaLocation" select="sosFunctions:schemaPath($sos.schema.root, $sos.version,'sos', 'sosInsertResult.xsd')"/>
-								<ctl:with-param name="InsertResultResponseSchemaType" select="string('resource')" />
-								<ctl:with-param name="InsertResultResponseContentType" select="string('text/xml')" />
-								<ctl:with-param name="test1201" select="$test1201"/>
-								<ctl:with-param name="test1202" select="$test1202"/>
-								<ctl:with-param name="test1203" select="$test1203"/>
-								<ctl:with-param name="test1204" select="$test1204"/>
-								<ctl:with-param name="test1205" select="$test1205"/>
-								<ctl:with-param name="test1206" select="$test1206"/>
-								<ctl:with-param name="test1207" select="$test1207"/>
-								<ctl:with-param name="test1208" select="$test1208"/>
-								<ctl:with-param name="test1209" select="$test1209"/>
-								<ctl:with-param name="test1210" select="$test1210"/>
-								<ctl:with-param name="test1211" select="$test1211"/>
-							</ctl:call-test>
-						</xsl:if>
-					</xsl:if>
-					-->
+					
 					<xsl:if test="$test13">
 						<ctl:message>****************************</ctl:message>
 						<ctl:message>Running 08.SOS resultRetrieval: GetResultTemplate Tests...</ctl:message>
@@ -1504,6 +633,7 @@
 							<ctl:with-param name="hasGRT" select="$hasGetResultTemplate"/>
 							<ctl:with-param name="isGET" select="$IsGetResultTemplate-GET"/>
 							<ctl:with-param name="isSOAP" select="$isSOAP"/>
+							<ctl:with-param name="isInteractive" select="$isInteractive"/>
 							<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
 							<ctl:with-param name="serviceType" select="string('SOS')"/>
 							<ctl:with-param name="serviceVersion" select="$sos.version" />
@@ -1536,6 +666,7 @@
 							<ctl:with-param name="hasGR" select="$hasGetResult"/>
 							<ctl:with-param name="isGET" select="$IsGetResult-GET"/>
 							<ctl:with-param name="isSOAP" select="$isSOAP"/>
+							<ctl:with-param name="isInteractive" select="$isInteractive"/>
 							<ctl:with-param name="getCapabilitiesResponse" select="$user-capabilities" />
 							<ctl:with-param name="serviceType" select="string('SOS')"/>
 							<ctl:with-param name="serviceVersion" select="$sos.version" />
