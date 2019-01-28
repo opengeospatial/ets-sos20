@@ -246,8 +246,8 @@
 					<xsl:variable name="test0611" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test0612" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test0613" select="($which-tests eq 'all')"/>
-					<xsl:variable name="test0614" select="($which-tests eq 'all'"/>
-					<xsl:variable name="test0615" select="($which-tests eq 'all'"/>
+					<xsl:variable name="test0614" select="($which-tests eq 'all')"/>
+					<xsl:variable name="test0615" select="($which-tests eq 'all')"/>
 					<xsl:variable name="test06" select="$test0601 or $test0602 or $test0603 or $test0604 or $test0605 or $test0606 or $test0607 or $test0608 or $test0609 or $test0610 or $test0611 or $test0612 or $test0613 or $test0614 or $test0615"/><!-- all test in 06-->
 
 					<xsl:variable name="test0701" select="($which-tests eq 'all')"/>
