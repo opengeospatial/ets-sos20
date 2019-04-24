@@ -5,6 +5,7 @@
       <ctl:param name="hasGR" />
       <ctl:param name="isGET" />
       <ctl:param name="isSOAP" />
+      <ctl:param name="isInteractive" />
       <ctl:param name="getCapabilitiesResponse" />
       <ctl:param name="serviceType" />
       <ctl:param name="serviceVersion" />
@@ -34,56 +35,72 @@
                <ctl:message>The server does not support the operation "GetResult", so skip this test.</ctl:message>
             </xsl:when>
             <xsl:otherwise>
-               <!--讓使用者選一個 offering 和 observedProperty -->
                <xsl:variable name="form-values">
-                  <ctl:form height="750" width="1024">
-                     <body>
-                        <h2>GetResult</h2>
-                        <p>Please select an offering.</p>
-                        <blockquote>
+                 <xsl:choose>
+                   <xsl:when test="$isInteractive eq 'true'">
+                     <ctl:form height="750" width="1024">
+                       <body>
+                         <h2>GetResult</h2>
+                         <p>Please select an offering.</p>
+                         <blockquote>
                            <table border="1" padding="4" bgcolor="#00ffff" align="center">
-                              <tr>
-                                 <td>
-                                    <select name="offeringDropDown">
-                                       <xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:identifier">
-                                          <xsl:variable name="offering" select="." />
-                                          <option>
-                                             <xsl:attribute name="value">
-                                                <xsl:value-of select="$offering" />
-                                             </xsl:attribute>
-                                             <xsl:value-of select="$offering" />
-                                          </option>
-                                       </xsl:for-each>
-                                    </select>
-                                 </td>
-                              </tr>
+                             <tr>
+                               <td>
+                                 <select name="offeringDropDown">
+                                   <xsl:for-each
+                                     select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:identifier">
+                                     <xsl:variable name="offering" select="." />
+                                     <option>
+                                       <xsl:attribute name="value">
+                                                             <xsl:value-of
+                                         select="$offering" />
+                                                          </xsl:attribute>
+                                       <xsl:value-of select="$offering" />
+                                     </option>
+                                   </xsl:for-each>
+                                 </select>
+                               </td>
+                             </tr>
                            </table>
-                        </blockquote>
-                        <p>Please select an observedProperty.</p>
-                        <blockquote>
+                         </blockquote>
+                         <p>Please select an observedProperty.</p>
+                         <blockquote>
                            <table border="1" padding="4" bgcolor="#00ffff" align="center">
-                              <tr>
-                                 <td>
-                                    <select name="observedPropertyDropDown">
-                                       <xsl:for-each select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:observableProperty">
-                                          <xsl:variable name="observedProperty" select="." />
-                                          <option>
-                                             <xsl:attribute name="value">
-                                                <xsl:value-of select="$observedProperty" />
-                                             </xsl:attribute>
-                                             <xsl:value-of select="$observedProperty" />
-                                          </option>
-                                       </xsl:for-each>
-                                    </select>
-                                 </td>
-                              </tr>
+                             <tr>
+                               <td>
+                                 <select name="observedPropertyDropDown">
+                                   <xsl:for-each
+                                     select="$getCapabilitiesResponse//sos:contents//swes:offering//swes:observableProperty">
+                                     <xsl:variable name="observedProperty" select="." />
+                                     <option>
+                                       <xsl:attribute name="value">
+                                                              <xsl:value-of
+                                         select="$observedProperty" />
+                                                          </xsl:attribute>
+                                       <xsl:value-of select="$observedProperty" />
+                                     </option>
+                                   </xsl:for-each>
+                                  </select>
+                               </td>
+                             </tr>
                            </table>
-                        </blockquote>
-                        <div align="center">
+                         </blockquote>
+                         <div align="center">
                            <input type="submit" value="Start" />
-                        </div>
-                     </body>
-                  </ctl:form>
+                         </div>
+                       </body>
+                     </ctl:form>
+                   </xsl:when>
+                   <xsl:otherwise>
+                     <xsl:variable name="data">
+                       <values>
+                         <value key="offeringDropDown"><xsl:value-of select="($getCapabilitiesResponse//sos:contents//swes:offering//swes:identifier)[1]/text()" /></value>
+                         <value key="observedPropertyDropDown"><xsl:value-of select="($getCapabilitiesResponse//sos:contents//swes:offering//swes:observableProperty)[1]/text()" /></value>
+                       </values>
+                     </xsl:variable>
+                     <xsl:value-of select="$data" />
+                   </xsl:otherwise>
+                 </xsl:choose>
                </xsl:variable>
                <!-- get a valid offering-->
                <xsl:variable name="offering" select="$form-values/values/value[@key='offeringDropDown']" />
