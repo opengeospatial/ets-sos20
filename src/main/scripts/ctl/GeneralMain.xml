@@ -1,6 +1,6 @@
 <ctl:package xmlns:ctl="http://www.occamlab.com/ctl" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:om="http://www.opengis.net/om/2.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:owsTests="http://www.opengis.net/ows/1.1" xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:soap11="http://schemas.xmlsoap.org/soap/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:sosFunctions="http://www.opengis.net/sos/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <!-- 02.SOS General Main -->
-   <ctl:test name="sos:general-main">
+   <ctl:test name="sos:general-main" isConformanceClass="true" >
       <ctl:param name="serviceURL" />
       <ctl:param name="isGET" />
       <ctl:param name="isSOAP" />
