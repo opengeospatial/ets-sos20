@@ -1896,8 +1896,7 @@
                      <ctl:param name="version">2.0.0</ctl:param>
                      <ctl:param name="request">GetFeatureOfInterest</ctl:param>
                      <ctl:param name="spatialFilter">
-                        <xsl:value-of select="current-dateTime()" />
-                        ,0.0,10.0,0.0,10.0,urn:ogc:def:crs:EPSG::4326
+                        <xsl:value-of select="concat(current-dateTime(), ',0.0,10.0,0.0,10.0,urn:ogc:def:crs:EPSG::4326')" />
                      </ctl:param>
                      <ctl:call-function name="sosFunctions:validateExceptionReport" />
                   </ctl:request>
