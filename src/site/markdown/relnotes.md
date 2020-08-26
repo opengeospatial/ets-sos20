@@ -1,10 +1,16 @@
 SOS 2.0 Test Suite Release Notes
 ================================
 
-1.14 (2018-05-17)
+1.14 (2020-08-26)
 --------------------
   - [#25](https://github.com/opengeospatial/ets-sos20/issues/25) - Add conformance class configuration into the ets-sos20 test
-
+  - [#26](https://github.com/opengeospatial/ets-sos20/issues/26) - Enable REST API
+  - [#27](https://github.com/opengeospatial/ets-sos20/issues/27) - Refactor test suite to make it more suitable for REST interface
+  - [#30](https://github.com/opengeospatial/ets-sos20/issues/30) - Introduce Dockerfile and Maven Docker plugin
+  - [#32](https://github.com/opengeospatial/ets-sos20/issues/32) - Create SoapUI tests and integrate them into Maven and Jenkinsfile
+  - [#33](https://github.com/opengeospatial/ets-sos20/issues/33) - Test "GFOIRequestInvalidSpatialFilter_foiRetrieval" fails with InvocationTargetException
+  - [#36](https://github.com/opengeospatial/ets-sos20/issues/36) - Test "owsTests:ows-main" failed validation error via REST API 
+  
 1.13 (2017-03-01)
 --------------------
   - [#2](https://github.com/opengeospatial/ets-sos20/issues/2) - SOS 2.0 Test Suite GetObservation-Test fail for SOAP. There is an issue in CTL - SOAPParser, so the soap request of GetObservation test is ignored.
