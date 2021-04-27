@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite>
+	<title>Sensor Observation Service (SOS) 2.0 Conformance Test Suite </title>
+	<description>
+	    This test suite verifies that a Sensor Observation Service (SOS) 2.0. implementation conforms to 
+	    the relevant specifications: 
+	    1. OpenGIS Sensor Observation Service Implementation Specification, Version 2.0 [OGC 12-006] 
+	    2. OGC Web Services Common Specification, Version 1.1.0 [OGC 06-121r3] 
+	    3. Definition Identifier URNs in OGC Namespace, Version 1.1.0 [OGC 06-023r1]
+		The test run arguments are summarized in the following table. The obligation
+		descriptor can have the following values: M (mandatory), O (optional), or C (conditional).
+	</description>
+	<testrunarguments>
+		<testrunargument>
+			<name>service-url</name>
+			<valuedomain>URI</valuedomain>
+			<obligation>M</obligation>
+			<description>A URI that refers to an XML representation of the service capabilities document.
+				This document does not need to be obtained from the service under test (SUT), but it must
+				describe the implementation under test (IUT). Ampersand ('&amp;') characters appearing within
+				a query parameter value must be percent-encoded as %26.</description>
+		</testrunargument>
+	</testrunarguments>
+	<notes>
+		<note>The REST API supports only HTTP GET implementation and all tests are executed by default.</note>
+	</notes>
+</testsuite>
