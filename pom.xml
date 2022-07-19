@@ -50,6 +50,8 @@
     <teamengine.version>5.4</teamengine.version>
     <soapui.test.fail.ignore>false</soapui.test.fail.ignore>
     <soapui.teamengine.endpoint>http://localhost:8081/teamengine</soapui.teamengine.endpoint>
+    <soapui.teamengine.user>ogctest</soapui.teamengine.user>
+    <soapui.teamengine.password>ogctest</soapui.teamengine.password>
     <soapui.iut>http://sensorweb.demo.52north.org/52n-sos-webapp/service?service=SOS&amp;request=GetCapabilities&amp;AcceptVersions=2.0.0</soapui.iut>
     <soapui.tests.passed>88</soapui.tests.passed>
     <soapui.tests.skipped>0</soapui.tests.skipped>
@@ -205,11 +207,13 @@
               <junitReport>true</junitReport>
               <testFailIgnore>${soapui.test.fail.ignore}</testFailIgnore>
               <projectProperties>
-                 <value>teamengine.endpoint=${soapui.teamengine.endpoint}</value>
-                 <value>iut=${soapui.iut}</value>
-                 <value>tests.passed=${soapui.tests.passed}</value>
-                 <value>tests.skipped=${soapui.tests.skipped}</value>
-                 <value>tests.failed=${soapui.tests.failed}</value>
+                <value>teamengine.endpoint=${soapui.teamengine.endpoint}</value>
+                <value>teamengine.user=${soapui.teamengine.user}</value>
+                <value>teamengine.password=${soapui.teamengine.password}</value>
+                <value>iut=${soapui.iut}</value>
+                <value>tests.passed=${soapui.tests.passed}</value>
+                <value>tests.skipped=${soapui.tests.skipped}</value>
+                <value>tests.failed=${soapui.tests.failed}</value>
               </projectProperties>
            </configuration>
         </plugin>
