@@ -1,6 +1,17 @@
 SOS 2.0 Test Suite Release Notes
 ================================
 
+1.15 (2025-03-07)
+--------------------
+
+Attention: Java 17 and Tomcat 10.1 are required.
+
+  - [#47](https://github.com/opengeospatial/ets-sos20/issues/47) - Migrate test suite to TEAM Engine 6 (Java 17)
+  - [#41](https://github.com/opengeospatial/ets-sos20/issues/41) - Add template to get an XML/JSON response via rest endpoint
+  - [#45](https://github.com/opengeospatial/ets-sos20/pull/45) - Add credentials to SoapUI project
+  - [#43](https://github.com/opengeospatial/ets-sos20/pull/43) - Added header for soapui test.
+  - [#44](https://github.com/opengeospatial/ets-sos20/pull/44) - Set Docker TEAM Engine version to 5.4.1
+
 1.14 (2020-08-26)
 --------------------
   - [#25](https://github.com/opengeospatial/ets-sos20/issues/25) - Add conformance class configuration into the ets-sos20 test
